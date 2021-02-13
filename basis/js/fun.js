@@ -1,11 +1,4 @@
 "use strict";
-/*
- * @Description:
- * @Author: mTm
- * @Date: 2020-10-26 20:20:08
- * @LastEditTime: 2020-11-29 00:35:14
- * @LastEditors: mTm
- */
 // function run():string {
 //     return '123';
 // }

@@ -1,11 +1,4 @@
 "use strict";
-/*
- * @Description:
- * @Author: mTm
- * @Date: 2020-12-05 17:41:45
- * @LastEditTime: 2020-12-05 21:41:24
- * @LastEditors: mTm
- */
 // 模块
 /*
     “内容模块”称做“命名空间”。
@@ -25,8 +18,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 */
 var a_1 = require("./a");
 var a_2 = __importDefault(require("./a"));
+// declares 'B' locally, but it is not exported
 var namespace_1 = require("./namespace");
 var dog1 = new namespace_1.A.Dog("ABC");
 dog1.eat();
 console.log(a_1.a, a_1.b);
+// console.log(B.a);
 console.log(a_2.default());

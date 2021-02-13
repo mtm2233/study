@@ -1,10 +1,3 @@
-/*
- * @Description: 
- * @Author: mTm
- * @Date: 2020-10-20 22:01:38
- * @LastEditTime: 2020-10-20 23:05:03
- * @LastEditors: mTm
- */
 // const str1:string = '你好typeScript'
 // let flag:boolean = true;
 // flag = !1;

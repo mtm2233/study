@@ -1,10 +1,3 @@
-/*
- * @Description: 
- * @Author: mTm
- * @Date: 2020-12-05 17:41:45
- * @LastEditTime: 2020-12-05 21:41:24
- * @LastEditors: mTm
- */
 // 模块
 /*
     “内容模块”称做“命名空间”。
@@ -21,10 +14,12 @@
 */
 import { a, b as c } from "./a"
 import gData from "./a"
+// declares 'B' locally, but it is not exported
 import { A } from "./namespace"
 
 const dog1 = new A.Dog("ABC");
 dog1.eat();
  
 console.log(a, c);
+// console.log(B.a);
 console.log(gData());

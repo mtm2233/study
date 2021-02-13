@@ -1,11 +1,4 @@
 "use strict";
-/*
- * @Description:
- * @Author: mTm
- * @Date: 2020-12-05 21:19:32
- * @LastEditTime: 2020-12-05 21:40:00
- * @LastEditors: mTm
- */
 // 命名空间
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.A = void 0;
@@ -23,6 +16,7 @@ var A;
     A.Dog = Dog;
     A.a = 10;
 })(A = exports.A || (exports.A = {}));
+// declares 'B' locally, but it is not exported
 var B;
 (function (B) {
     var a = 10;

@@ -1,10 +1,3 @@
-/*
- * @Description: 
- * @Author: mTm
- * @Date: 2020-12-05 21:19:32
- * @LastEditTime: 2020-12-05 21:40:00
- * @LastEditors: mTm
- */
 // 命名空间
 
 /*
@@ -35,6 +28,7 @@ export namespace A {
     }
     export const a = 10;
 }
+// declares 'B' locally, but it is not exported
 namespace B {
     const a = 10;
 }
