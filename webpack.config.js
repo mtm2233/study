@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+const resolve = dir => path.resolve(__dirname, dir);
 // webpack 配置
 module.exports = {
     // 入口文件
@@ -10,7 +11,7 @@ module.exports = {
     output: {
         // 指定打包文件的目录
         // __filename指的是当前解析文件的实际物理地址，而__dirname指的是此文件在被执行时所在的地址
-        path: path.resolve(__dirname, 'dist'),
+        path: resolve('dist'),
         // 打包后文件的名字
         filename: 'bundle.js',
 
@@ -22,8 +23,14 @@ module.exports = {
     },
 
     resolve: {
+        // 省略后缀
+        extensions: [
+            ".ts",
+            ".less"
+        ],
+        // 别名
         alias: {
-          '@': path.resolve(__dirname, "src")
+          '@': resolve("src")
         },
     },
 
@@ -56,7 +63,7 @@ module.exports = {
                                             "ie": "11"
                                         },
                                         // 指定corejs版本
-                                        "corejs": "3",
+                                        "corejs": "2",
                                         // 使用corejs的方式  usage 表示按需加载
                                         "useBuiltIns": "usage"
                                     }

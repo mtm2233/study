@@ -25,12 +25,13 @@ body {
         border: 3px solid #000000;
         position: relative;
         #snake {
+            position: absolute;
             div {
-                position: absolute;
                 width: 10px;
                 height: 10px;
                 background-color: #000000;
                 border: 1px solid @primary-color;
+                box-sizing: border-box;
             }
         }
         #food {
@@ -45,6 +46,7 @@ body {
             flex-wrap: wrap;
             justify-content: space-between;
             align-content: space-between;
+            box-sizing: border-box;
             div {
                 width: 4px;
                 height: 4px;
