@@ -14,11 +14,19 @@ module.exports = {
         // 打包后文件的名字
         filename: 'bundle.js',
 
-        // 告诉webpack不使用箭头函数
-        // environment: {
-        //     arrowFunction: false,
-        // }
+        environment: {
+            // 不使用箭头函数
+            arrowFunction: false,
+            const: false
+        }
     },
+
+    resolve: {
+        alias: {
+          '@': path.resolve(__dirname, "src")
+        },
+    },
+
 
     // webpack要使用的模块
     module: {
