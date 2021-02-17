@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-02-16 22:00:49
- * @LastEditTime: 2021-02-16 22:52:05
+ * @LastEditTime: 2021-02-17 22:04:30
  * @LastEditors: mTm
  */
 export default class ScorePanel {
@@ -11,7 +11,7 @@ export default class ScorePanel {
     // 分数
     private score;
     // 等级
-    private level;
+    public level;
     // 最大分数
     private maxLevel;
     // 每级升级所需要的分数

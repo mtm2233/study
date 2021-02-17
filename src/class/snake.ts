@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-02-16 22:53:58
- * @LastEditTime: 2021-02-16 23:09:18
+ * @LastEditTime: 2021-02-18 00:03:39
  * @LastEditors: mTm
  */
 export default class Snake {
@@ -10,6 +10,8 @@ export default class Snake {
     private head: HTMLElement;
     // 包括 head
     private bodies: HTMLCollection;
+    private direction:string = '';
+    private boxW:number = 350;
     constructor() {
         this.element = document.getElementById('snake')!;
         this.head = document.querySelector('#snake > div') as HTMLElement;
@@ -25,14 +27,62 @@ export default class Snake {
     }
 
     set X(num:number) {
-        this.head.style.left = `${num}px`;
+        this.setXY('X',num);
     }
 
     set Y(num:number) {
-        this.head.style.top = `${num}px`;
+        this.setXY('Y',num);
+    }
+
+    setXY(k:string,num:number) {
+        if (this[k] === num) {
+            return;
+        }
+        if (num < 0 || num  >= this.boxW) {
+            throw new Error("蛇撞墙了")
+        }
+
+        let offset = 'offsetTop';
+        let style = 'top';
+        if (k === 'X') {
+            offset = 'offsetLeft';
+            style = 'left';
+        }
+
+        if (this.bodies[1] && (this.bodies[1] as HTMLElement)[offset] === num) {
+            if (num > this[k]) {
+                num = this[k] - (num - this[k]);
+            } else {
+                num = this[k] + (this[k] - num);
+            }
+        }
+        this.moveBodies();
+        this.head.style[style] = `${num}px`;
+        this.checkHeadBodies();
     }
 
     bodiesAdd() {
-        this.element.insertAdjacentElement("beforeend",document.createElement("div"));
+        let div = document.createElement("div");
+        const len = this.bodies.length - 1;
+        div.style.left = `${(this.bodies[len] as HTMLElement).offsetLeft}px`;
+        div.style.top = `${(this.bodies[len] as HTMLElement).offsetTop}px`;
+        this.element.insertAdjacentElement("beforeend",div);
+    }
+
+    moveBodies() {
+        // 将后面身体设为前面身体的位置
+        for(let i = this.bodies.length - 1; i>0; i--) {
+            (this.bodies[i] as HTMLElement).style.left = `${(this.bodies[i - 1] as HTMLElement).offsetLeft}px`;
+            (this.bodies[i] as HTMLElement).style.top = `${(this.bodies[i - 1] as HTMLElement).offsetTop}px`;
+        }
+    }
+
+    checkHeadBodies() {
+        for(let i = 1; i<this.bodies.length; i++) {
+            const bd = this.bodies[i] as HTMLElement;
+            if (this.X === bd.offsetLeft && this.Y === bd.offsetTop) {
+                throw new Error('撞到自己了');
+            }
+        }
     }
 }

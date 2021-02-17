@@ -60,10 +60,10 @@ module.exports = {
                                         // 要兼容的目标浏览器
                                         targets: {
                                             "chrome": "85",
-                                            "ie": "11"
+                                            // "ie": "11"
                                         },
                                         // 指定corejs版本
-                                        "corejs": "2",
+                                        "corejs": "3",
                                         // 使用corejs的方式  usage 表示按需加载
                                         "useBuiltIns": "usage"
                                     }
