@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-02-16 22:00:49
- * @LastEditTime: 2021-02-17 22:04:30
+ * @LastEditTime: 2021-02-18 22:25:25
  * @LastEditors: mTm
  */
 export default class ScorePanel {
@@ -12,11 +12,11 @@ export default class ScorePanel {
     private score;
     // 等级
     public level;
-    // 最大分数
+    // 最大等级
     private maxLevel;
     // 每级升级所需要的分数
     private levelSore;
-    constructor(maxLevel:number = 10, levelSore:number = 10, score:number = 0, level?:number, ) {
+    constructor(maxLevel:number, levelSore:number, score:number, level?:number, ) {
         this.score = score;
         this.level = level || Math.floor(this.score/levelSore) || 1;
         this.maxLevel = maxLevel;

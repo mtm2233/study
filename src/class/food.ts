@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-02-16 10:56:00
- * @LastEditTime: 2021-02-17 22:32:40
+ * @LastEditTime: 2021-02-18 22:26:40
  * @LastEditors: mTm
  */
 export default class Food {
@@ -10,7 +10,7 @@ export default class Food {
     private element: HTMLElement;
     private area:number;
     private itself:number;
-    constructor(area:number = 350,itself:number = 10,) {
+    constructor(area:number,itself:number,) {
         if (area % itself) {
             throw `food的宽需要可以被盒子的宽整除`
         }

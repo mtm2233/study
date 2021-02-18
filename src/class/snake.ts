@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-02-16 22:53:58
- * @LastEditTime: 2021-02-18 00:03:39
+ * @LastEditTime: 2021-02-18 22:26:51
  * @LastEditors: mTm
  */
 export default class Snake {
@@ -10,12 +10,26 @@ export default class Snake {
     private head: HTMLElement;
     // 包括 head
     private bodies: HTMLCollection;
-    private direction:string = '';
-    private boxW:number = 350;
-    constructor() {
+    private boxW:number;
+    private divW:number;
+    constructor(boxW:number, divW:number) {
+        if (boxW % divW) {
+            throw new Error(`snake div 的宽需要可以被盒子的宽整除`);
+        }
+        this.boxW = boxW;
+        this.divW = divW;
         this.element = document.getElementById('snake')!;
         this.head = document.querySelector('#snake > div') as HTMLElement;
         this.bodies = this.element.getElementsByTagName('div');
+        this.init();
+    }
+
+    init() {
+        for(let i = 1; i<this.bodies.length; i++) {
+            let bd = this.bodies[i] as HTMLElement;
+            bd.style.width = `${this.divW}px`;
+            bd.style.height = `${this.divW}px`;
+        }
     }
 
     get X():number {
