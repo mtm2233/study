@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2020-10-26 21:53:30
- * @LastEditTime: 2020-11-29 00:25:41
+ * @LastEditTime: 2021-02-19 11:43:39
  * @LastEditors: mTm
  */
 // class Person {
@@ -158,3 +158,41 @@
 //         return "Dog" + this.name
 //     }
 // }
+
+
+// class Person1 {
+//     readonly name:string;
+//     constructor(name:string) {
+//         this.name = name;
+//     }
+//     private run() {
+//         console.log(this.name + "--Person")
+//     }
+// }
+// const person = new Person1('aaa');
+// person.name = 'bbb'; // 报错
+
+// class Box {
+//     private w:number;
+//     constructor(w:number) {
+//         this.w = w;
+//     }
+
+//     get W() {
+//         return this.w;
+//     }
+
+//     set W(val:number) {
+//         if (val === 0) {
+//             throw new Error('val 不能为 0')
+//         }
+//         this.w = val;
+//     }
+    
+// }
+
+// const box = new Box(10);
+// console.log(box.w); // 属性“w”为私有属性，只能在类“Box”中访问
+// console.log(box.W);
+// box.W = 0; // val 不能为 0
+// box.W = 15;
