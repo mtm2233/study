@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-02-20 10:54:40
- * @LastEditTime: 2021-02-20 11:39:46
+ * @LastEditTime: 2021-02-20 11:47:06
  * @LastEditors: mTm
 -->
 <template>
@@ -59,9 +59,9 @@ export default defineComponent({
     justify-content: center;
     align-items: center;
     width: 50%;
+    padding: 5px 0;
     cursor: pointer;
     color: darkblue;
-    /* text-align: center; */
 }
 .current {
     color: darkorange;
