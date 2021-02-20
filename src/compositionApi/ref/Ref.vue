@@ -1,9 +1,25 @@
+<!--
+ * @Description: 
+ * @Author: mTm
+ * @Date: 2021-02-20 10:30:22
+ * @LastEditTime: 2021-02-20 11:42:15
+ * @LastEditors: mTm
+-->
 <template>
-  <h2>setUp和ref的基本使用</h2>
-  <h3>{{ count }}</h3>
-  <button @click="updateCount">
-    更新数据
-  </button>
+  <ul>
+    <li>
+      ref 一般用来定义一个基本类型数据的响应式数据,
+      返回一个ref对象，
+    </li>
+    <li>如果需要对数据进行操作，ref对象.value</li>
+    <li>html模板不需要使用.value</li>
+  </ul>
+  <div class="demo">
+    <h3>{{ count }}</h3>
+    <button @click="updateCount">
+      更新数据
+    </button>
+  </div>
 </template>
 
 <script lang="ts">

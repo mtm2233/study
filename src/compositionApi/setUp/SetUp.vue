@@ -2,12 +2,18 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-02-19 15:02:23
- * @LastEditTime: 2021-02-19 17:28:36
+ * @LastEditTime: 2021-02-20 11:41:54
  * @LastEditors: mTm
 -->
 <template>
-  <div></div>
-  <h1>{{ a }}</h1>
+  <ul>
+    <li>
+      setup是组合API的入口函数
+    </li>
+  </ul>
+  <div class="demo">
+    <h1>{{ a }}</h1>
+  </div>
 </template>
 
 <script lang="ts">
