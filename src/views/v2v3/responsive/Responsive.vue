@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-02-20 11:45:25
- * @LastEditTime: 2021-02-20 17:31:52
+ * @LastEditTime: 2021-02-22 09:36:47
  * @LastEditors: mTm
 -->
 <template>
@@ -37,8 +37,7 @@
             <ul>
                 <li>对象直接新添加的属性或删除已有属性，界面不会自动更新</li>
                 <li>
-                    直接通过下标替换元素或更新length,界面不会自动更新 arr[1] =
-                    []
+                    直接通过下标替换元素或更新length,界面不会自动更新 arr[1] = []
                 </li>
             </ul>
         </li>
