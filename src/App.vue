@@ -2,13 +2,13 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-02-19 15:02:23
- * @LastEditTime: 2021-02-20 11:41:42
+ * @LastEditTime: 2021-02-22 21:37:32
  * @LastEditors: mTm
 -->
 <template>
   <div class="app-body">
-    <VBanner />
-    <div>
+    <VBanner class="navs" />
+    <div class="main">
       <router-view></router-view>
     </div>
   </div>
@@ -29,6 +29,12 @@ export default defineComponent({
 <style>
 .app-body {
   display: flex;
+}
+.navs {
+  flex-shrink: 0;
+}
+.main {
+  flex: 1;
 }
 .demo {
   padding-left: 20px;
