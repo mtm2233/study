@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-02-20 10:13:49
- * @LastEditTime: 2021-02-23 16:51:18
+ * @LastEditTime: 2021-02-23 22:19:32
  * @LastEditors: mTm
  */
 import { createRouter, createWebHashHistory } from "vue-router";
@@ -71,7 +71,25 @@ const routes = [
       title: '生命周期'
     },
     component: () => import("@/views/v2v3/lifeCycle/LifeCycle.vue") 
+  },
+  {
+    path: "/custom-hook",
+    name: 'CustomHook',
+    meta: {
+      title: '自定义hook函数'
+    },
+    component: () => import("@/views/other/customHook/CustomHook.vue") 
+  },
+  {
+    path: "/to-refs",
+    name: 'ToRefs',
+    meta: {
+      title: 'ToRefs'
+    },
+    component: () => import("@/views/compositionApi/toRefs/ToRefs.vue") 
   }
+
+  
 ];
 const router = createRouter({
   history: createWebHashHistory(),
