@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-02-20 10:13:49
- * @LastEditTime: 2021-02-23 16:31:31
+ * @LastEditTime: 2021-02-23 16:51:18
  * @LastEditors: mTm
  */
 import { createRouter, createWebHashHistory } from "vue-router";
@@ -63,6 +63,14 @@ const routes = [
       title: '计算属性与监视'
     },
     component: () => import("@/views/compositionApi/computedWatch/ComputedWatch.vue") 
+  },
+  {
+    path: "/life-cycle",
+    name: 'LifeCycle',
+    meta: {
+      title: '生命周期'
+    },
+    component: () => import("@/views/v2v3/lifeCycle/LifeCycle.vue") 
   }
 ];
 const router = createRouter({
