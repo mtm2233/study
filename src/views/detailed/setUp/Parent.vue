@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-02-22 10:00:55
- * @LastEditTime: 2021-02-22 22:32:21
+ * @LastEditTime: 2021-02-22 22:42:10
  * @LastEditors: mTm
 -->
 <template>
@@ -23,7 +23,7 @@
                 <li>返回对象中的属性与data函数返回对象的属性合并成为组件对象的属性</li>
                 <li>返回对象中的方法会与methods中的方法合并成为组件对象的方法</li>
                 <li>如果重名，setup优先</li>
-                <li>主要：</li>
+                <li>注意：</li>
                 <li>一般不要混合使用：methods中可以访问setup提供的属性、方法，但在setup方法中不能访问data,methods</li>
                 <li>setup不能是一个async函数：因为返回值不再是return的对象，而是promise,模板看不到return对象中的属性，方法</li>
             </ul>

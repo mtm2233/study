@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-02-20 10:13:49
- * @LastEditTime: 2021-02-22 10:10:02
+ * @LastEditTime: 2021-02-23 16:31:31
  * @LastEditors: mTm
  */
 import { createRouter, createWebHashHistory } from "vue-router";
@@ -47,6 +47,22 @@ const routes = [
       title: 'setUp detailed'
     },
     component: () => import("@/views/detailed/setUp/Parent.vue") 
+  },
+  {
+    path: "/reactive-ref",
+    name: 'ReactiveRef',
+    meta: {
+      title: 'reactive与ref细节'
+    },
+    component: () => import("@/views/detailed/reactiveRef/ReactiveRef.vue") 
+  },
+  {
+    path: "/computed-watch",
+    name: 'ComputedWatch',
+    meta: {
+      title: '计算属性与监视'
+    },
+    component: () => import("@/views/compositionApi/computedWatch/ComputedWatch.vue") 
   }
 ];
 const router = createRouter({
