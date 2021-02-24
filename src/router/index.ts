@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-02-20 10:13:49
- * @LastEditTime: 2021-02-24 14:33:06
+ * @LastEditTime: 2021-02-24 15:53:50
  * @LastEditors: mTm
  */
 import { createRouter, createWebHashHistory } from "vue-router";
@@ -119,6 +119,14 @@ const routes = [
       title: 'ToRef'
     },
     component: () => import("@/views/compositionApi/toRef/ToRef.vue")
+  },
+  {
+    path: "/customRef",
+    name: 'CustomRef',
+    meta: {
+      title: 'customRef'
+    },
+    component: () => import("@/views/compositionApi/customRef/CustomRef.vue")
   },
 ];
 const router = createRouter({
