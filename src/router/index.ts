@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-02-20 10:13:49
- * @LastEditTime: 2021-02-24 15:53:50
+ * @LastEditTime: 2021-02-24 17:20:40
  * @LastEditors: mTm
  */
 import { createRouter, createWebHashHistory } from "vue-router";
@@ -127,6 +127,14 @@ const routes = [
       title: 'customRef'
     },
     component: () => import("@/views/compositionApi/customRef/CustomRef.vue")
+  },
+  {
+    path: "/provide-inject",
+    name: 'ProvideInject',
+    meta: {
+      title: 'provide与inject'
+    },
+    component: () => import("@/views/compositionApi/provideInject/ProvideInject.vue")
   },
 ];
 const router = createRouter({

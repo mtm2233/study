@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-02-22 10:00:55
- * @LastEditTime: 2021-02-22 22:42:10
+ * @LastEditTime: 2021-02-24 17:50:46
  * @LastEditors: mTm
 -->
 <template>
@@ -50,7 +50,7 @@
 <script lang="ts">
 import { defineComponent, ref } from "vue";
 
-import Child from "./Child.vue";
+import Child from "./components/Child.vue";
 export default defineComponent({
     name: "Parent",
     components: {

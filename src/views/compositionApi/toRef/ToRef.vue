@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-02-24 14:16:24
- * @LastEditTime: 2021-02-24 15:23:10
+ * @LastEditTime: 2021-02-24 17:51:02
  * @LastEditors: mTm
 -->
 <template>
@@ -22,7 +22,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, reactive, toRef, ref } from 'vue';
-import Child from './Child.vue'
+import Child from './components/Child.vue'
 export default defineComponent({
     name: 'App',
     components: {
