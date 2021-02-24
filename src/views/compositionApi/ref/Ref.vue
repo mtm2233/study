@@ -2,12 +2,13 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-02-20 10:30:22
- * @LastEditTime: 2021-02-20 14:42:22
+ * @LastEditTime: 2021-02-24 10:12:01
  * @LastEditors: mTm
 -->
 <template>
     <ul>
         <li>ref 一般用来定义一个基本类型数据的响应式数据, 返回一个ref对象，</li>
+        <li>ref 可以获取页面中的元素</li>
         <li>如果需要对数据进行操作，ref对象.value</li>
         <li>html模板不需要使用.value</li>
     </ul>
@@ -15,12 +16,15 @@
         <p>count--{{ count }}</p>
         <p>demo--{{ demo }}</p>
         <p>obj--{{ obj }}</p>
-        <button @click="updateCount">更新数据</button>
+        <p>
+            <input type="text" ref="inputRef" placeholder="自动获取焦点">
+        </p>
+        <p><button @click="updateCount">更新数据</button></p>
     </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent, onMounted, ref } from "vue";
 
 export default defineComponent({
     name: "App",
@@ -33,6 +37,8 @@ export default defineComponent({
         };
         const count = ref(0);
         const demo = ref(obj);
+        console.log('obj', demo);
+        console.log('value', count);
         // 方法
         function updateCount() {
             // count 是一个Ref对象
@@ -41,12 +47,20 @@ export default defineComponent({
             demo.value.c.b.push(1);
         }
 
+        const inputRef = ref<HTMLElement | null>(null);
+
+        // 当页面加载完，文本框直接获取焦点
+        onMounted(() => {
+            inputRef.value && inputRef.value.focus();
+        });
+
         // 返回一个对象
         return {
             count,
             demo,
             obj,
             updateCount,
+            inputRef,
         };
     },
 });

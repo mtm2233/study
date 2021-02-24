@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-02-20 11:45:25
- * @LastEditTime: 2021-02-20 14:45:48
+ * @LastEditTime: 2021-02-24 10:12:46
  * @LastEditors: mTm
 -->
 <template>
@@ -45,6 +45,7 @@ export default defineComponent({
         //   user 现在是代理对象，obj是目标对象
         //   此时user的类型是Proxy
         const user = reactive(obj);
+        console.log(user);
         const update = () => {
             //   直接使用目标对象的方式进行更新目标对象，是不可以的，只能使用代理对象的方式进行更新对象(响应式数据)，目标对象也会随之改变
             //   obj.name = "十三--"

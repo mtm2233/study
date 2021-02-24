@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-02-23 22:13:47
- * @LastEditTime: 2021-02-23 22:37:07
+ * @LastEditTime: 2021-02-24 10:14:09
  * @LastEditors: mTm
 -->
 <template>
@@ -36,12 +36,15 @@ export default defineComponent({
             name: 'abc',
             age: 20,
         });
+        const {name,age} = toRefs(user);
         const update = () =>{
-            user.name += "==";
-            user.age += 1;
+            name.value += "==";
+            age.value += 1;
         }
         return {
-            ...toRefs(user),
+            // ...toRefs(user),
+            name,
+            age,
             ...user1(),
             update,
         }

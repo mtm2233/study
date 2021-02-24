@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-02-20 10:13:49
- * @LastEditTime: 2021-02-23 22:19:32
+ * @LastEditTime: 2021-02-24 14:33:06
  * @LastEditors: mTm
  */
 import { createRouter, createWebHashHistory } from "vue-router";
@@ -87,9 +87,39 @@ const routes = [
       title: 'ToRefs'
     },
     component: () => import("@/views/compositionApi/toRefs/ToRefs.vue") 
-  }
-
-  
+  },
+  {
+    path: "/shallowReactive-shallowRef",
+    name: 'ShallowReactiveShallowRef',
+    meta: {
+      title: 'ShallowReactive 与 ShallowRef'
+    },
+    component: () => import("@/views/compositionApi/shallowReactiveShallowRef/ShallowReactiveShallowRef.vue") 
+  },
+  {
+    path: "/readonly-shallowReadonly",
+    name: 'ReadonlyShallowReadonly',
+    meta: {
+      title: 'Readonly 与 ShallowReadonly'
+    },
+    component: () => import("@/views/compositionApi/readonlyShallowReadonly/ReadonlyShallowReadonly.vue") 
+  },
+  {
+    path: "/toRaw-markRaw",
+    name: 'ToRawMarkRaw',
+    meta: {
+      title: 'ToRaw 与 MarkRaw'
+    },
+    component: () => import("@/views/compositionApi/toRawMarkRaw/ToRawMarkRaw.vue") 
+  },
+  {
+    path: "/toRef",
+    name: 'ToRef',
+    meta: {
+      title: 'ToRef'
+    },
+    component: () => import("@/views/compositionApi/toRef/ToRef.vue")
+  },
 ];
 const router = createRouter({
   history: createWebHashHistory(),
