@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-02-25 13:13:03
- * @LastEditTime: 2021-02-25 14:59:53
+ * @LastEditTime: 2021-02-25 16:15:35
  * @LastEditors: mTm
 -->
 <template>
@@ -17,6 +17,8 @@ import shallowReactive from './shallowReactive';
 import reactive from './reactive';
 import shallowReadonly from './shallowReadonly';
 import readonly from './readonly';
+import shallowRef from './shallowRef';
+import ref from './ref';
 export default defineComponent({
     name: 'App',
     setup() {
@@ -65,26 +67,56 @@ export default defineComponent({
         // delete shallowReadonlyP.b.c; // 读
         // console.log('-----------------shallowReadonly_end-------------------');
 
-        const readonlyP = readonly({
+        // const readonlyP = readonly({
+        //     a: 5,
+        //     b: {
+        //         c: 6
+        //     }
+        // });
+
+        // console.log('-----------------readonly_start-------------------');
+        // console.log(readonlyP.a); // 读
+        // readonlyP.a += 1; // error
+        // delete readonlyP.a; // error
+        // readonlyP.b.c = 10; // 读 error
+        // delete readonlyP.b.c; // 读 error
+        // console.log('-----------------readonly_end-------------------');
+
+
+        // const shallowRefP = shallowRef({
+        //     a: 5
+        // });
+
+        // console.log('-----------------shallowRef_start-------------------');
+        // console.log(shallowRefP.value); // 读
+        // shallowRefP.value = 1; // 改
+        // shallowRefP.value.a = 1 // 读
+
+        // console.log('-----------------shallowRef_end-------------------');
+
+        const refP = ref({
             a: 5,
             b: {
                 c: 6
             }
         });
 
-        console.log('-----------------readonly_start-------------------');
-        console.log(readonlyP.a); // 读
-        readonlyP.a += 1; // error
-        delete readonlyP.a; // error
-        readonlyP.b.c = 10; // 读 error
-        delete readonlyP.b.c; // 读 error
-        console.log('-----------------readonly_end-------------------');
+        console.log('-----------------ref_start-------------------');
+        console.log(refP.value); // 读
+        refP.value = 1; // 改
+        refP.value.a = 1 // 读 改
+        delete refP.value // 
+        delete refP.value.a // 读 删
+
+        console.log('-----------------ref_end-------------------');
+
 
         return {
             shallowReactive,
             reactive,
             shallowReadonly,
             readonly,
+            shallowRef,
         }
     }
 });
