@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-02-25 13:13:03
- * @LastEditTime: 2021-02-25 16:15:35
+ * @LastEditTime: 2021-02-25 17:16:36
  * @LastEditors: mTm
 -->
 <template>
@@ -19,6 +19,7 @@ import shallowReadonly from './shallowReadonly';
 import readonly from './readonly';
 import shallowRef from './shallowRef';
 import ref from './ref';
+import { isRef, isReactive, isReadonly, isProxy  } from './judgmentType';
 export default defineComponent({
     name: 'App',
     setup() {
@@ -94,22 +95,30 @@ export default defineComponent({
 
         // console.log('-----------------shallowRef_end-------------------');
 
-        const refP = ref({
-            a: 5,
-            b: {
-                c: 6
-            }
-        });
+        // const refP = ref({
+        //     a: 5,
+        //     b: {
+        //         c: 6
+        //     }
+        // }); 
 
-        console.log('-----------------ref_start-------------------');
-        console.log(refP.value); // 读
-        refP.value = 1; // 改
-        refP.value.a = 1 // 读 改
-        delete refP.value // 
-        delete refP.value.a // 读 删
+        // console.log('-----------------ref_start-------------------');
+        // console.log(refP.value); // 读
+        // refP.value = 1; // 改
+        // refP.value.a = 1 // 读 改
+        // delete refP.value // 
+        // delete refP.value.a // 读 删
 
-        console.log('-----------------ref_end-------------------');
+        // console.log('-----------------ref_end-------------------');
 
+        console.log('-----------------judgmentType_end-------------------');
+
+        console.log('isRef', isRef(ref('123')));
+        console.log('isReactive', isReactive(reactive({})));
+        console.log('isReadonly', isReadonly(readonly({})));
+        console.log('isProxy', isProxy(readonly({})));
+
+        console.log('-----------------judgmentType_end-------------------');
 
         return {
             shallowReactive,
@@ -117,6 +126,7 @@ export default defineComponent({
             shallowReadonly,
             readonly,
             shallowRef,
+            ref,
         }
     }
 });

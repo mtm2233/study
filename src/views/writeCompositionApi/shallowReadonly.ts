@@ -2,11 +2,12 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-02-25 14:03:50
- * @LastEditTime: 2021-02-25 14:31:12
+ * @LastEditTime: 2021-02-25 16:57:10
  * @LastEditors: mTm
  */
 const readOnlyHandler = {
     get(target: any, prop: any) {
+        if (prop === '_is_readonly') return true;
         const reflect = Reflect.get(target, prop);
         console.log('拦截了读取操作', target, prop, reflect);
         return reflect;

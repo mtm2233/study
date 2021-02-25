@@ -2,13 +2,14 @@
  * @Description: shallowReactive
  * @Author: mTm
  * @Date: 2021-02-25 13:13:34
- * @LastEditTime: 2021-02-25 14:39:53
+ * @LastEditTime: 2021-02-25 16:56:48
  * @LastEditors: mTm
  */
 
 const reactiveHandler = {
     // 获取属性值
     get(target: any, prop: string) {
+        if (prop === '_is_reactive') return true;
         const reflect = Reflect.get(target, prop);
         console.log('拦截了读取操作', target, prop, reflect);
         return reflect;
