@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-02-20 10:13:49
- * @LastEditTime: 2021-02-24 17:20:40
+ * @LastEditTime: 2021-02-25 10:41:16
  * @LastEditors: mTm
  */
 import { createRouter, createWebHashHistory } from "vue-router";
@@ -135,6 +135,14 @@ const routes = [
       title: 'provide与inject'
     },
     component: () => import("@/views/compositionApi/provideInject/ProvideInject.vue")
+  },
+  {
+    path: "/judgment-type",
+    name: 'JudgmentType',
+    meta: {
+      title: '响应式数据类型判断'
+    },
+    component: () => import("@/views/other/judgmentType/JudgmentType.vue")
   },
 ];
 const router = createRouter({
