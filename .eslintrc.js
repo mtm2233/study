@@ -1,3 +1,10 @@
+/*
+ * @Description: 
+ * @Author: mTm
+ * @Date: 2021-02-19 15:02:23
+ * @LastEditTime: 2021-02-25 22:51:57
+ * @LastEditors: mTm
+ */
 module.exports = {
   root: true,
   env: {
@@ -14,6 +21,6 @@ module.exports = {
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    "camelcase": [1, {"allow": ["aa_bb"]}]
+    "camelcase": 0,
   },
 }

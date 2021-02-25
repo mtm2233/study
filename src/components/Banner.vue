@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-02-20 10:54:40
- * @LastEditTime: 2021-02-22 21:50:56
+ * @LastEditTime: 2021-02-25 17:52:21
  * @LastEditors: mTm
 -->
 <template>
@@ -13,9 +13,21 @@
                 v-for="item in banners"
                 :key="item.name"
                 :class="{ nav: true, current: item.name === $route.name }"
-                @click="goPath(item.name)"
             >
                 {{ item.meta.title }}
+                <ul>
+                    <li
+                        v-for="child in item.children"
+                        :key="child.name"
+                        :class="{
+                            nav: true,
+                            current: child.name === $route.name,
+                        }"
+                        @click="goPath(child.name)"
+                    >
+                        {{ child.meta.title }}
+                    </li>
+                </ul>
             </li>
         </ul>
     </div>
