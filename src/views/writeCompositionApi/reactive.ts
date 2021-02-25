@@ -2,7 +2,7 @@
  * @Description: shallowReactive
  * @Author: mTm
  * @Date: 2021-02-25 13:13:34
- * @LastEditTime: 2021-02-25 13:49:05
+ * @LastEditTime: 2021-02-25 14:40:00
  * @LastEditors: mTm
  */
 
@@ -39,5 +39,5 @@ export default function reactive(target: any) {
 
         return new Proxy(target, reactiveHandler)
     }
-    return target;
+    throw new Error(`Argument of type '${ target && typeof target }' is not assignable to parameter of type 'object'`)
 }
