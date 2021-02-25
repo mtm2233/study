@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-02-25 13:13:03
- * @LastEditTime: 2021-02-25 14:51:01
+ * @LastEditTime: 2021-02-25 14:59:53
  * @LastEditors: mTm
 -->
 <template>
@@ -64,7 +64,6 @@ export default defineComponent({
         // shallowReadonlyP.b.c = 10; // 读
         // delete shallowReadonlyP.b.c; // 读
         // console.log('-----------------shallowReadonly_end-------------------');
-
 
         const readonlyP = readonly({
             a: 5,

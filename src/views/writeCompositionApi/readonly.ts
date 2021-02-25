@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-02-25 14:03:50
- * @LastEditTime: 2021-02-25 14:49:36
+ * @LastEditTime: 2021-02-25 14:58:42
  * @LastEditors: mTm
  */
 const readOnlyHandler = {
@@ -19,15 +19,20 @@ const readOnlyHandler = {
     }
 }
 
+function isObject(target: any): boolean {
+    return target && typeof target === 'object';
+}
+
 export default function readonly(target: any) {
     // 判断当前对象是不是 object类型(对象/数组)
-    if (target && typeof target === 'object') {
+    if (isObject(target)) {
         if(Array.isArray(target)) {
-            target.forEach((v,i) => target[i] = readonly(v))
+            target.filter(v => isObject(v)).forEach((v,i) => target[i] = readonly(v))
         } else {
-            Object.entries(target).forEach(([k,v]) => target[k] = readonly(v));
+            Object.entries(target).filter(([k,v]) => isObject(v)).forEach(([k,v]) => target[k] = readonly(v))
         }
         return new Proxy(target, readOnlyHandler)
-    }
-    return target;
+    } else {
+        throw new Error(`Argument of type '${ target && typeof target }' is not assignable to parameter of type 'object'`)
+    } 
 }

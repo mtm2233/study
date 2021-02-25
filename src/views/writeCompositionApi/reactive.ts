@@ -2,7 +2,7 @@
  * @Description: shallowReactive
  * @Author: mTm
  * @Date: 2021-02-25 13:13:34
- * @LastEditTime: 2021-02-25 14:44:14
+ * @LastEditTime: 2021-02-25 15:02:23
  * @LastEditors: mTm
  */
 
@@ -27,14 +27,18 @@ const reactiveHandler = {
     }
 }
 
+function isObject(target: any): boolean {
+    return target && typeof target === 'object';
+}
+
 export default function reactive(target: any) {
     // 判断当前对象是不是 object类型(对象/数组)
-    if (target && typeof target === 'object') {
+    if (isObject(target)) {
         // 递归操作
-        if(Array.isArray(target) && target.length) {
-            target.forEach((v,i) => target[i] = reactive(v))
+        if(Array.isArray(target)) {
+            target.filter(v => isObject(v)).forEach((v,i) => target[i] = reactive(v))
         } else {
-            Object.entries(target).forEach(([k,v]) => target[k] = reactive(v));
+            Object.entries(target).filter(([k,v]) => isObject(v)).forEach(([k,v]) => target[k] = reactive(v));
         }
 
         return new Proxy(target, reactiveHandler)
