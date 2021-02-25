@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-02-20 10:13:49
- * @LastEditTime: 2021-02-25 13:15:05
+ * @LastEditTime: 2021-02-25 17:46:12
  * @LastEditors: mTm
  */
 import { createRouter, createWebHashHistory } from "vue-router";
@@ -151,6 +151,14 @@ const routes = [
       title: 'WriteCompositionApi'
     },
     component: () => import("@/views/writeCompositionApi/WriteCompositionApi.vue")
+  },
+  {
+    path: "/fragment",
+    name: 'Fragment',
+    meta: {
+      title: 'Fragment(片段)'
+    },
+    component: () => import("@/views/components/fragment/Fragment.vue")
   },
 ];
 const router = createRouter({
