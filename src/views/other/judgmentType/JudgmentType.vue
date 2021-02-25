@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-02-25 10:40:14
- * @LastEditTime: 2021-02-25 11:46:14
+ * @LastEditTime: 2021-02-25 12:00:06
  * @LastEditors: mTm
 -->
 <template>
@@ -28,12 +28,12 @@ export default defineComponent({
         // const result = toString.call(a).slice(8, -1).toLowerCase();
         // console.log(result);
         
-        console.log('isRef(ref({}))', isRef(ref({})));
-        console.log('isReactive(reactive({}))', isReactive(reactive({})));
-        console.log('isReadonly(readonly({}))', isReadonly(readonly({})));
-        console.log('isProxy(readonly({}))', isProxy(readonly({})));
-        console.log('isProxy(reactive({}))', isProxy(reactive({})));
-        console.log('isProxy(ref({}))', isProxy(ref({})));
+        console.log('isRef(ref({}))', isRef(ref({}))); // true
+        console.log('isReactive(reactive({}))', isReactive(reactive({}))); // true
+        console.log('isReadonly(readonly({}))', isReadonly(readonly({}))); // true
+        console.log('isProxy(readonly({}))', isProxy(readonly({}))); // true
+        console.log('isProxy(reactive({}))', isProxy(reactive({}))); // true
+        console.log('isProxy(ref({}))', isProxy(ref({}))); // false
 
         return {
             

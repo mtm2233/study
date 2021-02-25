@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-02-20 10:13:49
- * @LastEditTime: 2021-02-25 10:41:16
+ * @LastEditTime: 2021-02-25 13:15:05
  * @LastEditors: mTm
  */
 import { createRouter, createWebHashHistory } from "vue-router";
@@ -143,6 +143,14 @@ const routes = [
       title: '响应式数据类型判断'
     },
     component: () => import("@/views/other/judgmentType/JudgmentType.vue")
+  },
+  {
+    path: "/write-composition-api",
+    name: 'WriteCompositionApi',
+    meta: {
+      title: 'WriteCompositionApi'
+    },
+    component: () => import("@/views/writeCompositionApi/WriteCompositionApi.vue")
   },
 ];
 const router = createRouter({

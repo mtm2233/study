@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-02-24 15:52:31
- * @LastEditTime: 2021-02-24 16:16:12
+ * @LastEditTime: 2021-02-25 11:54:21
  * @LastEditors: mTm
 -->
 <template>
@@ -19,6 +19,7 @@
 </template>
 <script lang="ts">
 import { customRef, defineComponent } from 'vue';
+// 使用customRef实现debounced的实例
 function useDebouncedRef<T>(value: T, delay = 200) {
     let timeOutId: number;
     return customRef((tarck, trigger) => {
