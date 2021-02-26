@@ -2,7 +2,7 @@
  * @Description:
  * @Author: mTm
  * @Date: 2021-02-20 10:13:49
- * @LastEditTime: 2021-02-25 18:00:44
+ * @LastEditTime: 2021-02-26 11:07:12
  * @LastEditors: mTm
  */
 import { createRouter, createWebHashHistory } from "vue-router";
@@ -171,6 +171,15 @@ const routes = [
         },
         component: () => import("@/views/components/fragment/Fragment.vue"),
       },
+      {
+        path: "teleport",
+        name: "Teleport",
+        meta: {
+          title: "Teleport(瞬移)",
+        },
+        component: () => import("@/views/components/teleport/Teleport.vue"),
+      },
+      
     ],
   },
   {
