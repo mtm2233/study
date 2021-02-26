@@ -2,7 +2,7 @@
  * @Description:
  * @Author: mTm
  * @Date: 2021-02-20 10:13:49
- * @LastEditTime: 2021-02-26 13:16:48
+ * @LastEditTime: 2021-02-26 15:23:43
  * @LastEditors: mTm
  */
 import { createRouter, createWebHashHistory } from "vue-router";
@@ -249,9 +249,28 @@ const routes = [
         },
         component: () => import("@/views/v2v3/asyncImport/AsyncImport.vue"),
       },
-      
     ],
   },
+  {
+    path: "/demo",
+    name: "Demo",
+    meta: {
+      title: "Demo",
+    },
+    component: () => import("@/views/layout/BasicLayout.vue"),
+    redirect: { name: "TaskManagement" },
+    children: [
+      {
+        path: "task-management",
+        name: "TaskManagement",
+        meta: {
+          title: "TaskManagement",
+        },
+        component: () => import("@/views/demo/taskManagement/TaskManagement.vue"),
+        // component: () => import("@/views/v2v3/asyncImport/AsyncImport.vue"),
+      },
+    ]
+  }
 ];
 const router = createRouter({
   history: createWebHashHistory(),
