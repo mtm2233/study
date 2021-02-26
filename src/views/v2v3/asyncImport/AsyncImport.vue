@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-02-26 13:12:57
- * @LastEditTime: 2021-02-26 13:19:27
+ * @LastEditTime: 2021-02-26 13:34:19
  * @LastEditors: mTm
 -->
 <template>
@@ -34,9 +34,11 @@ const AsyncComponents = defineAsyncComponent(
 );
 export default defineComponent({
     name: "App",
+    components: {
+        AsyncComponents,
+    },
     setup() {
         return {
-            AsyncComponents,
         };
     },
 });
