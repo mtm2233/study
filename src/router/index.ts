@@ -2,7 +2,7 @@
  * @Description:
  * @Author: mTm
  * @Date: 2021-02-20 10:13:49
- * @LastEditTime: 2021-02-26 11:07:12
+ * @LastEditTime: 2021-02-26 13:16:48
  * @LastEditors: mTm
  */
 import { createRouter, createWebHashHistory } from "vue-router";
@@ -179,7 +179,14 @@ const routes = [
         },
         component: () => import("@/views/components/teleport/Teleport.vue"),
       },
-      
+      {
+        path: "suspense",
+        name: "Suspense",
+        meta: {
+          title: "Suspense(不确定的)",
+        },
+        component: () => import("@/views/components/suspense/Suspense.vue"),
+      },
     ],
   },
   {
@@ -234,6 +241,15 @@ const routes = [
         },
         component: () => import("@/views/v2v3/lifeCycle/LifeCycle.vue"),
       },
+      {
+        path: "async-import",
+        name: "AsyncImport",
+        meta: {
+          title: "动态引入组件",
+        },
+        component: () => import("@/views/v2v3/asyncImport/AsyncImport.vue"),
+      },
+      
     ],
   },
 ];
