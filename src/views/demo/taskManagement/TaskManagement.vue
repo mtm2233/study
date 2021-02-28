@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-02-26 15:02:03
- * @LastEditTime: 2021-02-27 00:21:37
+ * @LastEditTime: 2021-02-28 09:22:44
  * @LastEditors: mTm
 -->
 <template>
@@ -88,12 +88,15 @@ export default defineComponent({
                 .verticalCenter();
             }
             button {
-                display: none;
+                // display: none;
+                opacity: 0;
             }
         }
         .item:hover {
             button {
-                display: block;
+                // display: block;
+                opacity: 1;
+                transition: .5s;
             }
         }
     }

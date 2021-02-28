@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-02-26 15:17:54
- * @LastEditTime: 2021-02-27 00:39:16
+ * @LastEditTime: 2021-02-28 09:24:08
  * @LastEditors: mTm
  */
 import {ref, reactive} from 'vue'
@@ -53,9 +53,10 @@ class Task {
     addTask() {
         if (!this.inputValue.value) return;
         const task = this.task;
-        const len = task.length;
-        const newId = task[len - 1] ? task[len - 1].id + 1 : 0;
-        task.push({
+        // const len = task.length;
+        // const newId = task[len - 1] ? task[len - 1].id + 1 : 0;
+        const newId = task[0] ? task[0].id + 1 : 0;
+        task.unshift({
             id: newId,
             value: this.inputValue.value,
             isChecked: false,
