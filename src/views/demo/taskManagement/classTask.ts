@@ -2,22 +2,22 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-02-26 15:17:54
- * @LastEditTime: 2021-02-28 10:01:04
+ * @LastEditTime: 2021-02-28 10:26:43
  * @LastEditors: mTm
  */
 import {ref, reactive} from 'vue'
 import { setCache, getCache } from './cache'
 const CACHENAME = 'taskManagement';
+interface TaskI {
+    value: number | string;
+    id: number;
+    isChecked: boolean; 
+}
 class Task {
-    public task: any;
-    public inputValue: any;
+    public task: TaskI[] = [];
+    public inputValue: any = ref('');
     constructor() {
-        this.inputValue = ref('');
         this.init();
-    }
-    // 选择全部
-    set SelectAll(val: any) {
-        this.taskSelect(val);
     }
     // 已选择的数量
     get SelectNum() {
@@ -31,11 +31,11 @@ class Task {
         if (getCache(CACHENAME)) {
             this.task = reactive(getCache(CACHENAME) as any);
         } else {
-            this.task = reactive([
+            this.task = reactive<TaskI[]>([
                 {
                     value: 'demo',
                     id: 0,
-                    isChecked: false, 
+                    isChecked: false,
                 }
             ]);
         }
@@ -68,7 +68,7 @@ class Task {
                 v.isChecked = isSelect;
             })
         } else {
-            const selectItem = this.task.find((v: any) => v.id === isSelect);
+            const selectItem = this.task.find((v: any) => v.id === isSelect)!;
             selectItem.isChecked = !selectItem.isChecked;
         }
         setCache(CACHENAME, this.task);

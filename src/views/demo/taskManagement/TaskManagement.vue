@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-02-26 15:02:03
- * @LastEditTime: 2021-02-28 09:59:49
+ * @LastEditTime: 2021-02-28 10:26:28
  * @LastEditors: mTm
 -->
 <template>
@@ -19,7 +19,7 @@
         </div>
         <div class="footer">
             <div>
-                <input type="checkbox" @change="taskExample.SelectAll = !taskExample.isSelectAll" :checked="taskExample.isSelectAll" />
+                <input type="checkbox" @change="taskSelect(!taskExample.isSelectAll)" :checked="taskExample.isSelectAll" />
                 <span>
                     已完成{{ taskExample.SelectNum }}/全部{{task.length}}
                 </span>
