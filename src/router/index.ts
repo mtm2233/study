@@ -2,7 +2,7 @@
  * @Description:
  * @Author: mTm
  * @Date: 2021-02-20 10:13:49
- * @LastEditTime: 2021-02-26 15:23:43
+ * @LastEditTime: 2021-02-28 09:29:30
  * @LastEditors: mTm
  */
 import { createRouter, createWebHashHistory } from "vue-router";
@@ -267,7 +267,14 @@ const routes = [
           title: "TaskManagement",
         },
         component: () => import("@/views/demo/taskManagement/TaskManagement.vue"),
-        // component: () => import("@/views/v2v3/asyncImport/AsyncImport.vue"),
+      },
+      {
+        path: "task-management-video",
+        name: "TaskManagementVideo",
+        meta: {
+          title: "TaskManagementVideo",
+        },
+        component: () => import("@/views/demo/taskManagementVideo/TaskManagementVideo.vue"),
       },
     ]
   }
