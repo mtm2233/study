@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-02-28 09:32:36
- * @LastEditTime: 2021-02-28 09:44:36
+ * @LastEditTime: 2021-02-28 14:43:37
  * @LastEditors: mTm
 -->
 <template>
@@ -10,19 +10,66 @@
         <div>
             <input
                 type="checkbox"
-                :checked="true"
+                v-model="checkedAll"
             />
             <span>
-                已完成0/全部0
+                已完成{{ isCheckedNum }}/全部{{ allNum }}
             </span>
         </div>
-        <button>清除已完成任务</button>
+        <button @click="delAll">清除已完成任务</button>
     </div>
 </template>
 <script lang="ts">
-import { defineComponent } from "vue";
+import { computed, defineComponent } from "vue";
+import { Todo } from "../types/Todo";
 export default defineComponent({
     name: "Footer",
+    props: {
+        todos: {
+            type: Array as () => Todo[],
+            default: () => []
+        },
+        changeTodoisChecked: {
+            type: Function,
+            require: true,
+        },
+        clearIsCheckedTodo: {
+            type: Function,
+            require: true,
+        }
+    },
+    setup(props) {
+        // 全部数
+        const allNum = computed(() => {
+            return props.todos.length;
+        })
+        // 已选数
+        const isCheckedNum = computed(() => {
+            // return props.todos.filter((v: Todo) => v.isChecked).length
+            return props.todos.reduce((pre: number,todo: Todo) => pre+(todo.isChecked ? 1 : 0),0);
+        })
+        // 全选/全不选
+        const checkedAll = computed({
+            get() {
+                return allNum.value === isCheckedNum.value
+            },
+            set(val) {
+                props.todos.forEach((v: Todo) => props.changeTodoisChecked && props.changeTodoisChecked(v, val));
+            }
+        })
+        // 删除所有
+        const delAll = () => {
+            if(window.confirm('确认清除已完成任务？')) {
+                props.clearIsCheckedTodo && props.clearIsCheckedTodo();
+            }
+        }
+        return {
+            allNum,
+            isCheckedNum,
+            checkedAll,
+            delAll,
+        }
+    }
 });
 </script>
 <style lang="less" scoped>

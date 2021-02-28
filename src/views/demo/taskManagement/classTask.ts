@@ -2,34 +2,31 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-02-26 15:17:54
- * @LastEditTime: 2021-02-28 10:36:16
+ * @LastEditTime: 2021-02-28 14:59:13
  * @LastEditors: mTm
  */
-import {ref, reactive} from 'vue'
+import {ref, reactive, watch} from 'vue'
 import { setCache, getCache } from './cache'
+import { TaskI } from './TaskI';
 const CACHENAME = 'taskManagement';
-interface TaskI {
-    value: number | string;
-    id: number;
-    isChecked: boolean; 
-}
 class Task {
     public task: TaskI[] = [];
     public inputValue: any = ref('');
     constructor() {
         this.init();
     }
+
     // 已选择的数量
     get SelectNum() {
-        return this.task.filter((v: any) => v.isChecked).length || 0;
+        return this.task.filter((v: TaskI) => v.isChecked).length || 0;
     }
     // 是否全选
     get isSelectAll() {
-        return this.task.length && this.task.every((v: any) => v.isChecked);
+        return this.task.length && this.task.every((v: TaskI) => v.isChecked);
     }
     init() {
         if (getCache(CACHENAME)) {
-            this.task = reactive(getCache(CACHENAME) as any);
+            this.task = reactive<TaskI[]>(getCache(CACHENAME));
         } else {
             this.task = reactive<TaskI[]>([
                 {
@@ -39,13 +36,18 @@ class Task {
                 }
             ]);
         }
+
+        watch(() => this.task, (value: TaskI[]) => {
+            setCache(CACHENAME, value );
+        }, {deep: true})
+        
     }
     values() {
-        const { task, inputValue, clearSelect, taskSelect } = this;
+        const { task, inputValue, delSelect, taskSelect } = this;
         return {
             task,
             inputValue,
-            clearSelect,
+            delSelect,
             taskSelect,
         }
     }
@@ -59,31 +61,30 @@ class Task {
             isChecked: false,
         })
         this.inputValue.value = '';
-        setCache(CACHENAME,this.task);
     }
     // 全选、全不选、单个
     taskSelect = (isSelect: boolean | number) => {
         if (typeof isSelect === 'boolean') {
-            this.task.forEach((v: any) => {
+            this.task.forEach((v: TaskI) => {
                 v.isChecked = isSelect;
             })
         } else {
-            const selectItem = this.task.find((v: any) => v.id === isSelect)!;
+            const selectItem = this.task.find((v: TaskI) => v.id === isSelect)!;
             selectItem.isChecked = !selectItem.isChecked;
         }
-        setCache(CACHENAME, this.task);
     }
 
     // 清除选中
-    clearSelect = (num: number | undefined) => {
-        const isNum = num !== undefined && !isNaN(num);
-        const delIndex = isNum ? this.task.findIndex((v: any) => v.id === num) : this.task.findIndex((v: any) => v.isChecked);
-        if(delIndex >= 0) {
-            this.task.splice(delIndex, 1);
-            this.clearSelect(num);
-        } else {
-            setCache(CACHENAME,this.task);
-            return;
+    delSelect = (num: number | undefined, isConfirm = false) => {
+        if (isConfirm || window.confirm('确定要删除吗？')) {
+            const isNum = num !== undefined && !isNaN(num);
+            const delIndex = isNum ? this.task.findIndex((v: TaskI) => v.id === num) : this.task.findIndex((v: TaskI) => v.isChecked);
+            if(delIndex >= 0) {
+                this.task.splice(delIndex, 1);
+                this.delSelect(num, true);
+            } else {
+                return;
+            }
         }
     }
 }

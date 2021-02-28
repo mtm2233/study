@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-02-26 15:02:03
- * @LastEditTime: 2021-02-28 10:26:28
+ * @LastEditTime: 2021-02-28 13:51:30
  * @LastEditors: mTm
 -->
 <template>
@@ -14,7 +14,7 @@
                     <input type="checkbox" :id="v.id" :checked="v.isChecked" @change="taskSelect(v.id)" />
                     <label :for="v.id">{{ v.value }}</label>
                 </div>
-                <button @click="clearSelect(v.id)">删除</button>
+                <button @click="delSelect(v.id)">删除</button>
             </div>
         </div>
         <div class="footer">
@@ -24,7 +24,7 @@
                     已完成{{ taskExample.SelectNum }}/全部{{task.length}}
                 </span>
             </div>
-            <button @click="clearSelect">清除已完成任务</button>
+            <button @click="delSelect">清除已完成任务</button>
         </div>
     </div>
 </template>
@@ -40,13 +40,13 @@ function mousedownHandler(target: any) {
 export default defineComponent({
     name: 'App',
     setup() {
-        const {task, inputValue, clearSelect, taskSelect } = taskExample.values();
+        const {task, inputValue, delSelect, taskSelect } = taskExample.values();
         window.addEventListener('keydown', mousedownHandler);
         return {
             taskExample,
             task,
             inputValue,
-            clearSelect,
+            delSelect,
             taskSelect,
         }
     }

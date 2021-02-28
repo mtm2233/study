@@ -2,11 +2,11 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-02-26 23:20:42
- * @LastEditTime: 2021-02-28 14:59:29
+ * @LastEditTime: 2021-02-28 14:57:12
  * @LastEditors: mTm
  */
-import { TaskI } from './TaskI';
-export function setCache(key: string, value: TaskI[]) {
+import { Todo } from "./types/Todo";
+export function setCache(key: string, value: Todo[]) {
   if (key == "") return false;
   localStorage.setItem(key, JSON.stringify(value));
 }
