@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-03-01 22:03:18
- * @LastEditTime: 2021-03-01 22:22:42
+ * @LastEditTime: 2021-03-01 22:33:09
  * @LastEditors: mTm
  */
 import { defineConfig } from 'vite'
@@ -14,7 +14,7 @@ export default defineConfig({
   plugins: [vue()],
   resolve: {
     alias: {
-      '/@/': resolve(__dirname, 'src')
+      '@': resolve(__dirname, 'src')
     }
   }
 })

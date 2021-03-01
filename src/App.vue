@@ -10,7 +10,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import HelloWorld from './components/HelloWorld.vue'
+import HelloWorld from '@/components/HelloWorld.vue'
 import TypeScript from './support/TypeScript.vue'
 import CssJsonImporting from './support/cssJsonImporting/CssJsonImporting.vue'
 import CssModules from './support/cssModules/CssModules.vue'
