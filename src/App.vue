@@ -5,16 +5,17 @@
   <TypeScript />
   <CssJsonImporting />
   <CssModules />
-  <Jsx />
+  <!-- <Jsx /> -->
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, onMounted } from 'vue'
 import HelloWorld from '@/components/HelloWorld.vue'
 import TypeScript from './support/TypeScript.vue'
 import CssJsonImporting from './support/cssJsonImporting/CssJsonImporting.vue'
 import CssModules from './support/cssModules/CssModules.vue'
-import Jsx from './support/Jsx'
+// import Jsx from './support/Jsx'
+import { getData } from './services'
 
 export default defineComponent({
   name: 'App',
@@ -23,8 +24,18 @@ export default defineComponent({
     TypeScript,
     CssJsonImporting,
     CssModules,
-    Jsx,
+    // Jsx, 
   },
+  setup() {
+    onMounted(() => {
+      getData().then((res: any) => {
+        console.log(res);
+      })
+    })
+    return {
+
+    }
+  }
 })
 </script>
 
