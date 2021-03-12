@@ -2,12 +2,12 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-03-12 13:23:57
- * @LastEditTime: 2021-03-12 14:09:18
+ * @LastEditTime: 2021-03-12 15:27:11
  * @LastEditors: mTm
  */
 const fs = require('fs');
 
-const read = fs.createReadStream('./txts/foo.txt', {
+const read = fs.createReadStream('../../public/txt/steam/foo.txt', {
     start: 1,
     highWaterMark: 2,
 })

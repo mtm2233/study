@@ -2,11 +2,14 @@
  * @Description:
  * @Author: mTm
  * @Date: 2021-03-12 14:09:55
- * @LastEditTime: 2021-03-12 14:19:13
+ * @LastEditTime: 2021-03-12 15:27:20
  * @LastEditors: mTm
  */
 const fs = require("fs");
-const writer = fs.createWriteStream("./txts/foz.txt");
+const writer = fs.createWriteStream("../../public/txt/steam/foz.txt", {
+    flags: 'r+',
+    start: 3
+});
 
 writer.on("open", fd => {
   console.log(fd, "文件打开");

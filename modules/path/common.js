@@ -2,12 +2,12 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-03-08 09:06:24
- * @LastEditTime: 2021-03-08 09:52:33
+ * @LastEditTime: 2021-03-12 15:26:16
  * @LastEditors: mTm
  */
 const path = require('path');
 const baseUrl = __dirname;
-const url = './test/test.txt'
+const url = '../../public/txt/test/test.txt'
 
 // console.log(path.dirname(url));
 // console.log(path.basename(url));
