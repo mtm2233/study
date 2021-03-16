@@ -2,10 +2,11 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-03-16 10:13:59
- * @LastEditTime: 2021-03-16 10:48:23
+ * @LastEditTime: 2021-03-16 17:52:38
  * @LastEditors: mTm
  */
 const express = require('express');
+const multer = require('multer');
 
 const app = express();
 
@@ -24,12 +25,14 @@ const app = express();
 //     }
 // })
 
+const upload = multer({})
+
 // 应用中间件
 app.use(express.json())
 
 app.use(express.urlencoded({extended: true}))
 
-app.post('/login',(req,res,next) => {
+app.post('/login', upload.any(), (req,res,next) => {
     console.log(req.body);
     res.end('登陆成功~')
 })
