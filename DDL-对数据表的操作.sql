@@ -1,3 +1,6 @@
+-- DDL（Data Definition Language）：数据定义语言；
+--  可以通过DDL语句对数据库或者表进行：创建、删除、修改等操作；
+
 # 查看所有的表
 -- SHOW TABLES;
 

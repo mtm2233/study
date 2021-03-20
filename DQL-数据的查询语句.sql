@@ -1,3 +1,6 @@
+DQL（Data Query Language）：数据查询语言；
+ 可以通过DQL从数据库中查询记录；（重点）
+
 # 创建products的表
 CREATE TABLE IF NOT EXISTS `products` (
 	id INT PRIMARY KEY AUTO_INCREMENT,
