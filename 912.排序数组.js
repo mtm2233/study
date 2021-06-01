@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-05-31 22:26:44
- * @LastEditTime: 2021-05-31 22:27:42
+ * @LastEditTime: 2021-06-01 11:14:44
  * @LastEditors: mTm
  */
 /*
@@ -13,42 +13,37 @@
 
 // @lc code=start
 
-function merger(left, right) {
-  const n = left && left.length;
-  const m = right && right.length;
-  let backs = [];
+function merge(A, p, r, q) {
+  const left = A.slice(p, q + 1)
+  const right = A.slice(q + 1, r + 1)
+  const max_value = 99999;
+  left.push(max_value)
+  right.push(max_value)
   let i = 0;
   let j = 0;
-  while (i < n && j < m) {
-    if (left[i] < right[j]) {
-      backs.push(left[i++]);
+  let k = p;
+  while (left[i] !== max_value) {
+    if (left[i] <= right[j]) {
+      A[k++] = left[i++]
     } else {
-      backs.push(right[j++]);
+      A[k++] = right[j++]
     }
   }
-  while (i < n) {
-    backs.push(left[i++]);
-  }
-  while (j < m) {
-    backs.push(right[j++]);
-  }
-  return backs;
+}
+
+function merge_sort_c(A, p, r) {
+  if (p >= r) return;
+  const q = Math.floor((p + r) / 2);
+  merge_sort_c(A, p, q)
+  merge_sort_c(A, q + 1, r)
+  merge(A, p, r, q)
 }
 /**
  * @param {number[]} nums
  * @return {number[]}
  */
 var sortArray = function (nums) {
-  const len = nums.length;
-  // 递归终止条件
-  if (len === 1) {
-    return nums;
-  }
-  // 取p到r之间的中间位置q
-  const mid = Math.floor(len / 2);
-  const left = nums.slice(0, mid);
-  const right = nums.slice(mid);
-  // 分治递归
-  return merger(sortArray(left), sortArray(right));
+  merge_sort_c(nums, 0, nums.length - 1)
+  return nums
 };
 // @lc code=end
