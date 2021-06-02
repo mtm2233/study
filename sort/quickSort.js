@@ -2,7 +2,7 @@
  * @Description:
  * @Author: mTm
  * @Date: 2021-06-01 13:14:07
- * @LastEditTime: 2021-06-01 14:09:42
+ * @LastEditTime: 2021-06-02 09:09:56
  * @LastEditors: mTm
  */
 function wrap(A, a, b) {
@@ -22,8 +22,8 @@ function partition(A, p, r) {
   if (A[p] > A[q]) {
     wrap(A, p, q);
   }
-  wrap(A, q, r);
-  return A[r];
+  wrap(A, q, r - 1);
+  return A[r - 1];
 }
 
 function wrap_sort_c(A, p, r) {
@@ -38,7 +38,7 @@ function wrap_sort_c(A, p, r) {
       wrap(A, i, j);
     }
   }
-  wrap(A, i, r);
+  wrap(A, i, r - 1);
   wrap_sort_c(A, p, i - 1)
   wrap_sort_c(A, i + 1, r)
 }
@@ -47,6 +47,6 @@ function wrapSort(A) {
   wrap_sort_c(A, 0, A.length - 1);
 }
 
-let array = [10, 6, 4, 3, 9, 8, 15, 5, 24, -1];
+let array = [1,3,2,4];
 wrapSort(array);
 console.log(array);
