@@ -2,7 +2,7 @@
  * @Description:
  * @Author: mTm
  * @Date: 2021-05-31 17:07:55
- * @LastEditTime: 2021-06-01 11:12:20
+ * @LastEditTime: 2021-06-02 10:35:21
  * @LastEditors: mTm
  */
 // function merger(left, right) {
@@ -74,6 +74,6 @@ function mergeSort(A) {
   merge_sort_c(A, 0, A.length - 1);
 }
 
-let array = [1, 6, 4, 3, 1, 9, 15, 5, 24, -1];
+let array = [1, 8, 7, -1, 2, 15, -1, 8, 0, 0];
 mergeSort(array)
 console.log(array);
