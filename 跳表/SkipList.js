@@ -2,7 +2,7 @@
  * @Description:
  * @Author: mTm
  * @Date: 2021-06-10 10:24:14
- * @LastEditTime: 2021-06-17 17:24:50
+ * @LastEditTime: 2021-06-17 17:45:04
  * @LastEditors: mTm
  */
 
@@ -17,6 +17,15 @@ const SKIPLIST_P = 1 / 2;
 
 // 节点
 class Node {
+  /* 
+    1   3   7
+    1 2 3 5 7
+    假如当前节点为p，索引层的第二层，值为1的节点（1，3，7）
+    p.refer[2]代表当前节点的，相同索引层，下一个节点 3
+    p.refer[2].refer[2]代表当前节点的，相同索引层，下下个节点 7
+    p.refer[2].refer[1]代表当前节点的，下一层索引层，下下个节点 7
+    p.refer[1]代表当前节点的，下一层索引层，下一个节点 3
+  */
   refer = new Array(MAX_LEVEL);
   maxLevel = 1;
   constructor(key, data = -1) {
@@ -30,7 +39,11 @@ class SkipList {
   constructor() {
     this.head = new Node();
   }
-  // 要插入的索引层数
+  /* 
+    要插入的索引层数
+    50% 为 2
+    25% 为 3
+  */
   randomLevel() {
     let level = 1;
     while (Math.random() < SKIPLIST_P && level < MAX_LEVEL) {
@@ -42,21 +55,27 @@ class SkipList {
   insert(key, data) {
     const newNode = new Node(key, data);
     const level = this.randomLevel();
+    // 待插入的节点层数
     newNode.maxLevel = level;
+    // 每层中待插入节点的前驱节点
     const update = new Array(level).fill(new Node());
     let p = this.head;
-    // 要插入节点的前驱节点
+    /*
+    * 找出每层中待插入节点的前驱节点
+    */
     for (let i = level - 1; i >= 0; i--) {
       while (p.refer[i] !== undefined && p.refer[i].key < key) {
         p = p.refer[i];
       }
       update[i] = p;
     }
+    // 将newNode插入到前驱节点后面
     for (let i = 0; i < level; i++) {
       newNode.refer[i] = update[i].refer[i];
       update[i].refer[i] = newNode;
     }
 
+    // 更新当前的索引层树
     if (this.levelCount < level) {
       this.levelCount = level;
     }
@@ -65,10 +84,20 @@ class SkipList {
   // 查找
   search(key) {
     let p = this.head;
+    /* 
+      1   3   7
+      1 2 3 5 7
+      假如查找7
+        第二层1 3 7 找到了，直接返回
+      假如查找5
+        第二层1 3 下一个7 > 5往下走
+        第一层3 5 找到了，直接返回
+    */
     for (let i = this.levelCount - 1; i >= 0; i--) {
       while (p.refer[i] !== undefined && p.refer[i].key < key) {
         p = p.refer[i];
       }
+      // 该索引层没有，继续往下一层找
       if (p.refer[i] !== undefined && p.refer[i].key === key) {
         return p.refer[i].data;
       }
@@ -78,9 +107,11 @@ class SkipList {
   
   // 删除
   delete(key) {
+    // 要删除节点的前驱节点
     const update = new Array(this.levelCount).fill(new Node());
     let p = this.head;
     let _node;
+    // 查找要删除节点的前驱节点
     for (let i = this.levelCount - 1; i >= 0; i--) {
       while (p.refer[i] !== undefined && p.refer[i].key < key) {
         p = p.refer[i];
@@ -88,9 +119,13 @@ class SkipList {
       update[i] = p
     }
 
+    // 判断该节点是否存在
     if(p.refer[0] !== undefined && p.refer[0].key === key) {
+      // 保存要删除的节点，以便返回
       _node = p.refer[0]
+      // 开始删除
       for(let i = this.levelCount - 1; i >= 0; i--) {
+        // 判断是否有重复的key，一并删除
         while(update[i].refer[i] !== undefined && update[i].refer[i].key === key) {
           update[i].refer[i] = update[i].refer[i].refer[i]
         }
