@@ -47,11 +47,14 @@ class SkipList{
    */
   insert(value) {
 	const level = SkipList.randomLevel();
+	// console.log(level, 'level');
 	// 新节点
 	const newNode = new Node();
 	newNode.data = value;
 	newNode.maxLevel = level;
+	// console.log(newNode, 'newNode');
 	const update = new Array(level).fill(new Node());
+	// console.log(update, 'update');
 	let p = this.head;
 	/*
     * 找出每层中待插入节点的前驱节点
@@ -137,15 +140,16 @@ class SkipList{
 console.log('========');
 const skipList = new SkipList();
 skipList.insert(1);
-skipList.insert(9);
+// skipList.insert(9);
+skipList.insert(5);
 console.log(skipList);
 // const testTotalNum = 10;
 // const findNum = Math.ceil(Math.random() * testTotalNum);
 // const removeNum = Math.ceil(Math.random() * testTotalNum);
 
-// for(let i = 0; i < testTotalNum; i++) {
-//   skipList.insert(i);
-// }
+for(let i = 0; i < 50000000; i++) {
+  skipList.insert(i);
+}
 // skipList.printAll();
 
 // console.time(`Find data: ${findNum}`);
