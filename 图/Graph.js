@@ -2,7 +2,7 @@
  * @Description:
  * @Author: mTm
  * @Date: 2021-06-28 15:59:10
- * @LastEditTime: 2021-06-28 16:44:03
+ * @LastEditTime: 2021-06-29 10:50:51
  * @LastEditors: mTm
  */
 // 节点
@@ -41,14 +41,14 @@ class Linked {
     p.next = p.next.next;
     return removeNode;
   }
-  toString() {
+  toString(clg = false) {
     let datas = [];
     let p = this.head.next;
     while (p) {
       datas.push(p.data);
       p = p.next;
     }
-    console.log(datas.join("-->"));
+    clg && console.log(datas.join("-->"));
     return datas;
   }
 }
@@ -61,16 +61,63 @@ class Graph {
   }
   init() {
     for (let i = 0; i < this.v; ++i) {
-        this.obj[i] = new Linked()
+      this.obj[i] = new Linked();
     }
   }
-  addEdge(s,t) {
-    this.obj[s].insert(t)
-    this.obj[t].insert(s)
+  addEdge(s, t) {
+    this.obj[s].insert(t);
+    this.obj[t].insert(s);
+  }
+  // 广度优先搜索
+  // s-t的最低距离
+  bfs(s, t) {
+    if (s == t) {
+      return;
+    }
+    // queue是一个队列，用来存储已经被访问、但相连的顶点还没有被访问的顶点
+    let queue = [];
+    // visited是用来记录已经被访问的顶点，用来避免顶点被重复访问。
+    let visited = new Array(this.v).fill(0);
+    // prev用来记录搜索路径
+    let prev = new Array(this.v).fill(-1);
+    // 访问s
+    queue.push(s)
+    visited[s] = 1;
+    while (queue.length) {
+      const i = queue.shift();
+      // 避免重复访问
+      const vertexs = this.obj[i].toString().filter((i) => !visited[i]);
+      // 记录访问状态，访问顶点
+      vertexs.forEach(vertex => {
+        prev[vertex] = i
+        visited[vertex] = 1
+      })
+      // 加入队列
+      queue.push(...vertexs);
+      if (i === t) {
+        // 输出路径
+        return this.printf(prev, s, t)
+      }
+    }
+    return -1
+  }
+  printf(prev, s, t) {
+    const path = []
+    const printf_c = (prev, s, t) => {
+      if (prev[t] !== -1 && t !== s) {
+        printf_c(prev, s, prev[t])
+      }
+      path.push(t)
+    }
+    printf_c(prev, s, t)
+    return path
   }
 }
 
-const graph = new Graph(7);
-graph.addEdge(0,1)
-graph.addEdge(0,5)
-console.log(graph.obj);
+const graph = new Graph(10);
+graph.addEdge(0, 1);
+graph.addEdge(0, 5);
+graph.addEdge(1, 6);
+graph.addEdge(6, 9);
+console.log(graph.bfs(0, 9));
+// console.log(graph.obj);
