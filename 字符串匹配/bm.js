@@ -2,7 +2,7 @@
  * @Description:
  * @Author: mTm
  * @Date: 2021-07-04 15:41:40
- * @LastEditTime: 2021-07-09 11:49:28
+ * @LastEditTime: 2021-07-14 11:57:16
  * @LastEditors: mTm
  */
 
@@ -32,7 +32,7 @@ function generateGS(pattern, n, suffix, prefix) {
       suffix[k] = j + 1;
     }
     //如果公共后缀子串也是模式串的前缀子串
-    if (j == -1) {
+    if (j === -1) {
       prefix[k] = true
     }
   }
@@ -94,5 +94,5 @@ function moveByGS(j, n, suffix, prefix) {
   return n
 }
 
-const result = bm("abcacabcbcbacabc", "cbacabc");
+const result = bm("abcacabcabcabacabc", "cabcab");
 console.log(result);
