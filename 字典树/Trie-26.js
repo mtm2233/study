@@ -1,40 +1,33 @@
 /*
- * @Description: 
+ * @Description: // 假设只包含a-z
  * @Author: mTm
  * @Date: 2021-07-14 21:43:22
- * @LastEditTime: 2021-07-15 17:50:01
+ * @LastEditTime: 2021-07-15 17:46:35
  * @LastEditors: mTm
  */
+
+const MAX_CHAR = 26
+const A = 'a'.charCodeAt()
+
+// 假设只包含a-z
 class TrieNode {
-    data = null
-    children = []
+    children = new Array(MAX_CHAR)
     isEndingChar = false
+    data = null
     constructor(data) {
         this.data = data
     }
 }
 
 class Trie {
+    // 存储无意义字符
     root = new TrieNode('/')
-    // 将字符，数字，汉字转为下标
-    charMap = new Map()
-    // index
-    charMapCount = -1
-
-    charIndex(char) {
-        const index = this.charMap.get(char)
-        if (index !== undefined) {
-            return index
-        }
-        this.charMap.set(char, ++this.charMapCount)
-        return this.charMapCount
-    }
-    // 在Trie树中查找一个字符串
+    // 往Trie树中插入一个字符串
     insert(str) {
-        let p = this.root
         const len = str.length
+        let p = this.root
         for(let i = 0; i < len; ++i) {
-            const index = this.charIndex(str[i])
+            const index = str[i].charCodeAt() - A
             if (!p.children[index]) {
                 p.children[index] = new TrieNode(str[i])
             }
@@ -48,7 +41,7 @@ class Trie {
         const len = str.length
         let p = this.root
         for(let i = 0; i < len; ++i) {
-            const index = this.charIndex(str[i])
+            const index = str[i].charCodeAt() - A
             if (!p.children[index]) {
                 return false
             }
@@ -63,7 +56,7 @@ class Trie {
         const len = str.length
         let p = this.root
         for(let i = 0; i < len; ++i) { 
-            const index = this.charIndex(str[i])
+            const index = str[i].charCodeAt() - A
             if (!p.children[index]) {
                 return false
             }
@@ -81,7 +74,7 @@ class Trie {
     search_c(p, strList, str) {
         p.children.filter(Boolean).forEach(charNode => {
             const newStr = str + charNode.data
-            const index = this.charIndex(charNode.data)
+            const index = charNode.data.charCodeAt() - A
             if (charNode.isEndingChar) {
                 strList.push(newStr)
             }
@@ -94,9 +87,8 @@ const trie = new Trie()
 trie.insert('hello')
 trie.insert('helhel')
 trie.insert('hel')
-trie.insert('125461')
-const strList = trie.search('1')
-const result = trie.find('hel')
+trie.insert('helaaa')
+const strList = trie.search('hel')
+const result = trie.find('helaaa')
 console.log(strList);
 console.log(result);
-// console.log(trie.charMap);
