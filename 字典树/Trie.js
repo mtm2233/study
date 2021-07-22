@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-07-14 21:43:22
- * @LastEditTime: 2021-07-15 17:50:01
+ * @LastEditTime: 2021-07-23 00:14:04
  * @LastEditors: mTm
  */
 class TrieNode {
@@ -21,13 +21,16 @@ class Trie {
     // index
     charMapCount = -1
 
-    charIndex(char) {
+    charIndex(char, add = true) {
         const index = this.charMap.get(char)
         if (index !== undefined) {
             return index
         }
-        this.charMap.set(char, ++this.charMapCount)
-        return this.charMapCount
+        if (add) {
+            this.charMap.set(char, ++this.charMapCount)
+            return this.charMapCount
+        }
+        return -1
     }
     // 在Trie树中查找一个字符串
     insert(str) {
@@ -43,7 +46,7 @@ class Trie {
         p.isEndingChar = true
     }
 
-    // 在Trie树中查找一个字符串
+    // 在Trie树中插入一个字符串
     find(str) {
         const len = str.length
         let p = this.root
@@ -63,8 +66,8 @@ class Trie {
         const len = str.length
         let p = this.root
         for(let i = 0; i < len; ++i) { 
-            const index = this.charIndex(str[i])
-            if (!p.children[index]) {
+            const index = this.charIndex(str[i], false)
+            if (index === -1 || !p.children[index]) {
                 return false
             }
             p = p.children[index]
