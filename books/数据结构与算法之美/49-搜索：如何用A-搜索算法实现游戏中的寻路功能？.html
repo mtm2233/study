@@ -1,0 +1,1292 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>49-搜索：如何用A-搜索算法实现游戏中的寻路功能？</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <style>
+        html {
+            color: #333;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+            text-rendering: optimizelegibility;
+            font-family: Helvetica Neue, PingFang SC, Verdana, Microsoft Yahei, Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei, sans-serif
+        }
+
+        html.borderbox *,
+        html.borderbox :after,
+        html.borderbox :before {
+            box-sizing: border-box
+        }
+
+        article,
+        aside,
+        blockquote,
+        body,
+        button,
+        code,
+        dd,
+        details,
+        dl,
+        dt,
+        fieldset,
+        figcaption,
+        figure,
+        footer,
+        form,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        header,
+        hr,
+        input,
+        legend,
+        li,
+        menu,
+        nav,
+        ol,
+        p,
+        pre,
+        section,
+        td,
+        textarea,
+        th,
+        ul {
+            margin: 0;
+            padding: 0
+        }
+
+        article,
+        aside,
+        details,
+        figcaption,
+        figure,
+        footer,
+        header,
+        menu,
+        nav,
+        section {
+            display: block
+        }
+
+        audio,
+        canvas,
+        video {
+            display: inline-block
+        }
+
+        body,
+        button,
+        input,
+        select,
+        textarea {
+            font: 300 1em/1.8 PingFang SC, Lantinghei SC, Microsoft Yahei, Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei, Helvetica, sans-serif
+        }
+
+        button::-moz-focus-inner,
+        input::-moz-focus-inner {
+            padding: 0;
+            border: 0
+        }
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0
+        }
+
+        fieldset,
+        img {
+            border: 0
+        }
+
+        blockquote {
+            position: relative;
+            color: #999;
+            font-weight: 400;
+            border-left: 1px solid #1abc9c;
+            padding-left: 1em;
+            margin: 1em 3em 1em 2em
+        }
+
+        @media only screen and (max-width: 640px) {
+            blockquote {
+                margin: 1em 0
+            }
+        }
+
+        abbr,
+        acronym {
+            border-bottom: 1px dotted;
+            font-variant: normal
+        }
+
+        abbr {
+            cursor: help
+        }
+
+        del {
+            text-decoration: line-through
+        }
+
+        address,
+        caption,
+        cite,
+        code,
+        dfn,
+        em,
+        th,
+        var {
+            font-style: normal;
+            font-weight: 400
+        }
+
+        ol,
+        ul {
+            list-style: none
+        }
+
+        caption,
+        th {
+            text-align: left
+        }
+
+        q:after,
+        q:before {
+            content: ""
+        }
+
+        sub,
+        sup {
+            font-size: 75%;
+            line-height: 0;
+            position: relative
+        }
+
+        :root sub,
+        :root sup {
+            vertical-align: baseline
+        }
+
+        sup {
+            top: -.5em
+        }
+
+        sub {
+            bottom: -.25em
+        }
+
+        a {
+            color: #1abc9c
+        }
+
+        a:hover {
+            text-decoration: underline
+        }
+
+        .typo a {
+            border-bottom: 1px solid #1abc9c
+        }
+
+        .typo a:hover {
+            border-bottom-color: #555;
+            color: #555
+        }
+
+        .typo a:hover,
+        a,
+        ins {
+            text-decoration: none
+        }
+
+        .typo-u,
+        u {
+            text-decoration: underline
+        }
+
+        mark {
+            background: #fffdd1;
+            border-bottom: 1px solid #ffedce;
+            padding: 2px;
+            margin: 0 5px
+        }
+
+        code,
+        pre,
+        pre tt {
+            font-family: Courier, Courier New, monospace
+        }
+
+        pre {
+            background: hsla(0, 0%, 97%, .7);
+            border: 1px solid #ddd;
+            padding: 1em 1.5em;
+            display: block;
+            -webkit-overflow-scrolling: touch
+        }
+
+        hr {
+            border: none;
+            border-bottom: 1px solid #cfcfcf;
+            margin-bottom: .8em;
+            height: 10px
+        }
+
+        .typo-small,
+        figcaption,
+        small {
+            font-size: .9em;
+            color: #888
+        }
+
+        b,
+        strong {
+            font-weight: 700;
+            color: #000
+        }
+
+        [draggable] {
+            cursor: move
+        }
+
+        .clearfix:after,
+        .clearfix:before {
+            content: "";
+            display: table
+        }
+
+        .clearfix:after {
+            clear: both
+        }
+
+        .clearfix {
+            zoom: 1
+        }
+
+        .textwrap,
+        .textwrap td,
+        .textwrap th {
+            word-wrap: break-word;
+            word-break: break-all
+        }
+
+        .textwrap-table {
+            table-layout: fixed
+        }
+
+        .serif {
+            font-family: Palatino, Optima, Georgia, serif
+        }
+
+        .typo-dl,
+        .typo-form,
+        .typo-hr,
+        .typo-ol,
+        .typo-p,
+        .typo-pre,
+        .typo-table,
+        .typo-ul,
+        .typo dl,
+        .typo form,
+        .typo hr,
+        .typo ol,
+        .typo p,
+        .typo pre,
+        .typo table,
+        .typo ul,
+        blockquote {
+            margin-bottom: 1rem
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: PingFang SC, Helvetica Neue, Verdana, Microsoft Yahei, Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei, sans-serif;
+            color: #000;
+            line-height: 1.35
+        }
+
+        .typo-h1,
+        .typo-h2,
+        .typo-h3,
+        .typo-h4,
+        .typo-h5,
+        .typo-h6,
+        .typo h1,
+        .typo h2,
+        .typo h3,
+        .typo h4,
+        .typo h5,
+        .typo h6 {
+            margin-top: 1.2em;
+            margin-bottom: .6em;
+            line-height: 1.35
+        }
+
+        .typo-h1,
+        .typo h1 {
+            font-size: 2em
+        }
+
+        .typo-h2,
+        .typo h2 {
+            font-size: 1.8em
+        }
+
+        .typo-h3,
+        .typo h3 {
+            font-size: 1.6em
+        }
+
+        .typo-h4,
+        .typo h4 {
+            font-size: 1.4em
+        }
+
+        .typo-h5,
+        .typo-h6,
+        .typo h5,
+        .typo h6 {
+            font-size: 1.2em
+        }
+
+        .typo-ul,
+        .typo ul {
+            margin-left: 1.3em;
+            list-style: disc
+        }
+
+        .typo-ol,
+        .typo ol {
+            list-style: decimal;
+            margin-left: 1.9em
+        }
+
+        .typo-ol ol,
+        .typo-ol ul,
+        .typo-ul ol,
+        .typo-ul ul,
+        .typo li ol,
+        .typo li ul {
+            margin-bottom: .8em;
+            margin-left: 2em
+        }
+
+        .typo-ol ul,
+        .typo-ul ul,
+        .typo li ul {
+            list-style: circle
+        }
+
+        .typo-table td,
+        .typo-table th,
+        .typo table caption,
+        .typo table td,
+        .typo table th {
+            border: 1px solid #ddd;
+            padding: .5em 1em;
+            color: #666
+        }
+
+        .typo-table th,
+        .typo table th {
+            background: #fbfbfb
+        }
+
+        .typo-table thead th,
+        .typo table thead th {
+            background: hsla(0, 0%, 95%, .7)
+        }
+
+        .typo table caption {
+            border-bottom: none
+        }
+
+        .typo-input,
+        .typo-textarea {
+            -webkit-appearance: none;
+            border-radius: 0
+        }
+
+        .typo-em,
+        .typo em,
+        caption,
+        legend {
+            color: #000;
+            font-weight: inherit
+        }
+
+        .typo-em {
+            position: relative
+        }
+
+        .typo-em:after {
+            position: absolute;
+            top: .65em;
+            left: 0;
+            width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+            content: "\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB"
+        }
+
+        .typo img {
+            max-width: 100%
+        }
+
+        .common-content {
+            font-weight: 400;
+            color: #353535;
+            line-height: 1.75rem;
+            white-space: normal;
+            word-break: normal;
+            font-size: 1rem
+        }
+
+        .common-content img {
+            display: block;
+            max-width: 100%;
+            background-color: #eee
+        }
+
+        .common-content audio,
+        .common-content video {
+            width: 100%;
+            background-color: #eee
+        }
+
+        .common-content center,
+        .common-content font {
+            margin-top: 1rem;
+            display: inline-block
+        }
+
+        .common-content center {
+            width: 100%
+        }
+
+        .common-content pre {
+            margin-top: 1rem;
+            padding-left: 0;
+            padding-right: 0;
+            position: relative;
+            overflow: hidden
+        }
+
+        .common-content pre code {
+            font-size: .8rem;
+            font-family: Consolas, Liberation Mono, Menlo, monospace, Courier;
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+            padding-left: 1rem;
+            padding-right: 1rem;
+            overflow-x: auto
+        }
+
+        .common-content hr {
+            border: none;
+            margin-top: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-top: 1px solid #f5f5f5;
+            height: 1px;
+            background: none
+        }
+
+        .common-content b,
+        .common-content h1,
+        .common-content h2,
+        .common-content h3,
+        .common-content h4,
+        .common-content h5,
+        .common-content strong {
+            font-weight: 700
+        }
+
+        .common-content h1,
+        .common-content h2 {
+            font-size: 1.125rem;
+            margin-bottom: .45rem
+        }
+
+        .common-content h3,
+        .common-content h4,
+        .common-content h5 {
+            font-size: 1rem;
+            margin-bottom: .45rem
+        }
+
+        .common-content p {
+            font-weight: 400;
+            color: #353535;
+            margin-top: .15rem
+        }
+
+        .common-content .orange {
+            color: #ff5a05
+        }
+
+        .common-content .reference {
+            font-size: 1rem;
+            color: #888
+        }
+
+        .custom-rich-content h1 {
+            margin-top: 0;
+            font-weight: 400;
+            font-size: 15.25px;
+            border-bottom: 1px solid #eee;
+            line-height: 2.8
+        }
+
+        .custom-rich-content li,
+        .custom-rich-content p {
+            font-size: 14px;
+            color: #888;
+            line-height: 1.6
+        }
+
+        table.hljs-ln {
+            margin-bottom: 0;
+            border-spacing: 0;
+            border-collapse: collapse
+        }
+
+        table.hljs-ln,
+        table.hljs-ln tbody,
+        table.hljs-ln td,
+        table.hljs-ln tr {
+            box-sizing: border-box
+        }
+
+        table.hljs-ln td {
+            padding: 0;
+            border: 0
+        }
+
+        table.hljs-ln td.hljs-ln-numbers {
+            min-width: 15px;
+            color: rgba(27, 31, 35, .3);
+            text-align: right;
+            white-space: nowrap;
+            cursor: pointer;
+            user-select: none
+        }
+
+        table.hljs-ln td.hljs-ln-code,
+        table.hljs-ln td.hljs-ln-numbers {
+            font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier, monospace;
+            font-size: 12px;
+            line-height: 20px;
+            vertical-align: top
+        }
+
+        table.hljs-ln td.hljs-ln-code {
+            position: relative;
+            padding-right: 10px;
+            padding-left: 10px;
+            overflow: visible;
+            color: #24292e;
+            word-wrap: normal;
+            white-space: pre
+        }
+
+        video::-webkit-media-controls {
+            overflow: hidden !important
+        }
+
+        video::-webkit-media-controls-enclosure {
+            width: calc(100% + 32px);
+            margin-left: auto
+        }
+
+        ._29HP61GA_0 {
+            max-width:800px;
+            margin:0 auto;
+            margin-bottom: 20px;
+            font-weight: 400;
+            color: #353535;
+            line-height: 1.76;
+            white-space: normal;
+            word-break: normal;
+            font-size: 17px;
+            -webkit-transition: background-color .3s ease;
+            transition: background-color .3s ease
+        }
+
+        ._29HP61GA_0 .MathJax_Display {
+            overflow: auto
+        }
+
+        ._29HP61GA_0 .poster {
+            position: fixed;
+            left: -10000px;
+            top: -10000px;
+            overflow: hidden;
+            padding: 1rem;
+            background: #ececec
+        }
+
+        ._29HP61GA_0 .richcontent-pre-copy {
+            font-size: 13px;
+            color: #888;
+            position: absolute;
+            right: 1em;
+            top: .5em;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none
+        }
+
+        ._29HP61GA_0 .richcontent-pre-copy .iconfont {
+            font-size: 12px;
+            margin-right: .2em
+        }
+
+        ._29HP61GA_0 a {
+            color: #fa8919;
+            border-bottom: 1px solid #fa8919
+        }
+
+        ._29HP61GA_0 img {
+            display: block;
+            max-width: 100%;
+            position: relative;
+            left: 50%;
+            -webkit-transform: translateX(-50%);
+            transform: translateX(-50%);
+            background-color: #eee;
+            vertical-align: top;
+            border-radius: 0
+        }
+
+        ._29HP61GA_0 audio,
+        ._29HP61GA_0 video {
+            width: 100%;
+            background-color: #eee
+        }
+
+        ._29HP61GA_0 pre {
+            margin-top: 16px;
+            padding: 34px 0 0;
+            margin-bottom: 30px;
+            position: relative;
+            border-radius: 6px;
+            background: rgba(246, 247, 251, .749);
+            border: 0
+        }
+
+        ._29HP61GA_0 pre code {
+            font-size: 12px;
+            font-family: Consolas, Liberation Mono, Menlo, monospace, Courier;
+            display: block;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            margin-left: 16px;
+            margin-right: 16px;
+            overflow-x: scroll
+        }
+
+        ._29HP61GA_0 pre code:after {
+            content: "";
+            height: 30px;
+            width: 100%;
+            display: block
+        }
+
+        ._29HP61GA_0 hr {
+            border: none;
+            margin-top: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-top: 1px solid #f5f5f5;
+            height: 1px;
+            background: none
+        }
+
+        ._29HP61GA_0 h1,
+        ._29HP61GA_0 h2,
+        ._29HP61GA_0 h3,
+        ._29HP61GA_0 h4,
+        ._29HP61GA_0 h5 {
+            margin-bottom: 20px;
+            margin-top: 0;
+            font-weight: 700
+        }
+
+        ._29HP61GA_0 b,
+        ._29HP61GA_0 strong {
+            font-weight: 700
+        }
+
+        ._29HP61GA_0 h1 {
+            font-size: 21px
+        }
+
+        ._29HP61GA_0 h2 {
+            font-size: 20px
+        }
+
+        ._29HP61GA_0 h3 {
+            font-size: 19px
+        }
+
+        ._29HP61GA_0 h4 {
+            font-size: 18px
+        }
+
+        ._29HP61GA_0 h5 {
+            font-size: 17px
+        }
+
+        ._29HP61GA_0 center,
+        ._29HP61GA_0 p {
+            font-weight: 400;
+            color: #353535;
+            margin-top: 0;
+            margin-bottom: 30px;
+            word-break: break-word
+        }
+
+        ._29HP61GA_0 center {
+            text-align: center
+        }
+
+        ._29HP61GA_0 blockquote {
+            margin-top: 0;
+            margin-bottom: 34px;
+            border-left: 3px solid #e8e8e8;
+            padding-left: 17px;
+            color: #353535
+        }
+
+        ._29HP61GA_0 blockquote p {
+            margin-top: 0;
+            margin-bottom: 0
+        }
+
+        ._29HP61GA_0 ol,
+        ._29HP61GA_0 ul {
+            margin-bottom: 30px
+        }
+
+        ._29HP61GA_0 ol p,
+        ._29HP61GA_0 ul p {
+            margin-top: 0;
+            margin-bottom: 0
+        }
+
+        ._29HP61GA_0 ol {
+            list-style: decimal;
+            margin-left: 20px
+        }
+
+        ._29HP61GA_0 ul li {
+            padding-left: 17px;
+            position: relative;
+            margin-bottom: 10px
+        }
+
+        ._29HP61GA_0 ul li:after {
+            content: "";
+            height: 6px;
+            width: 6px;
+            border-radius: 50%;
+            background: #353535;
+            position: absolute;
+            top: 10px;
+            left: 0
+        }
+
+        ._29HP61GA_0 .orange {
+            color: #fa8919
+        }
+
+        ._29HP61GA_0 .reference {
+            color: #888
+        }
+
+        ._29HP61GA_0 .m-right {
+            text-align: right
+        }
+
+        ._29HP61GA_0 .m-center {
+            text-align: center;
+            display: block
+        }
+
+        ._29HP61GA_0 .m-gray {
+            color: #888
+        }
+
+        ._29HP61GA_0 .m-small {
+            font-size: 15px
+        }
+
+        ._29HP61GA_0 table.hljs-ln {
+            margin-bottom: 0;
+            border-spacing: 0;
+            border-collapse: collapse
+        }
+
+        ._29HP61GA_0 table.hljs-ln,
+        ._29HP61GA_0 table.hljs-ln tbody,
+        ._29HP61GA_0 table.hljs-ln td,
+        ._29HP61GA_0 table.hljs-ln tr {
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box
+        }
+
+        ._29HP61GA_0 table.hljs-ln td {
+            padding: 0;
+            border: 0
+        }
+
+        ._29HP61GA_0 table.hljs-ln td.hljs-ln-numbers {
+            min-width: 15px;
+            font-size: 12px;
+            color: rgba(27, 31, 35, .3);
+            text-align: right;
+            white-space: nowrap;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none
+        }
+
+        ._29HP61GA_0 table.hljs-ln td.hljs-ln-code,
+        ._29HP61GA_0 table.hljs-ln td.hljs-ln-numbers {
+            font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier, monospace;
+            line-height: 20px;
+            vertical-align: top
+        }
+
+        ._29HP61GA_0 table.hljs-ln td.hljs-ln-code {
+            position: relative;
+            padding-right: 10px;
+            padding-left: 10px;
+            overflow: visible;
+            font-size: 13px;
+            color: #666;
+            word-wrap: normal;
+            white-space: pre
+        }
+
+    </style>
+</head>
+<body>
+<div class="_29HP61GA_0">
+<h1>49-搜索：如何用A-搜索算法实现游戏中的寻路功能？</h1>
+<p>魔兽世界、仙剑奇侠传这类MMRPG游戏，不知道你有没有玩过？在这些游戏中，有一个非常重要的功能，那就是人物角色自动寻路。<strong><span class="orange">当人物处于游戏地图中的某个位置的时候，我们用鼠标点击另外一个相对较远的位置，人物就会自动地绕过障碍物走过去。玩过这么多游戏，不知你是否思考过，这个功能是怎么实现的呢？</span></strong></p><h2>算法解析</h2><p>实际上，这是一个非常典型的搜索问题。人物的起点就是他当下所在的位置，终点就是鼠标点击的位置。我们需要在地图中，找一条从起点到终点的路径。这条路径要绕过地图中所有障碍物，并且看起来要是一种非常聪明的走法。所谓“聪明”，笼统地解释就是，走的路不能太绕。理论上讲，最短路径显然是最聪明的走法，是这个问题的最优解。</p><p>不过，在<a href="https://time.geekbang.org/column/article/76468">第44节</a>最优出行路线规划问题中，我们也讲过，如果图非常大，那Dijkstra最短路径算法的执行耗时会很多。在真实的软件开发中，我们面对的是超级大的地图和海量的寻路请求，算法的执行效率太低，这显然是无法接受的。</p><p>实际上，像出行路线规划、游戏寻路，这些真实软件开发中的问题，一般情况下，我们都不需要非得求最优解（也就是最短路径）。在权衡路线规划质量和执行效率的情况下，我们只需要寻求一个次优解就足够了。那<strong>如何快速找出一条接近于最短路线的次优路线呢？</strong></p><!-- [[[read_end]]] --><p>这个快速的路径规划算法，就是我们今天要学习的<strong>A*算法</strong>。实际上，A*算法是对Dijkstra算法的优化和改造。如何将Dijkstra算法改造成A*算法呢？为了更好地理解接下来要讲的内容，我建议你先温习下第44节中的Dijkstra算法的实现原理。</p><p>Dijkstra算法有点儿类似BFS算法，它每次找到跟起点最近的顶点，往外扩展。这种往外扩展的思路，其实有些盲目。为什么这么说呢？我举一个例子来给你解释一下。下面这个图对应一个真实的地图，每个顶点在地图中的位置，我们用一个二维坐标（x，y）来表示，其中，x表示横坐标，y表示纵坐标。</p><p><img src="https://static001.geekbang.org/resource/image/11/dd/11840cc13071fe2da67675338e46cadd.jpg" alt=""></p><p>在Dijkstra算法的实现思路中，我们用一个优先级队列，来记录已经遍历到的顶点以及这个顶点与起点的路径长度。顶点与起点路径长度越小，就越先被从优先级队列中取出来扩展，从图中举的例子可以看出，尽管我们找的是从s到t的路线，但是最先被搜索到的顶点依次是1，2，3。通过肉眼来观察，这个搜索方向跟我们期望的路线方向（s到t是从西向东）是反着的，路线搜索的方向明显“跑偏”了。</p><p>之所以会“跑偏”，那是因为我们是按照顶点与起点的路径长度的大小，来安排出队列顺序的。与起点越近的顶点，就会越早出队列。我们并没有考虑到这个顶点到终点的距离，所以，在地图中，尽管1，2，3三个顶点离起始顶点最近，但离终点却越来越远。</p><p>如果我们综合更多的因素，把这个顶点到终点可能还要走多远，也考虑进去，综合来判断哪个顶点该先出队列，那是不是就可以避免“跑偏”呢？</p><p>当我们遍历到某个顶点的时候，从起点走到这个顶点的路径长度是确定的，我们记作g(i)（i表示顶点编号）。但是，从这个顶点到终点的路径长度，我们是未知的。虽然确切的值无法提前知道，但是我们可以用其他估计值来代替。</p><p>这里我们可以通过这个顶点跟终点之间的直线距离，也就是欧几里得距离，来近似地估计这个顶点跟终点的路径长度（注意：路径长度跟直线距离是两个概念）。我们把这个距离记作h(i)（i表示这个顶点的编号），专业的叫法是<strong>启发函数</strong>（heuristic function）。因为欧几里得距离的计算公式，会涉及比较耗时的开根号计算，所以，我们一般通过另外一个更加简单的距离计算公式，那就是<strong>曼哈顿距离</strong>（Manhattan distance）。曼哈顿距离是两点之间横纵坐标的距离之和。计算的过程只涉及加减法、符号位反转，所以比欧几里得距离更加高效。</p><pre><code>int hManhattan(Vertex v1, Vertex v2) { // Vertex表示顶点，后面有定义
+  return Math.abs(v1.x - v2.x) + Math.abs(v1.y - v2.y);
+}
+</code></pre><p>原来只是单纯地通过顶点与起点之间的路径长度g(i)，来判断谁先出队列，现在有了顶点到终点的路径长度估计值，我们通过两者之和f(i)=g(i)+h(i)，来判断哪个顶点该最先出队列。综合两部分，我们就能有效避免刚刚讲的“跑偏”。这里f(i)的专业叫法是<strong>估价函数</strong>（evaluation function）。</p><p>从刚刚的描述，我们可以发现，A*算法就是对Dijkstra算法的简单改造。实际上，代码实现方面，我们也只需要稍微改动几行代码，就能把Dijkstra算法的代码实现，改成A*算法的代码实现。</p><p>在A*算法的代码实现中，顶点Vertex类的定义，跟Dijkstra算法中的定义，稍微有点儿区别，多了x，y坐标，以及刚刚提到的f(i)值。图Graph类的定义跟Dijkstra算法中的定义一样。为了避免重复，我这里就没有再贴出来了。</p><pre><code>private class Vertex {
+  public int id; // 顶点编号ID
+  public int dist; // 从起始顶点，到这个顶点的距离，也就是g(i)
+  public int f; // 新增：f(i)=g(i)+h(i)
+  public int x, y; // 新增：顶点在地图中的坐标（x, y）
+  public Vertex(int id, int x, int y) {
+    this.id = id;
+    this.x = x;
+    this.y = y;
+    this.f = Integer.MAX_VALUE;
+    this.dist = Integer.MAX_VALUE;
+  }
+}
+// Graph类的成员变量，在构造函数中初始化
+Vertex[] vertexes = new Vertex[this.v];
+// 新增一个方法，添加顶点的坐标
+public void addVetex(int id, int x, int y) {
+  vertexes[id] = new Vertex(id, x, y)
+}
+</code></pre><p>A*算法的代码实现的主要逻辑是下面这段代码。它跟Dijkstra算法的代码实现，主要有3点区别：</p><ul>
+<li>
+<p>优先级队列构建的方式不同。A*算法是根据f值（也就是刚刚讲到的f(i)=g(i)+h(i)）来构建优先级队列，而Dijkstra算法是根据dist值（也就是刚刚讲到的g(i)）来构建优先级队列；</p>
+</li>
+<li>
+<p>A*算法在更新顶点dist值的时候，会同步更新f值；</p>
+</li>
+<li>
+<p>循环结束的条件也不一样。Dijkstra算法是在终点出队列的时候才结束，A*算法是一旦遍历到终点就结束。</p>
+</li>
+</ul><pre><code>public void astar(int s, int t) { // 从顶点s到顶点t的路径
+  int[] predecessor = new int[this.v]; // 用来还原路径
+  // 按照vertex的f值构建的小顶堆，而不是按照dist
+  PriorityQueue queue = new PriorityQueue(this.v);
+  boolean[] inqueue = new boolean[this.v]; // 标记是否进入过队列
+  vertexes[s].dist = 0;
+  vertexes[s].f = 0;
+  queue.add(vertexes[s]);
+  inqueue[s] = true;
+  while (!queue.isEmpty()) {
+    Vertex minVertex = queue.poll(); // 取堆顶元素并删除
+    for (int i = 0; i &lt; adj[minVertex.id].size(); ++i) {
+      Edge e = adj[minVertex.id].get(i); // 取出一条minVetex相连的边
+      Vertex nextVertex = vertexes[e.tid]; // minVertex--&gt;nextVertex
+      if (minVertex.dist + e.w &lt; nextVertex.dist) { // 更新next的dist,f
+        nextVertex.dist = minVertex.dist + e.w;
+        nextVertex.f 
+           = nextVertex.dist+hManhattan(nextVertex, vertexes[t]);
+        predecessor[nextVertex.id] = minVertex.id;
+        if (inqueue[nextVertex.id] == true) {
+          queue.update(nextVertex);
+        } else {
+          queue.add(nextVertex);
+          inqueue[nextVertex.id] = true;
+        }
+      }
+      if (nextVertex.id == t) { // 只要到达t就可以结束while了
+        queue.clear(); // 清空queue，才能推出while循环
+        break; 
+      }
+    }
+  }
+  // 输出路径
+  System.out.print(s);
+  print(s, t, predecessor); // print函数请参看Dijkstra算法的实现
+}
+</code></pre><p><strong>尽管A*算法可以更加快速的找到从起点到终点的路线，但是它并不能像Dijkstra算法那样，找到最短路线。这是为什么呢？</strong></p><p>要找出起点s到终点t的最短路径，最简单的方法是，通过回溯穷举所有从s到达t的不同路径，然后对比找出最短的那个。不过很显然，回溯算法的执行效率非常低，是指数级的。</p><p><img src="https://static001.geekbang.org/resource/image/38/4a/38ebd9aab387669465226fc7f644064a.jpg" alt=""></p><p>Dijkstra算法在此基础之上，利用动态规划的思想，对回溯搜索进行了剪枝，只保留起点到某个顶点的最短路径，继续往外扩展搜索。动态规划相较于回溯搜索，只是换了一个实现思路，但它实际上也考察到了所有从起点到终点的路线，所以才能得到最优解。</p><p><img src="https://static001.geekbang.org/resource/image/ca/77/caad286fc67333b77e8ed5c85ce2e377.jpg" alt=""></p><p>A*算法之所以不能像Dijkstra算法那样，找到最短路径，主要原因是两者的while循环结束条件不一样。刚刚我们讲过，Dijkstra算法是在终点出队列的时候才结束，A*算法是一旦遍历到终点就结束。对于Dijkstra算法来说，当终点出队列的时候，终点的dist值是优先级队列中所有顶点的最小值，即便再运行下去，终点的dist值也不会再被更新了。对于A*算法来说，一旦遍历到终点，我们就结束while循环，这个时候，终点的dist值未必是最小值。</p><p>A*算法利用贪心算法的思路，每次都找f值最小的顶点出队列，一旦搜索到终点就不在继续考察其他顶点和路线了。所以，它并没有考察所有的路线，也就不可能找出最短路径了。</p><p>搞懂了A*算法，我们再来看下，<strong>如何借助A*算法解决今天的游戏寻路问题？</strong></p><p>要利用A*算法解决这个问题，我们只需要把地图，抽象成图就可以了。不过，游戏中的地图跟第44节中讲的我们平常用的地图是不一样的。因为游戏中的地图并不像我们现实生活中那样，存在规划非常清晰的道路，更多的是宽阔的荒野、草坪等。所以，我们没法利用44节中讲到的抽象方法，把岔路口抽象成顶点，把道路抽象成边。</p><p>实际上，我们可以换一种抽象的思路，把整个地图分割成一个一个的小方块。在某一个方块上的人物，只能往上下左右四个方向的方块上移动。我们可以把每个方块看作一个顶点。两个方块相邻，我们就在它们之间，连两条有向边，并且边的权值都是1。所以，这个问题就转化成了，在一个有向有权图中，找某个顶点到另一个顶点的路径问题。将地图抽象成边权值为1的有向图之后，我们就可以套用A*算法，来实现游戏中人物的自动寻路功能了。</p><h2>总结引申</h2><p>我们今天讲的A*算法属于一种<strong>启发式搜索算法</strong>（Heuristically Search Algorithm）。实际上，启发式搜索算法并不仅仅只有A*算法，还有很多其他算法，比如IDA*算法、蚁群算法、遗传算法、模拟退火算法等。如果感兴趣，你可以自行研究下。</p><p>启发式搜索算法利用估价函数，避免“跑偏”，贪心地朝着最有可能到达终点的方向前进。这种算法找出的路线，并不是最短路线。但是，实际的软件开发中的路线规划问题，我们往往并不需要非得找最短路线。所以，鉴于启发式搜索算法能很好地平衡路线质量和执行效率，它在实际的软件开发中的应用更加广泛。实际上，在第44节中，我们讲到的地图App中的出行路线规划问题，也可以利用启发式搜索算法来实现。</p><h2>课后思考</h2><p>我们之前讲的“迷宫问题”是否可以借助A*算法来更快速地找到一个走出去的路线呢？如果可以，请具体讲讲该怎么来做；如果不可以，请说说原因。</p><p>欢迎留言和我分享，也欢迎点击“<span class="orange">请朋友读</span>”，把今天的内容分享给你的好友，和他一起讨论、学习。</p><p></p><h2>精选留言：</h2>
+        <ul>
+        
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            hua168  2019-01-19 20:38:55
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            我之前是打算生管理，去个小公司，发现也要会开发，去年就毅然去学java，维护懂java会有帮助，也可以搞下大数据……再学一门本职运维开发需要python……<br>我就是这样打算的…<br>同学说我们学历低只要大专，问我要大家考研究生不？我感觉我不去大公司的话没什么用吧？但一想很多要求本科，自考研究生不知道承认不？尤其公司，再说就算看完都老了吧……意义有多大？ [30赞]
+        </div>
+        <br/>
+<div>
+    <div style="color:#888;font-size:15.25px;font-weight:400;        line-height:1.2">作者回复2019-01-24 09:23:22</div>
+    <div style="color:#353535;font-weight:400;white-space:normal;        word-break:break-all;line-height:1.6">看得到@hua168同学对职业规划很迷茫。<br><br>我来逐一回答一下你的问题：<br><br>1. 自考学历对你来说没用。绝大部分卡学历的公司，只看第一学历；不卡学历的那部分公司，你自考本科也没必要。自考学历对一小部分人有用，具体哪部分人适合我就不展开讲了，总之不适合你。但是，你没有因为学历自卑，公司这么多，总有不卡学历的。我见过很多大专文凭，技术去贼拉子好的，照样去大公司。<br><br>2. 不管是大公司还是小公司，都会卡年龄。不过所谓的卡年龄并不是说年龄大了就没人要了。而是能力跟年龄不符，年龄一大把却跟人家工作两三年经验能力差不多，要钱还贼高，那估计确实没人要。<br><br>3. 不要再去学java了。如果你还想走技术路线，那就要专精尖，这个我前一条回复说过了。<br><br>4. 我还是说了，对于技术一般的人来说，如果要升管理岗，还是那句话“要有领导气质”，另外，你要包装一下简历，一些很小公司的领导是识别不出来的：）听起来是不入流的建议，但是，我确实是认真的。<br><br>5. 实际上，年龄大了，技术没有太大竞争力，去个安稳的公司很好，比如国企性质的一些互联网保险公司，具体你自己搜搜吧，我这里不方便说公司名字。<br><br>以上建议只针对你本人的情况，并且是我的个人建议。如有不投，你自己斟酌。</div>
+</div>
+            
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            传说中的成大大  2019-01-18 11:12:42
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            今天看了A*算法 反而对dijkstra算法理解得更透彻了.... [14赞]
+        </div>
+        
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            hua168  2019-01-19 00:43:46
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            大神，能问一个题外话吗，关于自己人生规划，水平和眼界所限，想不通，<br>都说大神级见识很广也多，能给我这个35岁只维护过四五十台linux服务器的运维指条路吗？<br>现在很迷茫和压力大~~<br>能力如下：<br>一.网络：CCNA水平，自过了CCNP忘记了，当过2年网管<br>二、维护过asp.net电商网站，3年，只有简单的，兼职网管<br>三、linux运维，只在一家电商做了3年多，会<br>1.web：nginx、tomcat配置（少用）+php:nignx的rewirte和反代<br>2.数据库：mysql、mongoDB、redis 配置及主从，不会mycat、Cetus之类<br>3.反代：会nginx、haproxy简单配置<br>4.存储：NFS、fastDFS、hadoop简单看了一下<br>5.版本控制：只会git及搭建gitlab+jenkins（简单的CI&#47;CD）<br>6.监控：简单配置zabbix+shell脚本<br>7.虚拟化：kvm安装及配置、docker(k8s还没学)<br>8.云计算：openstack只会安装做过实验<br>9.测试：只会ab工具<br>10.日志：ELK安装配置，还没结合java（在学中）<br>11.大数据：没使用过（不会flume、storm、spark、flink、kafka）<br>12.脚本：主要是shell为主、会点python<br><br>四、编程能力：自学，没项目经验<br>1.前端：<br>  1）HTML（HTML5不怎看）<br>  2）css（laiui、学了一下vue）<br>  3) js、jquery框架、ES6简单看了一下  <br>2.PHP：语法简单的thinkphp5框架<br>3.java：考虑要维护java web在学<br>	只看了java、jsp及servet、spring、springMVC、spring Boot（这个为主）<br>4.python：考虑运维用到<br>	python：会简单的脚本<br>	django：只会官网简单的<br>	<br>问题是：现在已35岁了，失业，怎办？年龄摆在那里，能力好像不强，学历大专。<br>能给个建议吗？非常感谢~~ [10赞]
+        </div>
+        <br/>
+<div>
+    <div style="color:#888;font-size:15.25px;font-weight:400;        line-height:1.2">作者回复2019-01-19 11:15:51</div>
+    <div style="color:#353535;font-weight:400;white-space:normal;        word-break:break-all;line-height:1.6">我下面说的话，可能会伤害到你，不过，我是非常认真的。<br><br>从你对运维相关的技术点的描述上，可以看出，你应该没有在一个稍微大点的公司工作过吧，所以，很多技术都用的不够深，都只是略知一二，没有自己拿得出手的东西。<br><br>建议你去稍微大点公司锻炼一下技术，同时，也能给你的履历加分。<br><br>不过，以你的年龄和履历，去稍微大点的公司可能也不现实了，因为现在好点的公司都卡学历、背景，更别说技术了。<br><br>所以，我建议你找一个运维领域的风口技术去研究，比如你提到的k8s。这种技术才兴起，会的人不多，所以招聘公司都不会太卡学历、经历，只要会，是个人都要，可以借机去个大点的公司。这会是你的一个转折点。<br><br>而且。现在，经济下行，互联网行业都压缩招聘。你正好利用这1、2年，沉下心来，抓住一个技术方向，研究深、研究透。<br><br>还有一条路，那就是做管理岗位。这个要看你有没有领导气质了：）如果有领导范，年龄大，工作经历多，也可以忽悠到一些小公司的管理岗。实际上，对你来说，这条路也是不错的。<br><br>还有一条路，那就是靠去天使轮的创业公司逆袭。这条路有点赌博的意思。不过，如果公司搞大了，你也会青云直上，这辈子都不愁了：）</div>
+</div>
+            
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            yongxiang  2019-01-19 16:06:24
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            王争老师，我把代码输入运行，并把过程打印出来，发现代码运行的过程跟您说的A*算法的三点区别中的第三点不一样，不会在遍历到目标顶点时退出while循环。您看是不是27行的break只是退出了for循环，无法退出while循环，是不是需要增加以下的修改：<br>                if (nextVertex.id == t) {<br>                    queue.clear();<br>                    break;<br>                } [5赞]
+        </div>
+        <br/>
+<div>
+    <div style="color:#888;font-size:15.25px;font-weight:400;        line-height:1.2">作者回复2019-02-03 15:28:15</div>
+    <div style="color:#353535;font-weight:400;white-space:normal;        word-break:break-all;line-height:1.6">嗯嗯 我更新下，是个bug：）</div>
+</div>
+            
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            且听疯吟  2019-03-19 17:31:46
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            仔细阅读了下代码，感觉代码中存在错误点，每次应该是取最小的 min(e.w + e.f)，但是在下面的代码中只看到了计算出了估值量f，并没有看到对其进行比较大小，不知道争哥觉得对不对？<br><br><br>if (minVertex.dist + e.w &lt; nextVertex.dist) { &#47;&#47; 更新 next 的 dist,f<br>        nextVertex.dist = minVertex.dist + e.w;<br>        nextVertex.f  = nextVertex.dist+hManhattan(nextVertex, vertexes[t]);<br>        predecessor[nextVertex.id] = minVertex.id;<br>		<br>        if (inqueue[nextVertex.id] == true) {<br>          queue.update(nextVertex);<br>        } else {<br>          queue.add(nextVertex);<br>          inqueue[nextVertex.id] = true;<br>        }<br>      }<br> [2赞]
+        </div>
+        <br/>
+<div>
+    <div style="color:#888;font-size:15.25px;font-weight:400;        line-height:1.2">作者回复2019-03-21 10:04:23</div>
+    <div style="color:#353535;font-weight:400;white-space:normal;        word-break:break-all;line-height:1.6">你搞错了，f=g+h， g=dist, h=hManhattan</div>
+</div>
+            
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            皇家救星  2019-01-18 08:29:37
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            我记得以前看过的a*算法介绍还有close和open表，这里好像没提到？ [2赞]
+        </div>
+        <br/>
+<div>
+    <div style="color:#888;font-size:15.25px;font-weight:400;        line-height:1.2">作者回复2019-01-18 09:12:56</div>
+    <div style="color:#353535;font-weight:400;white-space:normal;        word-break:break-all;line-height:1.6">那就是俩人造的概念 并没有太大意义。</div>
+</div>
+            
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            1  2019-08-20 08:35:52
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            有一点不明白，希望老师能解答一下。实际上，我们可以换一种抽象的思路，把整个地图分割成一个一个的小方块。在某一个方块上的人物，只能往上下左右四个方向的方块上移动。请问障碍物是怎么绕过的呢？ [1赞]
+        </div>
+        <br/>
+<div>
+    <div style="color:#888;font-size:15.25px;font-weight:400;        line-height:1.2">作者回复2019-08-26 07:06:25</div>
+    <div style="color:#353535;font-weight:400;white-space:normal;        word-break:break-all;line-height:1.6">也可以，你这个抽象成二维数组喽，那就是邻接矩阵的表示方法，可以站人的用1表示，不能站人的方块用0表示，bfs就能得到最优解。</div>
+</div>
+            
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            Bryce  2019-04-07 22:05:45
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            我来解释一下更新条件仍然和 dijkstra 算法一致的原因，有错误还请大家指出<br>实际上不管当前点从哪一个点经过，它与终点的曼哈顿距离都是不变的，所以这部分不需要管，具体到不等式里就是左右都有这一项，故可以消去：<br>if ( minVertex.dist + e.w + nextVertex.g &lt; nextVertex.dist + nextVertex.g ) [1赞]
+        </div>
+        
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            隆隆  2019-02-13 11:35:48
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            优化a*的话 是走扩大方块好 还是设置中转点好呢？ [1赞]
+        </div>
+        <br/>
+<div>
+    <div style="color:#888;font-size:15.25px;font-weight:400;        line-height:1.2">作者回复2019-02-27 09:57:04</div>
+    <div style="color:#353535;font-weight:400;white-space:normal;        word-break:break-all;line-height:1.6">这个各有利弊，要具体看呢</div>
+</div>
+            
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            纯洁的憎恶  2019-01-18 18:45:50
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            对于有大片无变化的地形环境，是否可以采用更大的方块表示，同时增加其与邻接顶点的权值，已表示距离更远。这样可以减少顶点数，简化图的复杂程度，提高执行效率。不过可能造成行走路线中折线过多，不够平滑。 [1赞]
+        </div>
+        
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            『LHCY』  2019-01-18 09:47:30
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            真实游戏中也是用的小方块来做的吗？比如要往(1，1)方向走，先把模型角度调整，然后移动是一个个小方格走的，因为方格太小使肉眼分辨不出？ [1赞]
+        </div>
+        <br/>
+<div>
+    <div style="color:#888;font-size:15.25px;font-weight:400;        line-height:1.2">作者回复2019-02-03 15:41:28</div>
+    <div style="color:#353535;font-weight:400;white-space:normal;        word-break:break-all;line-height:1.6">是的，你说的没错！<br></div>
+</div>
+            
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            Geek_18b741  2019-10-22 18:18:05
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            对于dijkastra算法来说，当终点出队列的时候dist已经是最小值。所以找到的是最短路径。终于知道为什么bfs得到的是最短路径了。谢谢老师。 
+        </div>
+        <br/>
+<div>
+    <div style="color:#888;font-size:15.25px;font-weight:400;        line-height:1.2">作者回复2019-10-28 10:51:02</div>
+    <div style="color:#353535;font-weight:400;white-space:normal;        word-break:break-all;line-height:1.6">赞</div>
+</div>
+            
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            杰妮蛇精病  2019-10-15 09:03:59
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            这篇代码还是没想起明白，来回看了几遍，发现更新的f始终没有被用到，但理论部分指出f用来替换更新的条件。<br> 
+        </div>
+        
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            Leedom  2019-09-14 23:02:11
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            真的好想去阿里巴巴啊，最近几天疯狂看你讲的东西，阿里三面hash table我理解成Java中的HashTable，所以回答的很烂，这几天看到你讲的才更加深刻，算法和数据结构真的很美妙，好想找到一份满意的工作啊，真的祈求上天让我能更靠近阿里一点，也不知道三面有没有过 
+        </div>
+        <br/>
+<div>
+    <div style="color:#888;font-size:15.25px;font-weight:400;        line-height:1.2">作者回复2019-09-16 06:58:56</div>
+    <div style="color:#353535;font-weight:400;white-space:normal;        word-break:break-all;line-height:1.6">加油，多准备准备，一定有机会！</div>
+</div>
+            
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            Paul Shan  2019-08-07 05:58:50
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            Dijkstra复杂度分为两部分，一部分是顶点，每个顶点最多入队列和出队列一次，复杂度是Vlog V，每条边最多更新一次，复杂度是E log V，和起来是(V+E)logV ,老师这样的分析是否正确？ 
+        </div>
+        
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            Paul Shan  2019-08-07 05:43:54
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            思考题<br>迷宫算法不适合A＊算法，A＊算法的本质是利用了终点的距离这一信息来辅助解决问题。离终点的距离对于能否走出迷宫不是一个有效信息。迷宫问题还是采用经典的遍历算法。 
+        </div>
+        
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            mrlay  2019-07-21 10:51:12
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            A* 算法得到的结果不一定是最优解的原因是构建最小优先队列的条件从 dist 变成了 f(i), f(i)的大小是由 dist 和 Manhattan 共同决定的。 
+        </div>
+        
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            Geek_54edc1  2019-06-04 09:54:42
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            回头路：如果顶点之间路径是双向的，某个顶点的下一步有可能走到之前已经访问过的顶点 
+        </div>
+        
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            Geek_54edc1  2019-05-31 18:01:24
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            个人感觉迷宫问题，可以把A*算法稍微改造下：不用再求f值了，直接用dist就行，构建优先队列也用dist，循环结束条件同A*算法，遍历到终点就结束 
+        </div>
+        
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            Geek_54edc1  2019-05-31 17:33:43
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            老师您好，if (minVertex.dist + e.w &lt; nextVertex.dist)这个条件是不是可以避免走回头路？？ 
+        </div>
+        <br/>
+<div>
+    <div style="color:#888;font-size:15.25px;font-weight:400;        line-height:1.2">作者回复2019-06-04 09:30:48</div>
+    <div style="color:#353535;font-weight:400;white-space:normal;        word-break:break-all;line-height:1.6">回头路怎么定义的呢？</div>
+</div>
+            
+    </div>
+</li>
+            </ul>
+</div>
+</body>
+</html>

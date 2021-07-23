@@ -1,0 +1,1256 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>41-动态规划理论：一篇文章带你彻底搞懂最优子结构、无后效性和重复子问题</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <style>
+        html {
+            color: #333;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+            text-rendering: optimizelegibility;
+            font-family: Helvetica Neue, PingFang SC, Verdana, Microsoft Yahei, Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei, sans-serif
+        }
+
+        html.borderbox *,
+        html.borderbox :after,
+        html.borderbox :before {
+            box-sizing: border-box
+        }
+
+        article,
+        aside,
+        blockquote,
+        body,
+        button,
+        code,
+        dd,
+        details,
+        dl,
+        dt,
+        fieldset,
+        figcaption,
+        figure,
+        footer,
+        form,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        header,
+        hr,
+        input,
+        legend,
+        li,
+        menu,
+        nav,
+        ol,
+        p,
+        pre,
+        section,
+        td,
+        textarea,
+        th,
+        ul {
+            margin: 0;
+            padding: 0
+        }
+
+        article,
+        aside,
+        details,
+        figcaption,
+        figure,
+        footer,
+        header,
+        menu,
+        nav,
+        section {
+            display: block
+        }
+
+        audio,
+        canvas,
+        video {
+            display: inline-block
+        }
+
+        body,
+        button,
+        input,
+        select,
+        textarea {
+            font: 300 1em/1.8 PingFang SC, Lantinghei SC, Microsoft Yahei, Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei, Helvetica, sans-serif
+        }
+
+        button::-moz-focus-inner,
+        input::-moz-focus-inner {
+            padding: 0;
+            border: 0
+        }
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0
+        }
+
+        fieldset,
+        img {
+            border: 0
+        }
+
+        blockquote {
+            position: relative;
+            color: #999;
+            font-weight: 400;
+            border-left: 1px solid #1abc9c;
+            padding-left: 1em;
+            margin: 1em 3em 1em 2em
+        }
+
+        @media only screen and (max-width: 640px) {
+            blockquote {
+                margin: 1em 0
+            }
+        }
+
+        abbr,
+        acronym {
+            border-bottom: 1px dotted;
+            font-variant: normal
+        }
+
+        abbr {
+            cursor: help
+        }
+
+        del {
+            text-decoration: line-through
+        }
+
+        address,
+        caption,
+        cite,
+        code,
+        dfn,
+        em,
+        th,
+        var {
+            font-style: normal;
+            font-weight: 400
+        }
+
+        ol,
+        ul {
+            list-style: none
+        }
+
+        caption,
+        th {
+            text-align: left
+        }
+
+        q:after,
+        q:before {
+            content: ""
+        }
+
+        sub,
+        sup {
+            font-size: 75%;
+            line-height: 0;
+            position: relative
+        }
+
+        :root sub,
+        :root sup {
+            vertical-align: baseline
+        }
+
+        sup {
+            top: -.5em
+        }
+
+        sub {
+            bottom: -.25em
+        }
+
+        a {
+            color: #1abc9c
+        }
+
+        a:hover {
+            text-decoration: underline
+        }
+
+        .typo a {
+            border-bottom: 1px solid #1abc9c
+        }
+
+        .typo a:hover {
+            border-bottom-color: #555;
+            color: #555
+        }
+
+        .typo a:hover,
+        a,
+        ins {
+            text-decoration: none
+        }
+
+        .typo-u,
+        u {
+            text-decoration: underline
+        }
+
+        mark {
+            background: #fffdd1;
+            border-bottom: 1px solid #ffedce;
+            padding: 2px;
+            margin: 0 5px
+        }
+
+        code,
+        pre,
+        pre tt {
+            font-family: Courier, Courier New, monospace
+        }
+
+        pre {
+            background: hsla(0, 0%, 97%, .7);
+            border: 1px solid #ddd;
+            padding: 1em 1.5em;
+            display: block;
+            -webkit-overflow-scrolling: touch
+        }
+
+        hr {
+            border: none;
+            border-bottom: 1px solid #cfcfcf;
+            margin-bottom: .8em;
+            height: 10px
+        }
+
+        .typo-small,
+        figcaption,
+        small {
+            font-size: .9em;
+            color: #888
+        }
+
+        b,
+        strong {
+            font-weight: 700;
+            color: #000
+        }
+
+        [draggable] {
+            cursor: move
+        }
+
+        .clearfix:after,
+        .clearfix:before {
+            content: "";
+            display: table
+        }
+
+        .clearfix:after {
+            clear: both
+        }
+
+        .clearfix {
+            zoom: 1
+        }
+
+        .textwrap,
+        .textwrap td,
+        .textwrap th {
+            word-wrap: break-word;
+            word-break: break-all
+        }
+
+        .textwrap-table {
+            table-layout: fixed
+        }
+
+        .serif {
+            font-family: Palatino, Optima, Georgia, serif
+        }
+
+        .typo-dl,
+        .typo-form,
+        .typo-hr,
+        .typo-ol,
+        .typo-p,
+        .typo-pre,
+        .typo-table,
+        .typo-ul,
+        .typo dl,
+        .typo form,
+        .typo hr,
+        .typo ol,
+        .typo p,
+        .typo pre,
+        .typo table,
+        .typo ul,
+        blockquote {
+            margin-bottom: 1rem
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: PingFang SC, Helvetica Neue, Verdana, Microsoft Yahei, Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei, sans-serif;
+            color: #000;
+            line-height: 1.35
+        }
+
+        .typo-h1,
+        .typo-h2,
+        .typo-h3,
+        .typo-h4,
+        .typo-h5,
+        .typo-h6,
+        .typo h1,
+        .typo h2,
+        .typo h3,
+        .typo h4,
+        .typo h5,
+        .typo h6 {
+            margin-top: 1.2em;
+            margin-bottom: .6em;
+            line-height: 1.35
+        }
+
+        .typo-h1,
+        .typo h1 {
+            font-size: 2em
+        }
+
+        .typo-h2,
+        .typo h2 {
+            font-size: 1.8em
+        }
+
+        .typo-h3,
+        .typo h3 {
+            font-size: 1.6em
+        }
+
+        .typo-h4,
+        .typo h4 {
+            font-size: 1.4em
+        }
+
+        .typo-h5,
+        .typo-h6,
+        .typo h5,
+        .typo h6 {
+            font-size: 1.2em
+        }
+
+        .typo-ul,
+        .typo ul {
+            margin-left: 1.3em;
+            list-style: disc
+        }
+
+        .typo-ol,
+        .typo ol {
+            list-style: decimal;
+            margin-left: 1.9em
+        }
+
+        .typo-ol ol,
+        .typo-ol ul,
+        .typo-ul ol,
+        .typo-ul ul,
+        .typo li ol,
+        .typo li ul {
+            margin-bottom: .8em;
+            margin-left: 2em
+        }
+
+        .typo-ol ul,
+        .typo-ul ul,
+        .typo li ul {
+            list-style: circle
+        }
+
+        .typo-table td,
+        .typo-table th,
+        .typo table caption,
+        .typo table td,
+        .typo table th {
+            border: 1px solid #ddd;
+            padding: .5em 1em;
+            color: #666
+        }
+
+        .typo-table th,
+        .typo table th {
+            background: #fbfbfb
+        }
+
+        .typo-table thead th,
+        .typo table thead th {
+            background: hsla(0, 0%, 95%, .7)
+        }
+
+        .typo table caption {
+            border-bottom: none
+        }
+
+        .typo-input,
+        .typo-textarea {
+            -webkit-appearance: none;
+            border-radius: 0
+        }
+
+        .typo-em,
+        .typo em,
+        caption,
+        legend {
+            color: #000;
+            font-weight: inherit
+        }
+
+        .typo-em {
+            position: relative
+        }
+
+        .typo-em:after {
+            position: absolute;
+            top: .65em;
+            left: 0;
+            width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+            content: "\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB"
+        }
+
+        .typo img {
+            max-width: 100%
+        }
+
+        .common-content {
+            font-weight: 400;
+            color: #353535;
+            line-height: 1.75rem;
+            white-space: normal;
+            word-break: normal;
+            font-size: 1rem
+        }
+
+        .common-content img {
+            display: block;
+            max-width: 100%;
+            background-color: #eee
+        }
+
+        .common-content audio,
+        .common-content video {
+            width: 100%;
+            background-color: #eee
+        }
+
+        .common-content center,
+        .common-content font {
+            margin-top: 1rem;
+            display: inline-block
+        }
+
+        .common-content center {
+            width: 100%
+        }
+
+        .common-content pre {
+            margin-top: 1rem;
+            padding-left: 0;
+            padding-right: 0;
+            position: relative;
+            overflow: hidden
+        }
+
+        .common-content pre code {
+            font-size: .8rem;
+            font-family: Consolas, Liberation Mono, Menlo, monospace, Courier;
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+            padding-left: 1rem;
+            padding-right: 1rem;
+            overflow-x: auto
+        }
+
+        .common-content hr {
+            border: none;
+            margin-top: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-top: 1px solid #f5f5f5;
+            height: 1px;
+            background: none
+        }
+
+        .common-content b,
+        .common-content h1,
+        .common-content h2,
+        .common-content h3,
+        .common-content h4,
+        .common-content h5,
+        .common-content strong {
+            font-weight: 700
+        }
+
+        .common-content h1,
+        .common-content h2 {
+            font-size: 1.125rem;
+            margin-bottom: .45rem
+        }
+
+        .common-content h3,
+        .common-content h4,
+        .common-content h5 {
+            font-size: 1rem;
+            margin-bottom: .45rem
+        }
+
+        .common-content p {
+            font-weight: 400;
+            color: #353535;
+            margin-top: .15rem
+        }
+
+        .common-content .orange {
+            color: #ff5a05
+        }
+
+        .common-content .reference {
+            font-size: 1rem;
+            color: #888
+        }
+
+        .custom-rich-content h1 {
+            margin-top: 0;
+            font-weight: 400;
+            font-size: 15.25px;
+            border-bottom: 1px solid #eee;
+            line-height: 2.8
+        }
+
+        .custom-rich-content li,
+        .custom-rich-content p {
+            font-size: 14px;
+            color: #888;
+            line-height: 1.6
+        }
+
+        table.hljs-ln {
+            margin-bottom: 0;
+            border-spacing: 0;
+            border-collapse: collapse
+        }
+
+        table.hljs-ln,
+        table.hljs-ln tbody,
+        table.hljs-ln td,
+        table.hljs-ln tr {
+            box-sizing: border-box
+        }
+
+        table.hljs-ln td {
+            padding: 0;
+            border: 0
+        }
+
+        table.hljs-ln td.hljs-ln-numbers {
+            min-width: 15px;
+            color: rgba(27, 31, 35, .3);
+            text-align: right;
+            white-space: nowrap;
+            cursor: pointer;
+            user-select: none
+        }
+
+        table.hljs-ln td.hljs-ln-code,
+        table.hljs-ln td.hljs-ln-numbers {
+            font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier, monospace;
+            font-size: 12px;
+            line-height: 20px;
+            vertical-align: top
+        }
+
+        table.hljs-ln td.hljs-ln-code {
+            position: relative;
+            padding-right: 10px;
+            padding-left: 10px;
+            overflow: visible;
+            color: #24292e;
+            word-wrap: normal;
+            white-space: pre
+        }
+
+        video::-webkit-media-controls {
+            overflow: hidden !important
+        }
+
+        video::-webkit-media-controls-enclosure {
+            width: calc(100% + 32px);
+            margin-left: auto
+        }
+
+        ._29HP61GA_0 {
+            max-width:800px;
+            margin:0 auto;
+            margin-bottom: 20px;
+            font-weight: 400;
+            color: #353535;
+            line-height: 1.76;
+            white-space: normal;
+            word-break: normal;
+            font-size: 17px;
+            -webkit-transition: background-color .3s ease;
+            transition: background-color .3s ease
+        }
+
+        ._29HP61GA_0 .MathJax_Display {
+            overflow: auto
+        }
+
+        ._29HP61GA_0 .poster {
+            position: fixed;
+            left: -10000px;
+            top: -10000px;
+            overflow: hidden;
+            padding: 1rem;
+            background: #ececec
+        }
+
+        ._29HP61GA_0 .richcontent-pre-copy {
+            font-size: 13px;
+            color: #888;
+            position: absolute;
+            right: 1em;
+            top: .5em;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none
+        }
+
+        ._29HP61GA_0 .richcontent-pre-copy .iconfont {
+            font-size: 12px;
+            margin-right: .2em
+        }
+
+        ._29HP61GA_0 a {
+            color: #fa8919;
+            border-bottom: 1px solid #fa8919
+        }
+
+        ._29HP61GA_0 img {
+            display: block;
+            max-width: 100%;
+            position: relative;
+            left: 50%;
+            -webkit-transform: translateX(-50%);
+            transform: translateX(-50%);
+            background-color: #eee;
+            vertical-align: top;
+            border-radius: 0
+        }
+
+        ._29HP61GA_0 audio,
+        ._29HP61GA_0 video {
+            width: 100%;
+            background-color: #eee
+        }
+
+        ._29HP61GA_0 pre {
+            margin-top: 16px;
+            padding: 34px 0 0;
+            margin-bottom: 30px;
+            position: relative;
+            border-radius: 6px;
+            background: rgba(246, 247, 251, .749);
+            border: 0
+        }
+
+        ._29HP61GA_0 pre code {
+            font-size: 12px;
+            font-family: Consolas, Liberation Mono, Menlo, monospace, Courier;
+            display: block;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            margin-left: 16px;
+            margin-right: 16px;
+            overflow-x: scroll
+        }
+
+        ._29HP61GA_0 pre code:after {
+            content: "";
+            height: 30px;
+            width: 100%;
+            display: block
+        }
+
+        ._29HP61GA_0 hr {
+            border: none;
+            margin-top: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-top: 1px solid #f5f5f5;
+            height: 1px;
+            background: none
+        }
+
+        ._29HP61GA_0 h1,
+        ._29HP61GA_0 h2,
+        ._29HP61GA_0 h3,
+        ._29HP61GA_0 h4,
+        ._29HP61GA_0 h5 {
+            margin-bottom: 20px;
+            margin-top: 0;
+            font-weight: 700
+        }
+
+        ._29HP61GA_0 b,
+        ._29HP61GA_0 strong {
+            font-weight: 700
+        }
+
+        ._29HP61GA_0 h1 {
+            font-size: 21px
+        }
+
+        ._29HP61GA_0 h2 {
+            font-size: 20px
+        }
+
+        ._29HP61GA_0 h3 {
+            font-size: 19px
+        }
+
+        ._29HP61GA_0 h4 {
+            font-size: 18px
+        }
+
+        ._29HP61GA_0 h5 {
+            font-size: 17px
+        }
+
+        ._29HP61GA_0 center,
+        ._29HP61GA_0 p {
+            font-weight: 400;
+            color: #353535;
+            margin-top: 0;
+            margin-bottom: 30px;
+            word-break: break-word
+        }
+
+        ._29HP61GA_0 center {
+            text-align: center
+        }
+
+        ._29HP61GA_0 blockquote {
+            margin-top: 0;
+            margin-bottom: 34px;
+            border-left: 3px solid #e8e8e8;
+            padding-left: 17px;
+            color: #353535
+        }
+
+        ._29HP61GA_0 blockquote p {
+            margin-top: 0;
+            margin-bottom: 0
+        }
+
+        ._29HP61GA_0 ol,
+        ._29HP61GA_0 ul {
+            margin-bottom: 30px
+        }
+
+        ._29HP61GA_0 ol p,
+        ._29HP61GA_0 ul p {
+            margin-top: 0;
+            margin-bottom: 0
+        }
+
+        ._29HP61GA_0 ol {
+            list-style: decimal;
+            margin-left: 20px
+        }
+
+        ._29HP61GA_0 ul li {
+            padding-left: 17px;
+            position: relative;
+            margin-bottom: 10px
+        }
+
+        ._29HP61GA_0 ul li:after {
+            content: "";
+            height: 6px;
+            width: 6px;
+            border-radius: 50%;
+            background: #353535;
+            position: absolute;
+            top: 10px;
+            left: 0
+        }
+
+        ._29HP61GA_0 .orange {
+            color: #fa8919
+        }
+
+        ._29HP61GA_0 .reference {
+            color: #888
+        }
+
+        ._29HP61GA_0 .m-right {
+            text-align: right
+        }
+
+        ._29HP61GA_0 .m-center {
+            text-align: center;
+            display: block
+        }
+
+        ._29HP61GA_0 .m-gray {
+            color: #888
+        }
+
+        ._29HP61GA_0 .m-small {
+            font-size: 15px
+        }
+
+        ._29HP61GA_0 table.hljs-ln {
+            margin-bottom: 0;
+            border-spacing: 0;
+            border-collapse: collapse
+        }
+
+        ._29HP61GA_0 table.hljs-ln,
+        ._29HP61GA_0 table.hljs-ln tbody,
+        ._29HP61GA_0 table.hljs-ln td,
+        ._29HP61GA_0 table.hljs-ln tr {
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box
+        }
+
+        ._29HP61GA_0 table.hljs-ln td {
+            padding: 0;
+            border: 0
+        }
+
+        ._29HP61GA_0 table.hljs-ln td.hljs-ln-numbers {
+            min-width: 15px;
+            font-size: 12px;
+            color: rgba(27, 31, 35, .3);
+            text-align: right;
+            white-space: nowrap;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none
+        }
+
+        ._29HP61GA_0 table.hljs-ln td.hljs-ln-code,
+        ._29HP61GA_0 table.hljs-ln td.hljs-ln-numbers {
+            font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier, monospace;
+            line-height: 20px;
+            vertical-align: top
+        }
+
+        ._29HP61GA_0 table.hljs-ln td.hljs-ln-code {
+            position: relative;
+            padding-right: 10px;
+            padding-left: 10px;
+            overflow: visible;
+            font-size: 13px;
+            color: #666;
+            word-wrap: normal;
+            white-space: pre
+        }
+
+    </style>
+</head>
+<body>
+<div class="_29HP61GA_0">
+<h1>41-动态规划理论：一篇文章带你彻底搞懂最优子结构、无后效性和重复子问题</h1>
+<p>上一节，我通过两个非常经典的问题，向你展示了用动态规划解决问题的过程。现在你对动态规划应该有了一个初步的认识。</p><p>今天，我主要讲动态规划的一些理论知识。学完这节内容，可以帮你解决这样几个问题：什么样的问题可以用动态规划解决？解决动态规划问题的一般思考过程是什么样的？贪心、分治、回溯、动态规划这四种算法思想又有什么区别和联系？</p><p>理论的东西都比较抽象，不过你不用担心，我会结合具体的例子来讲解，争取让你这次就能真正理解这些知识点，也为后面的应用和实战做好准备。</p><h2>“一个模型三个特征”理论讲解</h2><p>什么样的问题适合用动态规划来解决呢？换句话说，动态规划能解决的问题有什么规律可循呢？实际上，动态规划作为一个非常成熟的算法思想，很多人对此已经做了非常全面的总结。我把这部分理论总结为“一个模型三个特征”。</p><p>首先，我们来看，什么是“<strong>一个模型</strong>”？它指的是动态规划适合解决的问题的模型。我把这个模型定义为“<strong>多阶段决策最优解模型</strong>”。下面我具体来给你讲讲。</p><p>我们一般是用动态规划来解决最优问题。而解决问题的过程，需要经历多个决策阶段。每个决策阶段都对应着一组状态。然后我们寻找一组决策序列，经过这组决策序列，能够产生最终期望求解的最优值。</p><!-- [[[read_end]]] --><p>现在，我们再来看，什么是“<strong>三个特征</strong>”？它们分别是<strong>最优子结构</strong>、<strong>无后效性</strong>和<strong>重复子问题</strong>。这三个概念比较抽象，我来逐一详细解释一下。</p><h3>1.最优子结构</h3><p>最优子结构指的是，问题的最优解包含子问题的最优解。反过来说就是，我们可以通过子问题的最优解，推导出问题的最优解。如果我们把最优子结构，对应到我们前面定义的动态规划问题模型上，那我们也可以理解为，后面阶段的状态可以通过前面阶段的状态推导出来。</p><h3>2.无后效性</h3><p>无后效性有两层含义，第一层含义是，在推导后面阶段的状态的时候，我们只关心前面阶段的状态值，不关心这个状态是怎么一步一步推导出来的。第二层含义是，某阶段状态一旦确定，就不受之后阶段的决策影响。无后效性是一个非常“宽松”的要求。只要满足前面提到的动态规划问题模型，其实基本上都会满足无后效性。</p><h3>3.重复子问题</h3><p>这个概念比较好理解。前面一节，我已经多次提过。如果用一句话概括一下，那就是，不同的决策序列，到达某个相同的阶段时，可能会产生重复的状态。</p><h2>“一个模型三个特征”实例剖析</h2><p>“一个模型三个特征”这部分是理论知识，比较抽象，你看了之后可能还是有点懵，有种似懂非懂的感觉，没关系，这个很正常。接下来，我结合一个具体的动态规划问题，来给你详细解释。</p><p>假设我们有一个n乘以n的矩阵w[n][n]。矩阵存储的都是正整数。棋子起始位置在左上角，终止位置在右下角。我们将棋子从左上角移动到右下角。每次只能向右或者向下移动一位。从左上角到右下角，会有很多不同的路径可以走。我们把每条路径经过的数字加起来看作路径的长度。那从左上角移动到右下角的最短路径长度是多少呢？</p><p><img src="https://static001.geekbang.org/resource/image/65/9f/652dff86c5dcc6a0e2a0de9a814b079f.jpg" alt=""></p><p>我们先看看，这个问题是否符合“一个模型”？</p><p>从(0, 0)走到(n-1, n-1)，总共要走2*(n-1)步，也就对应着2*(n-1)个阶段。每个阶段都有向右走或者向下走两种决策，并且每个阶段都会对应一个状态集合。</p><p>我们把状态定义为min_dist(i, j)，其中i表示行，j表示列。min_dist表达式的值表示从(0, 0)到达(i, j)的最短路径长度。所以，这个问题是一个多阶段决策最优解问题，符合动态规划的模型。</p><p><img src="https://static001.geekbang.org/resource/image/b0/69/b0da245a38fafbfcc590782486b85269.jpg" alt=""></p><p>我们再来看，这个问题是否符合“三个特征”？</p><p>我们可以用回溯算法来解决这个问题。如果你自己写一下代码，画一下递归树，就会发现，递归树中有重复的节点。重复的节点表示，从左上角到节点对应的位置，有多种路线，这也能说明这个问题中存在重复子问题。</p><p><img src="https://static001.geekbang.org/resource/image/64/65/64403695861da87f41f7b2ec83d44365.jpg" alt=""></p><p>如果我们走到(i, j)这个位置，我们只能通过(i-1, j)，(i, j-1)这两个位置移动过来，也就是说，我们想要计算(i, j)位置对应的状态，只需要关心(i-1, j)，(i, j-1)两个位置对应的状态，并不关心棋子是通过什么样的路线到达这两个位置的。而且，我们仅仅允许往下和往右移动，不允许后退，所以，前面阶段的状态确定之后，不会被后面阶段的决策所改变，所以，这个问题符合“无后效性”这一特征。</p><p>刚刚定义状态的时候，我们把从起始位置(0, 0)到(i, j)的最小路径，记作min_dist(i, j)。因为我们只能往右或往下移动，所以，我们只有可能从(i, j-1)或者(i-1, j)两个位置到达(i, j)。也就是说，到达(i, j)的最短路径要么经过(i, j-1)，要么经过(i-1, j)，而且到达(i, j)的最短路径肯定包含到达这两个位置的最短路径之一。换句话说就是，min_dist(i, j)可以通过min_dist(i, j-1)和min_dist(i-1, j)两个状态推导出来。这就说明，这个问题符合“最优子结构”。</p><pre><code>min_dist(i, j) = w[i][j] + min(min_dist(i, j-1), min_dist(i-1, j))
+</code></pre><h2>两种动态规划解题思路总结</h2><p>刚刚我讲了，如何鉴别一个问题是否可以用动态规划来解决。现在，我再总结一下，动态规划解题的一般思路，让你面对动态规划问题的时候，能够有章可循，不至于束手无策。</p><p>我个人觉得，解决动态规划问题，一般有两种思路。我把它们分别叫作，状态转移表法和状态转移方程法。</p><h3>1.状态转移表法</h3><p>一般能用动态规划解决的问题，都可以使用回溯算法的暴力搜索解决。所以，当我们拿到问题的时候，我们可以先用简单的回溯算法解决，然后定义状态，每个状态表示一个节点，然后对应画出递归树。从递归树中，我们很容易可以看出来，是否存在重复子问题，以及重复子问题是如何产生的。以此来寻找规律，看是否能用动态规划解决。</p><p>找到重复子问题之后，接下来，我们有两种处理思路，第一种是直接用<strong>回溯加“备忘录”</strong>的方法，来避免重复子问题。从执行效率上来讲，这跟动态规划的解决思路没有差别。第二种是使用动态规划的解决方法，<strong>状态转移表法</strong>。第一种思路，我就不讲了，你可以看看上一节的两个例子。我们重点来看状态转移表法是如何工作的。</p><p>我们先画出一个状态表。状态表一般都是二维的，所以你可以把它想象成二维数组。其中，每个状态包含三个变量，行、列、数组值。我们根据决策的先后过程，从前往后，根据递推关系，分阶段填充状态表中的每个状态。最后，我们将这个递推填表的过程，翻译成代码，就是动态规划代码了。</p><p>尽管大部分状态表都是二维的，但是如果问题的状态比较复杂，需要很多变量来表示，那对应的状态表可能就是高维的，比如三维、四维。那这个时候，我们就不适合用状态转移表法来解决了。一方面是因为高维状态转移表不好画图表示，另一方面是因为人脑确实很不擅长思考高维的东西。</p><p>现在，我们来看一下，如何套用这个状态转移表法，来解决之前那个矩阵最短路径的问题？</p><p>从起点到终点，我们有很多种不同的走法。我们可以穷举所有走法，然后对比找出一个最短走法。不过如何才能无重复又不遗漏地穷举出所有走法呢？我们可以用回溯算法这个比较有规律的穷举算法。</p><p>回溯算法的代码实现如下所示。代码很短，而且我前面也分析过很多回溯算法的例题，这里我就不多做解释了，你自己来看看。</p><pre><code>private int minDist = Integer.MAX_VALUE; // 全局变量或者成员变量
+// 调用方式：minDistBacktracing(0, 0, 0, w, n);
+public void minDistBT(int i, int j, int dist, int[][] w, int n) {
+  // 到达了n-1, n-1这个位置了，这里看着有点奇怪哈，你自己举个例子看下
+  if (i == n &amp;&amp; j == n) {
+    if (dist &lt; minDist) minDist = dist;
+    return;
+  }
+  if (i &lt; n) { // 往下走，更新i=i+1, j=j
+    minDistBT(i + 1, j, dist+w[i][j], w, n);
+  }
+  if (j &lt; n) { // 往右走，更新i=i, j=j+1
+    minDistBT(i, j+1, dist+w[i][j], w, n);
+  }
+}
+</code></pre><p>有了回溯代码之后，接下来，我们要画出递归树，以此来寻找重复子问题。在递归树中，一个状态（也就是一个节点）包含三个变量(i, j, dist)，其中i，j分别表示行和列，dist表示从起点到达(i, j)的路径长度。从图中，我们看出，尽管(i, j, dist)不存在重复的，但是(i, j)重复的有很多。对于(i, j)重复的节点，我们只需要选择dist最小的节点，继续递归求解，其他节点就可以舍弃了。</p><p><img src="https://static001.geekbang.org/resource/image/2c/e2/2c3ec820fa8f8cc7df838c0304b030e2.jpg" alt=""></p><p>既然存在重复子问题，我们就可以尝试看下，是否可以用动态规划来解决呢？</p><p>我们画出一个二维状态表，表中的行、列表示棋子所在的位置，表中的数值表示从起点到这个位置的最短路径。我们按照决策过程，通过不断状态递推演进，将状态表填好。为了方便代码实现，我们按行来进行依次填充。</p><p><img src="https://static001.geekbang.org/resource/image/b3/ca/b3f0de1c81533a0d24c43426eaf09aca.jpg" alt=""><img src="https://static001.geekbang.org/resource/image/05/7d/05a48baf7fb4d251bf5078840079107d.jpg" alt=""></p><p>弄懂了填表的过程，代码实现就简单多了。我们将上面的过程，翻译成代码，就是下面这个样子。结合着代码、图和文字描述，应该更容易理解我讲的内容。</p><pre><code>public int minDistDP(int[][] matrix, int n) {
+  int[][] states = new int[n][n];
+  int sum = 0;
+  for (int j = 0; j &lt; n; ++j) { // 初始化states的第一行数据
+    sum += matrix[0][j];
+    states[0][j] = sum;
+  }
+  sum = 0;
+  for (int i = 0; i &lt; n; ++i) { // 初始化states的第一列数据
+    sum += matrix[i][0];
+    states[i][0] = sum;
+  }
+  for (int i = 1; i &lt; n; ++i) {
+    for (int j = 1; j &lt; n; ++j) {
+      states[i][j] = 
+            matrix[i][j] + Math.min(states[i][j-1], states[i-1][j]);
+    }
+  }
+  return states[n-1][n-1];
+}
+</code></pre><h3>2.状态转移方程法</h3><p>状态转移方程法有点类似递归的解题思路。我们需要分析，某个问题如何通过子问题来递归求解，也就是所谓的最优子结构。根据最优子结构，写出递归公式，也就是所谓的状态转移方程。有了状态转移方程，代码实现就非常简单了。一般情况下，我们有两种代码实现方法，一种是<strong>递归加“备忘录”</strong>，另一种是<strong>迭代递推</strong>。</p><p>我们还是拿刚才的例子来举例。最优子结构前面已经分析过了，你可以回过头去再看下。为了方便你查看，我把状态转移方程放到这里。</p><pre><code>min_dist(i, j) = w[i][j] + min(min_dist(i, j-1), min_dist(i-1, j))
+</code></pre><p>这里我强调一下，<strong>状态转移方程是解决动态规划的关键。</strong>如果我们能写出状态转移方程，那动态规划问题基本上就解决一大半了，而翻译成代码非常简单。但是很多动态规划问题的状态本身就不好定义，状态转移方程也就更不好想到。</p><p>下面我用递归加“备忘录”的方式，将状态转移方程翻译成来代码，你可以看看。对于另一种实现方式，跟状态转移表法的代码实现是一样的，只是思路不同。</p><pre><code>private int[][] matrix = 
+         {{1，3，5，9}, {2，1，3，4}，{5，2，6，7}，{6，8，4，3}};
+private int n = 4;
+private int[][] mem = new int[4][4];
+public int minDist(int i, int j) { // 调用minDist(n-1, n-1);
+  if (i == 0 &amp;&amp; j == 0) return matrix[0][0];
+  if (mem[i][j] &gt; 0) return mem[i][j];
+  int minLeft = Integer.MAX_VALUE;
+  if (j-1 &gt;= 0) {
+    minLeft = minDist(i, j-1);
+  }
+  int minUp = Integer.MAX_VALUE;
+  if (i-1 &gt;= 0) {
+    minUp = minDist(i-1, j);
+  }
+  
+  int currMinDist = matrix[i][j] + Math.min(minLeft, minUp);
+  mem[i][j] = currMinDist;
+  return currMinDist;
+}
+</code></pre><p>两种动态规划解题思路到这里就讲完了。我要强调一点，不是每个问题都同时适合这两种解题思路。有的问题可能用第一种思路更清晰，而有的问题可能用第二种思路更清晰，所以，你要结合具体的题目来看，到底选择用哪种解题思路。</p><h2>四种算法思想比较分析</h2><p>到今天为止，我们已经学习了四种算法思想，贪心、分治、回溯和动态规划。今天的内容主要讲些理论知识，我正好一块儿也分析一下这四种算法，看看它们之间有什么区别和联系。</p><p>如果我们将这四种算法思想分一下类，那贪心、回溯、动态规划可以归为一类，而分治单独可以作为一类，因为它跟其他三个都不大一样。为什么这么说呢？前三个算法解决问题的模型，都可以抽象成我们今天讲的那个多阶段决策最优解模型，而分治算法解决的问题尽管大部分也是最优解问题，但是，大部分都不能抽象成多阶段决策模型。</p><p>回溯算法是个“万金油”。基本上能用的动态规划、贪心解决的问题，我们都可以用回溯算法解决。回溯算法相当于穷举搜索。穷举所有的情况，然后对比得到最优解。不过，回溯算法的时间复杂度非常高，是指数级别的，只能用来解决小规模数据的问题。对于大规模数据的问题，用回溯算法解决的执行效率就很低了。</p><p>尽管动态规划比回溯算法高效，但是，并不是所有问题，都可以用动态规划来解决。能用动态规划解决的问题，需要满足三个特征，最优子结构、无后效性和重复子问题。在重复子问题这一点上，动态规划和分治算法的区分非常明显。分治算法要求分割成的子问题，不能有重复子问题，而动态规划正好相反，动态规划之所以高效，就是因为回溯算法实现中存在大量的重复子问题。</p><p>贪心算法实际上是动态规划算法的一种特殊情况。它解决问题起来更加高效，代码实现也更加简洁。不过，它可以解决的问题也更加有限。它能解决的问题需要满足三个条件，最优子结构、无后效性和贪心选择性（这里我们不怎么强调重复子问题）。</p><p>其中，最优子结构、无后效性跟动态规划中的无异。“贪心选择性”的意思是，通过局部最优的选择，能产生全局的最优选择。每一个阶段，我们都选择当前看起来最优的决策，所有阶段的决策完成之后，最终由这些局部最优解构成全局最优解。</p><h2>内容小结</h2><p>今天的内容到此就讲完了，我带你来复习一下。</p><p>我首先讲了什么样的问题适合用动态规划解决。这些问题可以总结概括为“一个模型三个特征”。其中，“一个模型”指的是，问题可以抽象成分阶段决策最优解模型。“三个特征”指的是最优子节、无后效性和重复子问题。</p><p>然后，我讲了两种动态规划的解题思路。它们分别是状态转移表法和状态转移方程法。其中，状态转移表法解题思路大致可以概括为，<strong>回溯算法实现-定义状态-画递归树-找重复子问题-画状态转移表-根据递推关系填表-将填表过程翻译成代码</strong>。状态转移方程法的大致思路可以概括为，<strong>找最优子结构-写状态转移方程-将状态转移方程翻译成代码</strong>。</p><p>最后，我们对比了之前讲过的四种算法思想。贪心、回溯、动态规划可以解决的问题模型类似，都可以抽象成多阶段决策最优解模型。尽管分治算法也能解决最优问题，但是大部分问题的背景都不适合抽象成多阶段决策模型。</p><p>今天的内容比较偏理论，可能会不好理解。很多理论知识的学习，单纯的填鸭式讲给你听，实际上效果并不好。要想真的把这些理论知识理解透，化为己用，还是需要你自己多思考，多练习。等你做了足够多的题目之后，自然就能自己悟出一些东西，这样再回过头来看理论，就会非常容易看懂。</p><p>所以，在今天的内容中，如果有哪些地方你还不能理解，那也没关系，先放一放。下一节，我会运用今天讲到的理论，再解决几个动态规划的问题。等你学完下一节，可以再回过头来看下今天的理论知识，可能就会有一种顿悟的感觉。</p><h2>课后思考</h2><p>硬币找零问题，我们在贪心算法那一节中讲过一次。我们今天来看一个新的硬币找零问题。假设我们有几种不同币值的硬币v1，v2，……，vn（单位是元）。如果我们要支付w元，求最少需要多少个硬币。比如，我们有3种不同的硬币，1元、3元、5元，我们要支付9元，最少需要3个硬币（3个3元的硬币）。</p><p>欢迎留言和我分享，也欢迎点击“<span class="orange">请朋友读</span>”，把今天的内容分享给你的好友，和他一起讨论、学习。</p><p></p><h2>精选留言：</h2>
+        <ul>
+        
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            yaya  2019-01-03 14:20:17
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            可以看做爬阶梯问题，分别可以走1.3.5步，怎么最少走到9步，动态转移方程为f(9)=1+min(f(8),f(6),f(4)) [99赞]
+        </div>
+        <br/>
+<div>
+    <div style="color:#888;font-size:15.25px;font-weight:400;        line-height:1.2">作者回复2019-01-04 09:47:17</div>
+    <div style="color:#353535;font-weight:400;white-space:normal;        word-break:break-all;line-height:1.6">👍</div>
+</div>
+            
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            郭霖  2019-01-03 15:11:20
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            动态规划状态转移表解法：<br><br>public int minCoins(int money) {<br>  if (money == 1 || money == 3 || money == 5) return 1;<br>  boolean [][] state = new boolean[money][money + 1];<br>  if (money &gt;= 1) state[0][1] = true;<br>  if (money &gt;= 3) state[0][3] = true;<br>  if (money &gt;= 5) state[0][5] = true;<br>  for (int i = 1; i &lt; money; i++) {<br>    for (int j = 1; j &lt;= money; j++) {<br>      if (state[i - 1][j]) {<br>        if (j + 1 &lt;= money) state[i][j + 1] = true;<br>        if (j + 3 &lt;= money) state[i][j + 3] = true;<br>        if (j + 5 &lt;= money) state[i][j + 5] = true;<br>        if (state[i][money]) return i + 1;<br>      }<br>    }<br>  }<br>  return money;<br>} [33赞]
+        </div>
+        
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            Alpha.  2019-02-22 06:58:59
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            回溯算法实现矩阵最短路径会有边界问题，下面是修改后的代码。<br>private static int MIN_DIS = Integer.MAX_VALUE;<br>public static void minDisByBT(int i, int j, int[][] w, int n, int distance) {<br>        distance += w[i][j];<br>        if (i == n - 1 &amp;&amp; j == n - 1) {<br>            if (distance &lt; MIN_DIS) MIN_DIS = distance;<br>            return;<br>        }<br>        if (i &lt; n - 1) {<br>            minDisByBT(i + 1, j, w, n, distance);<br>        }<br>        if (j &lt; n - 1) {<br>            minDisByBT(i, j + 1, w, n, distance);<br>        }<br>    } [11赞]
+        </div>
+        
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            煦暖  2019-01-03 13:29:29
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            状态转移表法，二维状态表的图中，第一行下面的表达式：<br>文中“min(4+3, 8+3)”应该是“min(4+3, 9+3)” [11赞]
+        </div>
+        <br/>
+<div>
+    <div style="color:#888;font-size:15.25px;font-weight:400;        line-height:1.2">作者回复2019-01-12 11:00:49</div>
+    <div style="color:#353535;font-weight:400;white-space:normal;        word-break:break-all;line-height:1.6">嗯嗯 是的 笔误  抱歉</div>
+</div>
+            
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            feifei  2019-01-06 14:58:09
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            经过一个星期的努力，这个动态规划终于有点感觉了，今天来做题，我也来试试解这个题目，在看了第一个童鞋的解法后，感觉这个写的太死了，再就是没有反推出哪些币的组合，我就自己来实现了下！<br>我也想说动态规划的解，真不容易啊，我按照老师提供的方法，先使用回塑写出了暴力搜索，然后再画出了递归树，找到状态组合，然后才来写这个动态规划，感觉好复杂，不过吧，这个使用状态转移方程，我感觉更难，比这个递归还难写。。。。。。，最主要是这个状态想不到，但这个动态规划代码写完了，我又感觉能写方程了，我想哭。。。。。。。<br><br><br>public int countMoneyMin(int[] moneyItems, int resultMemory) {<br><br>    if (null == moneyItems || moneyItems.length &lt; 1) {<br>      return -1;<br>    }<br><br>    if (resultMemory &lt; 1) {<br>      return -1;<br>    }<br><br>    &#47;&#47; 计算遍历的层数，此按最小金额来支付即为最大层数<br>    int levelNum = resultMemory &#47; moneyItems[0];<br>    int leng = moneyItems.length;<br><br>    int[][] status = new int[levelNum][resultMemory + 1];<br><br>    &#47;&#47; 初始化状态数组<br>    for (int i = 0; i &lt; levelNum; i++) {<br>      for (int j = 0; j &lt; resultMemory + 1; j++) {<br>        status[i][j] = -1;<br>      }<br>    }<br><br>    &#47;&#47; 将第一层的数数据填充<br>    for (int i = 0; i &lt; leng; i++) {<br>      status[0][moneyItems[i]] = moneyItems[i];<br>    }<br><br>    int minNum = -1;<br><br>    &#47;&#47; 计算推导状态<br>    for (int i = 1; i &lt; levelNum; i++) {<br>      &#47;&#47; 推导出当前状态<br>      for (int j = 0; j &lt; resultMemory; j++) {<br>        if (status[i - 1][j] != -1) {<br>          &#47;&#47; 遍历元素,进行累加<br>          for (int k = 0; k &lt; leng; k++) {<br>            if (j + moneyItems[k] &lt;= resultMemory) {<br>              status[i][j + moneyItems[k]] = moneyItems[k];<br>            }<br>          }<br>        }<br><br>        &#47;&#47; 找到最小的张数<br>        if (status[i][resultMemory] &gt;= 0) {<br>          minNum = i + 1;<br>          break;<br>        }<br>      }<br><br>      if (minNum &gt; 0) {<br>        break;<br>      }<br>    }<br><br>    int befValue = resultMemory;<br><br>    &#47;&#47; 进行反推出，币的组合<br>    for (int i = minNum - 1; i &gt;= 0; i--) {<br>      for (int j = resultMemory; j &gt;= 0; j--) {<br>        if (j == befValue) {<br>          System.out.println(&quot;当前的为:&quot; + status[i][j]);<br>          befValue = befValue - status[i][j];<br>          break;<br>        }<br>      }<br>    }<br><br>    return minNum;<br>  } [8赞]
+        </div>
+        <br/>
+<div>
+    <div style="color:#888;font-size:15.25px;font-weight:400;        line-height:1.2">作者回复2019-01-07 09:42:43</div>
+    <div style="color:#353535;font-weight:400;white-space:normal;        word-break:break-all;line-height:1.6">👍 都有这个似懂非懂的过程的 多练习 慢慢就有感觉了</div>
+</div>
+            
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            攻玉  2019-03-13 16:03:16
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            <br># 1. 回溯 :  太慢了<br>coin = 0<br>def minCoin(money):<br>    global coin<br>    if money == 1: return 1<br>    if money == 2: return 2<br>    if money == 3: return 1<br>    if money == 4: return 2<br>    if money == 5: return 1<br>#    if money &lt;= 0: return <br><br>    coin = 1 + min(minCoin(money-1) , minCoin(money-3) , minCoin(money-5))<br>    print(money , coin)<br>    return coin<br><br>print(minCoin(10))<br><br><br># 2.写备忘录, 记录重复的递归项:<br># 速度提升不知道几十万倍 ! 缺点就是有递归层数的限制 , 超过最大递归层数(几百?)会报错<br>import numpy as np<br>map = {} # 初始化一个 dict<br>coin = 0<br>def minCoin(money):<br>    global coin<br>    # 先查表 : <br>    if money in map:  # 如果在 map 的第一列里面 , 说明记录过. <br>        return map[money]   # 直接返回 minCoin <br>    if money == 1: return 1<br>    if money == 2: return 2<br>    if money == 3: return 1<br>    if money == 4: return 2<br>    if money == 5: return 1<br>#    if money &lt;= 0: return <br><br>    coin = 1 + min(minCoin(money-1) , minCoin(money-3) , minCoin(money-5))<br>    map[money] = coin  # 放入map<br><br>    return coin<br>    <br>print(minCoin(100))   <br>print(map)<br><br><br>&#39;&#39;&#39;<br><br>#  3.DP .<br>### 备忘录有了, 我们尝试根据递推公式 :<br>#  coin = 1 + min(minCoin(money-1) , minCoin(money-3) , minCoin(money-5))<br>### 书写状态转移方程 : <br><br>s = {}   # 设 s 为状态数组 : <br>s[1] ,s[2] ,s[3] ,s[4] ,s[5]  = 1,2,1,2,1 <br><br>def minCoinDP(money):<br>    for i in range(6,money+1):<br>        s[i] = 1+ min(s[i-1],s[i-3],s[i-5])<br><br>    return s[money]<br><br><br>print(minCoinDP(10000))<br> [6赞]
+        </div>
+        
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            随风  2019-02-14 15:27:26
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            <br>看了这么久，很少留言、很多思考题也只停留在想的层面，很少去实现。刚好有点时间，把动态规则这个思考题想了一下，顺便用Java实现出来。<br>思考题：如上面值{1,3,5}凑9块钱的最小张数、我们可以分成3个阶段。<br>第一阶段：用1块钱，那么1块钱可以有1、2、3...9张这几种可能。<br>第二阶段：在第一阶段的金额还有张数上增加3元的<br>第三阶段：在第二阶段总金额上载增加5元的。<br>状态转移方程:Sum(n) = Sum(n-1) + v * num ,v表示当前阶段的面值，num表示当前阶段的张数。<br>代码实现如下：<br>public class DynMoney {<br>	private static int minNum = Integer.MAX_VALUE;<br>	&#47;**<br>	 * Sum(n) = Sum(n-1) + v * num<br>	 * @param sum 凑的总额<br>	 * @param v  钱的面额<br>	 * @return<br>	 *&#47;<br>	public static int minMoney(int sum,int v[]) {<br>		nextStep(0, 0, 0, sum, v);<br>		return minNum;<br>	}<br>	&#47;**<br>	 * @param n    钱的张数.<br>	 * @param c    到那个阶段<br>	 * @param cv   凑的钱数<br>	 * @param sum  要凑的钱的总数<br>	 * @param v    面额<br>	 *&#47;<br>	public static void nextStep(int n,int c, int cv,int sum,int v[]) {<br>		&#47;&#47;金额凑够了<br>		if (cv == sum) {<br>			minNum = Math.min(minNum, n);<br>			return;<br>		}<br>		&#47;&#47;或者凑到最后阶段，没凑够总金额<br>		if(c == v.length) {<br>			return;<br>		}<br>		&#47;&#47;每个阶段，钱的张数，张数应该小与等于 凑的金额&#47;面额<br>		for(int j=0; j &lt;= sum&#47;v[c]; j++) {<br>			if(cv + v[c]*j &lt;= sum) {<br>				&#47;&#47;当前阶段凑的不超额，下阶段继续凑<br>				nextStep(n+j, c+1,cv + v[c]*j, sum,v);<br>			}<br>		}<br>	}<br><br>	public static void main(String arg[]) {<br>		System.out.println(minMoney(8, new int[]{1,3,5}));<br>	}<br>} [3赞]
+        </div>
+        
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            猫头鹰爱拿铁  2019-01-08 23:24:23
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            看了这一篇豁然开朗，上一篇的习题也会做了。感觉这些涉及多决策的习题基本上第一眼都能想到回溯法，但是用动态规划法就要好好想一想，关键还是老师说的动态转移方程式。我尝试用两种方法做了一遍，回溯法和动态规划法。<br><br>int minNum = Integer.MAX_VALUE;<br><br>	&#47;**<br>	 * 使用回溯法获取给定金额最小的硬币数量，调用时num为0<br>	 * <br>	 * @param coinVal<br>	 *            硬币值数组<br>	 * @param total<br>	 *            指定的金额<br>	 * @param num<br>	 *            每个解法所得到的硬币数量<br>	 *&#47;<br>	public void getLeastCoinNumByBackTracking(int[] coinVal, int total, int num) {<br>		if (total == 0) {<br>			if (num &lt; minNum)<br>				minNum = num;<br>			return;<br>		}<br>		for (int i = 0; i &lt; coinVal.length; i++) {<br>			if (total - coinVal[i] &gt;= 0) {<br>				getLeastCoinNumByBackTracking(coinVal, total - coinVal[i],<br>						num + 1);<br>			}<br>		}<br>	}<br><br>	&#47;**<br>	 * 使用动态规划法获取给定金额下最小的硬币数量<br>	 * <br>	 * @param coinVal<br>	 *            硬币值数组<br>	 * @param total<br>	 *            给定金额<br>	 * @return 给定金额下最小的硬币数量<br>	 *&#47;<br>	public int getLeastCoinNumByDP(int[] coinVal, int total) {<br>		&#47;&#47; coinNum存放的是每个对应金额下最少硬币的最优解<br>		int coinNum[] = new int[total + 1];<br>		coinNum[0] = 0;<br>		&#47;&#47;初始化coinNum数组，硬币值数组对应的值的硬币数量都为1<br>		for (int i = 0; i &lt; coinVal.length; i++) {<br>			coinNum[coinVal[i]] = 1;<br>		}<br>		<br>		for (int i = 1; i &lt;= total; i++) {<br>			if (coinNum[i] == 0) {<br>				int minTemp = Integer.MAX_VALUE; &#47;&#47; 获取每个i对应的最小硬币数值<br>				for (int j = 0; j &lt; coinVal.length; j++) {<br>					if (i - coinVal[j] &gt; 0) {<br>						int v1 = coinNum[i - coinVal[j]] + 1;<br>						if (v1 &lt; minTemp) {<br>							minTemp = v1;<br>						}<br>					}<br>				}<br>				coinNum[i] = minTemp;<br>			}<br>		}<br>		return coinNum[total];<br>	} [3赞]
+        </div>
+        
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            攻玉  2019-03-12 20:25:17
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            import numpy as np<br>老师 , 那个回溯法的代码好像不太对 , 我用 python 写了一个<br>import sys<br>minDist = sys.maxsize<br>n = 4  # 这是个 4*4 的矩阵 . <br>w = np.array([[0,3,5,9],[2,1,3,4],[5,2,6,7],[6,8,4,3]])<br># dist = np.zeros((4,4))  # 定义 dist(i, j) 为到达点 (i,j) 的路径长度<br># dist[i, j] = w[i,j] + min(dist[i-1, j] , dist[i, j-1])<br><br>def minDistBackTrace(i, j, dist, w, n):<br>    global minDist<br>    dist += w[i][j] <br>    if i==n -1 and j == n-1 :<br>        if dist &lt; minDist: minDist = dist<br>        return<br><br>    if i &lt; n-1: <br>        minDistBackTrace(i + 1, j, dist, w, n)<br>    if j &lt; n-1: <br>        minDistBackTrace(i , j + 1, dist, w, n)  	<br><br> [2赞]
+        </div>
+        
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            菜菜  2019-03-05 11:11:25
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            老师，回溯法求矩阵最短路径的代码会出错，边界条件的问题 [2赞]
+        </div>
+        
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            Kudo  2019-01-04 18:53:33
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            思考题解答<br>使用回溯法（python实现）：<br>import sys<br>min_count = sys.maxsize # 用于追踪最小值<br><br>def minCoinCount(i, values, amount, ca):<br>    &#39;&#39;&#39;<br>    i: 硬币数量<br>    values: 硬币面值数组<br>    amount: 要凑的总价值<br>    ca: current amount 当前价值<br>    &#39;&#39;&#39;<br>    global min_count<br>    if ca == amount or i == amount: # 总共amount步<br>        if ca == amount and i &lt; min_count:<br>            min_count = i<br>        return<br>        <br>    for v in values: # 依次考察每种币值<br>        if ca + v &lt;= amount: # 保证不超总值价<br>            minCoinCount(i+1, values, amount, ca+v)<br>            <br># 使用方法<br>values = [1,3,5]<br>minCoinCount(0, values, 9, 0)<br>print(min_count) [2赞]
+        </div>
+        
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            blacknhole  2018-12-31 18:37:29
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            状态转移方程法的代码实现有问题：<br>1，int minUp = Integer.MIN_VALUE;语句应赋值为Integer.MAX_VALUE。<br>2，返回前应将返回值赋值给mem[i][j]。 [2赞]
+        </div>
+        <br/>
+<div>
+    <div style="color:#888;font-size:15.25px;font-weight:400;        line-height:1.2">作者回复2019-01-02 10:00:27</div>
+    <div style="color:#353535;font-weight:400;white-space:normal;        word-break:break-all;line-height:1.6">已改 多谢指正</div>
+</div>
+            
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            Monday  2018-12-31 08:30:23
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            2018最后一次更新，我通读三遍跟上打卡了。本节理论归纳的很精简，适合动态规划求解的问题的特性：一个模型，三个特征。<br>一个模型：多阶段决策最优解<br>三个特征：最优子结构，无后效性，重复子问题。<br> [2赞]
+        </div>
+        
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            想当上帝的司机  2018-12-31 07:54:07
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            放假了还在更新 赞 [2赞]
+        </div>
+        
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            辣么大  2019-11-17 09:27:31
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            老师给的回溯法例子中边界的确有些问题。下面贴上修改后的实现：<br>  &#47;**<br>   * call minDist(0, 0, a[0][0], a, a.length)<br>   * @param i    cur row index<br>   * @param j    cur column index<br>   * @param dist cur distance,start from a[0][0]<br>   * @param a    array<br>   * @param n    length of the input array<br>   *&#47;<br>  public static void minDistBt(int i, int j, int dist, int[][] a, int n) {<br>    System.out.printf(&quot;%2d %2dn&quot;, i, j);<br>    if (i == n - 1 &amp;&amp; j == n - 1) {<br>      if (dist &lt; minDist)<br>        minDist = dist;<br>      return;<br>    }<br><br>    if (i + 1 &lt; n)<br>      minDistBt(i + 1, j, dist + a[i + 1][j], a, n);<br><br>    if (j + 1 &lt; n)<br>      minDistBt(i, j + 1, dist + a[i][j + 1], a, n);<br><br>  } [1赞]
+        </div>
+        
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            am  2019-11-14 17:10:09
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            Go语言实现找零钱（动态规划）版本：<br><br>&#47;&#47; value: 硬币币值, n: 硬币数量, w: 支付金额<br>func lfchange(value []int, n int, w int) int {<br>	sort.Ints(value)<br>	&#47;&#47; 最小币值<br>	minV := value[0]<br>	&#47;&#47; dp[i]表示支付金额为i需要多少个硬币<br>	dp := make([]int, w+1)<br>	for _, v := range value { &#47;&#47; 初始化状态<br>		if v &gt; w {<br>			break<br>		}<br>		dp[v] = 1<br>	}<br>	&#47;&#47; 硬币数<br>	var count int<br>	for i := minV + 1; i &lt;= w; i++ { &#47;&#47; 动态规划方程转移<br>		count = 0<br>		for j := n - 1; j &gt;= 0; j-- {<br>			if i%value[j] == 0 {<br>				dp[i] = i &#47; value[j]<br>				break<br>			}<br>		}<br>		for j := minV; j &lt; i; j++ {<br>			if dp[j] != 0 &amp;&amp; dp[i-j] != 0 {<br>				count = dp[j] + dp[i-j]<br>				if count &lt; dp[i] {<br>					dp[i] = count<br>				}<br>			}<br>		}<br>	}<br>	return dp[w]<br>} [1赞]
+        </div>
+        
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            嘉一  2019-10-15 09:58:43
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            课后题答案（ts版本）：<br>class SortClazz {<br><br>            public static optionCell: number[] = [1, 3, 5];<br>            public static storeVal: { [key: number]: number } = {};<br><br>            public static getMinCount(targetVal: number): number {<br>                let optionCell = SortClazz.optionCell;<br>                if (optionCell.indexOf(targetVal) &gt;= 0) {<br>                    return 1;<br>                }<br>                if (SortClazz.storeVal[targetVal]) {<br>                    return SortClazz.storeVal[targetVal];<br>                }<br><br>                let minArr: number[] = [];<br>                for (let i = 0, leng = optionCell.length; i &lt; leng; ++i) {<br>                    let tempVal = targetVal - optionCell[i];<br>                    if (tempVal &gt; 0) {<br>                        minArr.push(SortClazz.getMinCount(tempVal));<br>                    }<br>                }<br>                let minVal: number = targetVal;<br>                while (minArr.length &gt; 0) {<br>                    minVal = Math.min(minVal, minArr.pop());<br>                }<br>                SortClazz.storeVal[targetVal] = ++minVal;<br>                return minVal;<br>            }<br><br>        } [1赞]
+        </div>
+        
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            Zix  2019-02-26 17:29:17
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            经测试，状态转移表法与状态转移方程法的代码均无误。<br>但是此问题最开始用的回溯法，会出现数组越界的问题，边界还需要再判断，请老师解答。 [1赞]
+        </div>
+        
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            Zix  2019-02-26 16:53:19
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            老师，回溯的那种解法，代码有问题，会出现数组越界，边界的问题。 [1赞]
+        </div>
+        <br/>
+<div>
+    <div style="color:#888;font-size:15.25px;font-weight:400;        line-height:1.2">作者回复2019-02-27 09:53:09</div>
+    <div style="color:#353535;font-weight:400;white-space:normal;        word-break:break-all;line-height:1.6">嗯嗯 我再去看下</div>
+</div>
+            
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            春去春又来  2019-02-21 13:46:44
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            老师，我按照文章里面的代码敲了一遍，<br>状态转移表法的那个代码运行结果等于 等于19<br>状态转移方程法的那个代码运行结果等于 18 <br><br>不知道大家是不是这样的？？？？？？ [1赞]
+        </div>
+        <br/>
+<div>
+    <div style="color:#888;font-size:15.25px;font-weight:400;        line-height:1.2">作者回复2019-02-22 18:35:14</div>
+    <div style="color:#353535;font-weight:400;white-space:normal;        word-break:break-all;line-height:1.6">我擦，我研究下</div>
+</div>
+            
+    </div>
+</li>
+            </ul>
+</div>
+</body>
+</html>

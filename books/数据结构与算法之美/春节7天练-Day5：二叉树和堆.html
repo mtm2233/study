@@ -1,0 +1,1210 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>春节7天练-Day5：二叉树和堆</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <style>
+        html {
+            color: #333;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+            text-rendering: optimizelegibility;
+            font-family: Helvetica Neue, PingFang SC, Verdana, Microsoft Yahei, Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei, sans-serif
+        }
+
+        html.borderbox *,
+        html.borderbox :after,
+        html.borderbox :before {
+            box-sizing: border-box
+        }
+
+        article,
+        aside,
+        blockquote,
+        body,
+        button,
+        code,
+        dd,
+        details,
+        dl,
+        dt,
+        fieldset,
+        figcaption,
+        figure,
+        footer,
+        form,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        header,
+        hr,
+        input,
+        legend,
+        li,
+        menu,
+        nav,
+        ol,
+        p,
+        pre,
+        section,
+        td,
+        textarea,
+        th,
+        ul {
+            margin: 0;
+            padding: 0
+        }
+
+        article,
+        aside,
+        details,
+        figcaption,
+        figure,
+        footer,
+        header,
+        menu,
+        nav,
+        section {
+            display: block
+        }
+
+        audio,
+        canvas,
+        video {
+            display: inline-block
+        }
+
+        body,
+        button,
+        input,
+        select,
+        textarea {
+            font: 300 1em/1.8 PingFang SC, Lantinghei SC, Microsoft Yahei, Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei, Helvetica, sans-serif
+        }
+
+        button::-moz-focus-inner,
+        input::-moz-focus-inner {
+            padding: 0;
+            border: 0
+        }
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0
+        }
+
+        fieldset,
+        img {
+            border: 0
+        }
+
+        blockquote {
+            position: relative;
+            color: #999;
+            font-weight: 400;
+            border-left: 1px solid #1abc9c;
+            padding-left: 1em;
+            margin: 1em 3em 1em 2em
+        }
+
+        @media only screen and (max-width: 640px) {
+            blockquote {
+                margin: 1em 0
+            }
+        }
+
+        abbr,
+        acronym {
+            border-bottom: 1px dotted;
+            font-variant: normal
+        }
+
+        abbr {
+            cursor: help
+        }
+
+        del {
+            text-decoration: line-through
+        }
+
+        address,
+        caption,
+        cite,
+        code,
+        dfn,
+        em,
+        th,
+        var {
+            font-style: normal;
+            font-weight: 400
+        }
+
+        ol,
+        ul {
+            list-style: none
+        }
+
+        caption,
+        th {
+            text-align: left
+        }
+
+        q:after,
+        q:before {
+            content: ""
+        }
+
+        sub,
+        sup {
+            font-size: 75%;
+            line-height: 0;
+            position: relative
+        }
+
+        :root sub,
+        :root sup {
+            vertical-align: baseline
+        }
+
+        sup {
+            top: -.5em
+        }
+
+        sub {
+            bottom: -.25em
+        }
+
+        a {
+            color: #1abc9c
+        }
+
+        a:hover {
+            text-decoration: underline
+        }
+
+        .typo a {
+            border-bottom: 1px solid #1abc9c
+        }
+
+        .typo a:hover {
+            border-bottom-color: #555;
+            color: #555
+        }
+
+        .typo a:hover,
+        a,
+        ins {
+            text-decoration: none
+        }
+
+        .typo-u,
+        u {
+            text-decoration: underline
+        }
+
+        mark {
+            background: #fffdd1;
+            border-bottom: 1px solid #ffedce;
+            padding: 2px;
+            margin: 0 5px
+        }
+
+        code,
+        pre,
+        pre tt {
+            font-family: Courier, Courier New, monospace
+        }
+
+        pre {
+            background: hsla(0, 0%, 97%, .7);
+            border: 1px solid #ddd;
+            padding: 1em 1.5em;
+            display: block;
+            -webkit-overflow-scrolling: touch
+        }
+
+        hr {
+            border: none;
+            border-bottom: 1px solid #cfcfcf;
+            margin-bottom: .8em;
+            height: 10px
+        }
+
+        .typo-small,
+        figcaption,
+        small {
+            font-size: .9em;
+            color: #888
+        }
+
+        b,
+        strong {
+            font-weight: 700;
+            color: #000
+        }
+
+        [draggable] {
+            cursor: move
+        }
+
+        .clearfix:after,
+        .clearfix:before {
+            content: "";
+            display: table
+        }
+
+        .clearfix:after {
+            clear: both
+        }
+
+        .clearfix {
+            zoom: 1
+        }
+
+        .textwrap,
+        .textwrap td,
+        .textwrap th {
+            word-wrap: break-word;
+            word-break: break-all
+        }
+
+        .textwrap-table {
+            table-layout: fixed
+        }
+
+        .serif {
+            font-family: Palatino, Optima, Georgia, serif
+        }
+
+        .typo-dl,
+        .typo-form,
+        .typo-hr,
+        .typo-ol,
+        .typo-p,
+        .typo-pre,
+        .typo-table,
+        .typo-ul,
+        .typo dl,
+        .typo form,
+        .typo hr,
+        .typo ol,
+        .typo p,
+        .typo pre,
+        .typo table,
+        .typo ul,
+        blockquote {
+            margin-bottom: 1rem
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: PingFang SC, Helvetica Neue, Verdana, Microsoft Yahei, Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei, sans-serif;
+            color: #000;
+            line-height: 1.35
+        }
+
+        .typo-h1,
+        .typo-h2,
+        .typo-h3,
+        .typo-h4,
+        .typo-h5,
+        .typo-h6,
+        .typo h1,
+        .typo h2,
+        .typo h3,
+        .typo h4,
+        .typo h5,
+        .typo h6 {
+            margin-top: 1.2em;
+            margin-bottom: .6em;
+            line-height: 1.35
+        }
+
+        .typo-h1,
+        .typo h1 {
+            font-size: 2em
+        }
+
+        .typo-h2,
+        .typo h2 {
+            font-size: 1.8em
+        }
+
+        .typo-h3,
+        .typo h3 {
+            font-size: 1.6em
+        }
+
+        .typo-h4,
+        .typo h4 {
+            font-size: 1.4em
+        }
+
+        .typo-h5,
+        .typo-h6,
+        .typo h5,
+        .typo h6 {
+            font-size: 1.2em
+        }
+
+        .typo-ul,
+        .typo ul {
+            margin-left: 1.3em;
+            list-style: disc
+        }
+
+        .typo-ol,
+        .typo ol {
+            list-style: decimal;
+            margin-left: 1.9em
+        }
+
+        .typo-ol ol,
+        .typo-ol ul,
+        .typo-ul ol,
+        .typo-ul ul,
+        .typo li ol,
+        .typo li ul {
+            margin-bottom: .8em;
+            margin-left: 2em
+        }
+
+        .typo-ol ul,
+        .typo-ul ul,
+        .typo li ul {
+            list-style: circle
+        }
+
+        .typo-table td,
+        .typo-table th,
+        .typo table caption,
+        .typo table td,
+        .typo table th {
+            border: 1px solid #ddd;
+            padding: .5em 1em;
+            color: #666
+        }
+
+        .typo-table th,
+        .typo table th {
+            background: #fbfbfb
+        }
+
+        .typo-table thead th,
+        .typo table thead th {
+            background: hsla(0, 0%, 95%, .7)
+        }
+
+        .typo table caption {
+            border-bottom: none
+        }
+
+        .typo-input,
+        .typo-textarea {
+            -webkit-appearance: none;
+            border-radius: 0
+        }
+
+        .typo-em,
+        .typo em,
+        caption,
+        legend {
+            color: #000;
+            font-weight: inherit
+        }
+
+        .typo-em {
+            position: relative
+        }
+
+        .typo-em:after {
+            position: absolute;
+            top: .65em;
+            left: 0;
+            width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+            content: "\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB"
+        }
+
+        .typo img {
+            max-width: 100%
+        }
+
+        .common-content {
+            font-weight: 400;
+            color: #353535;
+            line-height: 1.75rem;
+            white-space: normal;
+            word-break: normal;
+            font-size: 1rem
+        }
+
+        .common-content img {
+            display: block;
+            max-width: 100%;
+            background-color: #eee
+        }
+
+        .common-content audio,
+        .common-content video {
+            width: 100%;
+            background-color: #eee
+        }
+
+        .common-content center,
+        .common-content font {
+            margin-top: 1rem;
+            display: inline-block
+        }
+
+        .common-content center {
+            width: 100%
+        }
+
+        .common-content pre {
+            margin-top: 1rem;
+            padding-left: 0;
+            padding-right: 0;
+            position: relative;
+            overflow: hidden
+        }
+
+        .common-content pre code {
+            font-size: .8rem;
+            font-family: Consolas, Liberation Mono, Menlo, monospace, Courier;
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+            padding-left: 1rem;
+            padding-right: 1rem;
+            overflow-x: auto
+        }
+
+        .common-content hr {
+            border: none;
+            margin-top: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-top: 1px solid #f5f5f5;
+            height: 1px;
+            background: none
+        }
+
+        .common-content b,
+        .common-content h1,
+        .common-content h2,
+        .common-content h3,
+        .common-content h4,
+        .common-content h5,
+        .common-content strong {
+            font-weight: 700
+        }
+
+        .common-content h1,
+        .common-content h2 {
+            font-size: 1.125rem;
+            margin-bottom: .45rem
+        }
+
+        .common-content h3,
+        .common-content h4,
+        .common-content h5 {
+            font-size: 1rem;
+            margin-bottom: .45rem
+        }
+
+        .common-content p {
+            font-weight: 400;
+            color: #353535;
+            margin-top: .15rem
+        }
+
+        .common-content .orange {
+            color: #ff5a05
+        }
+
+        .common-content .reference {
+            font-size: 1rem;
+            color: #888
+        }
+
+        .custom-rich-content h1 {
+            margin-top: 0;
+            font-weight: 400;
+            font-size: 15.25px;
+            border-bottom: 1px solid #eee;
+            line-height: 2.8
+        }
+
+        .custom-rich-content li,
+        .custom-rich-content p {
+            font-size: 14px;
+            color: #888;
+            line-height: 1.6
+        }
+
+        table.hljs-ln {
+            margin-bottom: 0;
+            border-spacing: 0;
+            border-collapse: collapse
+        }
+
+        table.hljs-ln,
+        table.hljs-ln tbody,
+        table.hljs-ln td,
+        table.hljs-ln tr {
+            box-sizing: border-box
+        }
+
+        table.hljs-ln td {
+            padding: 0;
+            border: 0
+        }
+
+        table.hljs-ln td.hljs-ln-numbers {
+            min-width: 15px;
+            color: rgba(27, 31, 35, .3);
+            text-align: right;
+            white-space: nowrap;
+            cursor: pointer;
+            user-select: none
+        }
+
+        table.hljs-ln td.hljs-ln-code,
+        table.hljs-ln td.hljs-ln-numbers {
+            font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier, monospace;
+            font-size: 12px;
+            line-height: 20px;
+            vertical-align: top
+        }
+
+        table.hljs-ln td.hljs-ln-code {
+            position: relative;
+            padding-right: 10px;
+            padding-left: 10px;
+            overflow: visible;
+            color: #24292e;
+            word-wrap: normal;
+            white-space: pre
+        }
+
+        video::-webkit-media-controls {
+            overflow: hidden !important
+        }
+
+        video::-webkit-media-controls-enclosure {
+            width: calc(100% + 32px);
+            margin-left: auto
+        }
+
+        ._29HP61GA_0 {
+            max-width:800px;
+            margin:0 auto;
+            margin-bottom: 20px;
+            font-weight: 400;
+            color: #353535;
+            line-height: 1.76;
+            white-space: normal;
+            word-break: normal;
+            font-size: 17px;
+            -webkit-transition: background-color .3s ease;
+            transition: background-color .3s ease
+        }
+
+        ._29HP61GA_0 .MathJax_Display {
+            overflow: auto
+        }
+
+        ._29HP61GA_0 .poster {
+            position: fixed;
+            left: -10000px;
+            top: -10000px;
+            overflow: hidden;
+            padding: 1rem;
+            background: #ececec
+        }
+
+        ._29HP61GA_0 .richcontent-pre-copy {
+            font-size: 13px;
+            color: #888;
+            position: absolute;
+            right: 1em;
+            top: .5em;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none
+        }
+
+        ._29HP61GA_0 .richcontent-pre-copy .iconfont {
+            font-size: 12px;
+            margin-right: .2em
+        }
+
+        ._29HP61GA_0 a {
+            color: #fa8919;
+            border-bottom: 1px solid #fa8919
+        }
+
+        ._29HP61GA_0 img {
+            display: block;
+            max-width: 100%;
+            position: relative;
+            left: 50%;
+            -webkit-transform: translateX(-50%);
+            transform: translateX(-50%);
+            background-color: #eee;
+            vertical-align: top;
+            border-radius: 0
+        }
+
+        ._29HP61GA_0 audio,
+        ._29HP61GA_0 video {
+            width: 100%;
+            background-color: #eee
+        }
+
+        ._29HP61GA_0 pre {
+            margin-top: 16px;
+            padding: 34px 0 0;
+            margin-bottom: 30px;
+            position: relative;
+            border-radius: 6px;
+            background: rgba(246, 247, 251, .749);
+            border: 0
+        }
+
+        ._29HP61GA_0 pre code {
+            font-size: 12px;
+            font-family: Consolas, Liberation Mono, Menlo, monospace, Courier;
+            display: block;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            margin-left: 16px;
+            margin-right: 16px;
+            overflow-x: scroll
+        }
+
+        ._29HP61GA_0 pre code:after {
+            content: "";
+            height: 30px;
+            width: 100%;
+            display: block
+        }
+
+        ._29HP61GA_0 hr {
+            border: none;
+            margin-top: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-top: 1px solid #f5f5f5;
+            height: 1px;
+            background: none
+        }
+
+        ._29HP61GA_0 h1,
+        ._29HP61GA_0 h2,
+        ._29HP61GA_0 h3,
+        ._29HP61GA_0 h4,
+        ._29HP61GA_0 h5 {
+            margin-bottom: 20px;
+            margin-top: 0;
+            font-weight: 700
+        }
+
+        ._29HP61GA_0 b,
+        ._29HP61GA_0 strong {
+            font-weight: 700
+        }
+
+        ._29HP61GA_0 h1 {
+            font-size: 21px
+        }
+
+        ._29HP61GA_0 h2 {
+            font-size: 20px
+        }
+
+        ._29HP61GA_0 h3 {
+            font-size: 19px
+        }
+
+        ._29HP61GA_0 h4 {
+            font-size: 18px
+        }
+
+        ._29HP61GA_0 h5 {
+            font-size: 17px
+        }
+
+        ._29HP61GA_0 center,
+        ._29HP61GA_0 p {
+            font-weight: 400;
+            color: #353535;
+            margin-top: 0;
+            margin-bottom: 30px;
+            word-break: break-word
+        }
+
+        ._29HP61GA_0 center {
+            text-align: center
+        }
+
+        ._29HP61GA_0 blockquote {
+            margin-top: 0;
+            margin-bottom: 34px;
+            border-left: 3px solid #e8e8e8;
+            padding-left: 17px;
+            color: #353535
+        }
+
+        ._29HP61GA_0 blockquote p {
+            margin-top: 0;
+            margin-bottom: 0
+        }
+
+        ._29HP61GA_0 ol,
+        ._29HP61GA_0 ul {
+            margin-bottom: 30px
+        }
+
+        ._29HP61GA_0 ol p,
+        ._29HP61GA_0 ul p {
+            margin-top: 0;
+            margin-bottom: 0
+        }
+
+        ._29HP61GA_0 ol {
+            list-style: decimal;
+            margin-left: 20px
+        }
+
+        ._29HP61GA_0 ul li {
+            padding-left: 17px;
+            position: relative;
+            margin-bottom: 10px
+        }
+
+        ._29HP61GA_0 ul li:after {
+            content: "";
+            height: 6px;
+            width: 6px;
+            border-radius: 50%;
+            background: #353535;
+            position: absolute;
+            top: 10px;
+            left: 0
+        }
+
+        ._29HP61GA_0 .orange {
+            color: #fa8919
+        }
+
+        ._29HP61GA_0 .reference {
+            color: #888
+        }
+
+        ._29HP61GA_0 .m-right {
+            text-align: right
+        }
+
+        ._29HP61GA_0 .m-center {
+            text-align: center;
+            display: block
+        }
+
+        ._29HP61GA_0 .m-gray {
+            color: #888
+        }
+
+        ._29HP61GA_0 .m-small {
+            font-size: 15px
+        }
+
+        ._29HP61GA_0 table.hljs-ln {
+            margin-bottom: 0;
+            border-spacing: 0;
+            border-collapse: collapse
+        }
+
+        ._29HP61GA_0 table.hljs-ln,
+        ._29HP61GA_0 table.hljs-ln tbody,
+        ._29HP61GA_0 table.hljs-ln td,
+        ._29HP61GA_0 table.hljs-ln tr {
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box
+        }
+
+        ._29HP61GA_0 table.hljs-ln td {
+            padding: 0;
+            border: 0
+        }
+
+        ._29HP61GA_0 table.hljs-ln td.hljs-ln-numbers {
+            min-width: 15px;
+            font-size: 12px;
+            color: rgba(27, 31, 35, .3);
+            text-align: right;
+            white-space: nowrap;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none
+        }
+
+        ._29HP61GA_0 table.hljs-ln td.hljs-ln-code,
+        ._29HP61GA_0 table.hljs-ln td.hljs-ln-numbers {
+            font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier, monospace;
+            line-height: 20px;
+            vertical-align: top
+        }
+
+        ._29HP61GA_0 table.hljs-ln td.hljs-ln-code {
+            position: relative;
+            padding-right: 10px;
+            padding-left: 10px;
+            overflow: visible;
+            font-size: 13px;
+            color: #666;
+            word-wrap: normal;
+            white-space: pre
+        }
+
+    </style>
+</head>
+<body>
+<div class="_29HP61GA_0">
+<h1>春节7天练-Day5：二叉树和堆</h1>
+<p>你好，我是王争。春节假期进入尾声了。你现在是否已经准备返回工作岗位了呢？今天更新的是测试题的第五篇，我们继续来复习。</p><hr></hr><h2>关于二叉树和堆的7个必知必会的代码实现</h2><h3>二叉树</h3><ul>
+<li>
+<p>实现一个二叉查找树，并且支持插入、删除、查找操作</p>
+</li>
+<li>
+<p>实现查找二叉查找树中某个节点的后继、前驱节点</p>
+</li>
+<li>
+<p>实现二叉树前、中、后序以及按层遍历</p>
+</li>
+</ul><h3>堆</h3><ul>
+<li>
+<p>实现一个小顶堆、大顶堆、优先级队列</p>
+</li>
+<li>
+<p>实现堆排序</p>
+</li>
+<li>
+<p>利用优先级队列合并K个有序数组</p>
+</li>
+<li>
+<p>求一组动态数据集合的最大Top K</p>
+</li>
+</ul><h2>对应的LeetCode练习题（@Smallfly 整理）</h2><ul>
+<li>Invert Binary Tree（翻转二叉树）</li>
+</ul><p>英文版：<a href="https://leetcode.com/problems/invert-binary-tree/">https://leetcode.com/problems/invert-binary-tree/</a></p><p>中文版：<a href="https://leetcode-cn.com/problems/invert-binary-tree/">https://leetcode-cn.com/problems/invert-binary-tree/</a></p><ul>
+<li>Maximum Depth of Binary Tree（二叉树的最大深度）</li>
+</ul><p>英文版：<a href="https://leetcode.com/problems/maximum-depth-of-binary-tree/">https://leetcode.com/problems/maximum-depth-of-binary-tree/</a></p><p>中文版：<a href="https://leetcode-cn.com/problems/maximum-depth-of-binary-tree/">https://leetcode-cn.com/problems/maximum-depth-of-binary-tree/</a></p><!-- [[[read_end]]] --><ul>
+<li>Validate Binary Search Tree（验证二叉查找树）</li>
+</ul><p>英文版：<a href="https://leetcode.com/problems/validate-binary-search-tree/">https://leetcode.com/problems/validate-binary-search-tree/</a></p><p>中文版：<a href="https://leetcode-cn.com/problems/validate-binary-search-tree/">https://leetcode-cn.com/problems/validate-binary-search-tree/</a></p><ul>
+<li>Path Sum（路径总和）</li>
+</ul><p>英文版：<a href="https://leetcode.com/problems/path-sum/">https://leetcode.com/problems/path-sum/</a></p><p>中文版：<a href="https://leetcode-cn.com/problems/path-sum/">https://leetcode-cn.com/problems/path-sum/</a></p><hr></hr><p>做完题目之后，你可以点击“请朋友读”，把测试题分享给你的朋友。</p><p>祝你取得好成绩！明天见！</p><p></p><h2>精选留言：</h2>
+        <ul>
+        
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            李皮皮皮皮皮  2019-02-09 09:00:59
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            平衡树的各种操作太烧脑了，左旋右旋，红黑树就更别提了。过段时间就忘。😢 [7赞]
+        </div>
+        
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            kai  2019-02-11 11:05:02
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            树的前中后序遍历-递归实现：<br><br>public class TreeTraversal {<br><br>    public static class Node {<br>        public int value;<br>        public Node left;<br>        public Node right;<br><br>        public Node(int value) {<br>            this.value = value;<br>        }<br>    }<br><br>    &#47;&#47; 二叉树的递归遍历<br>    public static void preOrderRecursive(Node head) {<br>        if (head == null) {<br>            return;<br>        }<br><br>        System.out.print(head.value + &quot; &quot;);<br>        preOrderRecursive(head.left);<br>        preOrderRecursive(head.right);<br>    }<br><br>    public static void inOrderRecursive(Node head) {<br>        if (head == null) {<br>            return;<br>        }<br><br>        inOrderRecursive(head.left);<br>        System.out.print(head.value + &quot; &quot;);<br>        inOrderRecursive(head.right);<br>    }<br><br>    public static void postOrderRecursive(Node head) {<br>        if (head == null) {<br>            return;<br>        }<br><br>        postOrderRecursive(head.left);<br>        postOrderRecursive(head.right);<br>        System.out.print(head.value + &quot; &quot;);<br>    }<br><br>}<br> [2赞]
+        </div>
+        
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            kai  2019-02-11 11:06:35
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            树的前中后序遍历-非递归实现：<br>import java.util.Stack;<br><br><br>public class TreeTraversal {<br>    public static class Node {<br>        public int value;<br>        public Node left;<br>        public Node right;<br>        public Node(int value) {<br>            this.value = value;<br>        }<br>    }<br>    &#47;&#47; 二叉树的非递归遍历<br>    public static void preOrder(Node head) {<br>        System.out.print(&quot;pre-order: &quot;);<br>        if (head == null) {<br>            return;<br>        }<br>        Stack&lt;Node&gt; s = new Stack&lt;&gt;();<br>        s.push(head);<br>        while (!s.isEmpty()) {<br>            head = s.pop();<br>            System.out.print(head.value + &quot; &quot;);<br>            if (head.right != null) {<br>                s.push(head.right);<br>            }<br><br>            if (head.left != null) {<br>                s.push(head.left);<br>            }<br>        }<br>        System.out.println();<br>    }<br><br>    public static void inOrder(Node head) {<br>        System.out.print(&quot;in-order: &quot;);<br>        if (head == null) {<br>            return;<br>        }<br>        Stack&lt;Node&gt; s = new Stack&lt;&gt;();<br>        while (!s.isEmpty() || head != null) {<br>            if (head != null) {<br>                s.push(head);<br>                head = head.left;<br>            } else {<br>                head = s.pop();<br>                System.out.print(head.value + &quot; &quot;);<br>                head = head.right;<br>            }<br>        }<br>        System.out.println();<br>    }<br><br>    public static void postOrder(Node head) {<br>        System.out.print(&quot;pos-order: &quot;);<br>        if (head == null) {<br>            return;<br>        }<br><br>        Stack&lt;Node&gt; tmp = new Stack&lt;&gt;();<br>        Stack&lt;Node&gt; s = new Stack&lt;&gt;();<br><br>        tmp.push(head);<br>        while(!tmp.isEmpty()) {<br>            head = tmp.pop();<br>            s.push(head);<br><br>            if (head.left != null) {<br>                tmp.push(head.left);<br>            }<br><br>            if (head.right != null) {<br>                tmp.push(head.right);<br>            }<br>        }<br><br>        while (!s.isEmpty()) {<br>            System.out.print(s.pop().value + &quot; &quot;);<br>        }<br><br>        System.out.println();<br>    }<br>}<br> [1赞]
+        </div>
+        
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            kai  2019-02-10 02:29:24
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            今天看了一下这一节的题目，发现校招面试的时候都考过，今天又刷了一下，总结了一波，相应的知识点也总结了一下~ [1赞]
+        </div>
+        
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            纯洁的憎恶  2019-02-10 00:32:06
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            今天的题目很适合递归实现，当然递归公式离代码实现还是存在一定距离。<br>1.翻转二叉树（T）｛<br>当T为Null时则返回；<br>翻转二叉树（T的左子树）；<br>翻转二叉树（T的右子树）；<br>若T不为叶节点，则交换T的左右子树位置；<br>｝<br><br>2.最大深度（T）｛<br>当T为Null时，return 0；<br>return Max（最大深度（T左子树）+1，最大深度（T右子树）+1）；<br>｝<br>函数返回值即为最大深度。<br><br>3.验证二叉查找树（T，&amp;最大值，&amp;最小值）｛<br>当T为Null时，return true；<br>当T为叶节点时，最小值=最大值=当前节点，返回true；<br>左最大值=左最小值=T的值；<br>验证二叉查找树（T的左子树，&amp;左最大值，&amp;左最小值）；<br>右最大值=右最小值=T的值；<br>验证（T的右子树，&amp;右最大值，&amp;右最小值）；<br>T的值小于等于右最小值，并且大于等于左最大值时，最大值=右最大值，最小值=左最小值，之后返回true，否则返回false并结束。<br>｝<br>函数最终返回true则验证成功。<br><br>4.计算路径和（T，sum）｛<br>若T为Null返回false；<br>若T是叶节点，如果sum+T的值=目标值则返回true并结束，否则返回false；<br>计算路径和（T的左子树，sum+T的值）；<br>计算路径和（T的右子树，sum+T的值）；<br>｝<br>计算路径和（T，0）返回true时则存在于目标值相同的路径之和； [1赞]
+        </div>
+        
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            _CountingStars  2019-02-09 13:10:01
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            二叉树的最大深度 go 语言实现<br>&#47;**<br> * Definition for a binary tree node.<br> * type TreeNode struct {<br> *     Val int<br> *     Left *TreeNode<br> *     Right *TreeNode<br> * }<br> *&#47;<br>func maxDepth(root *TreeNode) int {<br>    if root == nil {<br>        return 0<br>    }<br>    <br>    leftDepth :=0<br>    rightDepth :=0<br>    if root.Left != nil {<br>        leftDepth = maxDepth(root.Left)<br>    }<br>    <br>    if root.Right != nil {<br>        rightDepth = maxDepth(root.Right)<br>    }<br>    <br>    if leftDepth &gt;= rightDepth {<br>        return leftDepth + 1<br>    } else {<br>        return rightDepth + 1<br>    }<br>} [1赞]
+        </div>
+        
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            失火的夏天  2019-02-09 00:11:25
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            &#47;&#47; 翻转二叉树<br>public TreeNode invertTree(TreeNode root) {<br>        if(root == null){<br>			return root;<br>		}<br>		TreeNode node = root;<br>		Queue&lt;TreeNode&gt; queue = new LinkedList&lt;&gt;();<br>		queue.add(node);<br>		while(!queue.isEmpty()){<br>			node = queue.poll();<br>			TreeNode tempNode = node.left;<br>			node.left = node.right;<br>			node.right = tempNode;<br>			if(node.left != null){<br>				queue.offer(node.left);<br>			}<br>			if(node.right != null){<br>				queue.offer(node.right);<br>			}<br>		}<br>        return root;<br>    }<br>&#47;&#47; 二叉树的最大深度<br>public int maxDepth(TreeNode root) {<br>        if(root == null) return 0;<br>        return Math.max(maxDepth(root.left), maxDepth(root.right))+1;   <br>    }<br>&#47;&#47; 验证二叉查找树<br>public boolean isValidBST(TreeNode root) {<br>        if (root == null) {<br>			return true;<br>		}<br>		Stack&lt;TreeNode&gt; stack = new Stack&lt;&gt;();<br>		TreeNode node = root;<br>		TreeNode preNode = null;<br>		while(node != null || !stack.isEmpty()){<br>			stack.push(node);<br>			node = node.left;<br>			while(node == null &amp;&amp; !stack.isEmpty()){<br>				node = stack.pop();<br>				if(preNode != null){<br>					if(preNode.val &gt;= node.val){<br>						return false;<br>					}<br>				}<br>				preNode = node;<br>				node = node.right;<br>			}<br>		}<br>        return true;<br>    }<br>&#47;&#47; 路径总和<br>public boolean hasPathSum(TreeNode root, int sum) {<br>        if (root == null) {<br>            return false;<br>        }<br>        return hasPathSum(root, root.val, sum);<br>    }<br><br>    public boolean hasPathSum(TreeNode root, int tmp, int sum) {<br>        if (root == null) {<br>            return false;<br>        }<br>        if (root.left == null &amp;&amp; root.right == null) {<br>            return tmp == sum;<br>        }<br>        if (root.left == null) {<br>            return hasPathSum(root.right, root.right.val + tmp, sum);<br>        }<br>        if (root.right == null) {<br>            return hasPathSum(root.left, root.left.val + tmp, sum);<br>        }<br>        return hasPathSum(root.left, root.left.val + tmp, sum) ||<br>                hasPathSum(root.right, root.right.val + tmp, sum);<br>    } [1赞]
+        </div>
+        <br/>
+<div>
+    <div style="color:#888;font-size:15.25px;font-weight:400;        line-height:1.2">编辑回复2019-02-22 10:55:53</div>
+    <div style="color:#353535;font-weight:400;white-space:normal;        word-break:break-all;line-height:1.6">感谢您参与春节七天练的活动，为了表彰你在活动中的优秀表现，赠送您99元专栏通用阅码，我们会在3个工作日之内完成礼品发放，如有问题请咨询小明同学，微信geektime002。</div>
+</div>
+            
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            啵啵啵  2019-10-06 11:44:25
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            作者可以提供pdf版的课程资料吗，不然我觉得不值，因为不能大量复制，不能形成书面笔记，毕竟我付费了。 
+        </div>
+        <br/>
+<div>
+    <div style="color:#888;font-size:15.25px;font-weight:400;        line-height:1.2">作者回复2019-10-09 08:26:27</div>
+    <div style="color:#353535;font-weight:400;white-space:normal;        word-break:break-all;line-height:1.6">要不要保时捷也送你一辆啊</div>
+</div>
+            
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            懒猫  2019-06-14 12:02:56
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            打卡 
+        </div>
+        
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            付坤  2019-04-01 13:59:02
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            https:&#47;&#47;github.com&#47;DigDeeply&#47;data-structures-learning&#47;blob&#47;0e14f4f69d1f3d45c3d16820cb771f6c242898e4&#47;57-5-binary_tree&#47;binary_tree.go<br><br>用数组实现的二叉查找树，支持增删查。 
+        </div>
+        
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            hopeful  2019-03-11 10:29:01
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            #验证二叉搜索树<br>def isValidBST(self, root: TreeNode) -&gt; bool:<br>        def inorderTraversal(root): <br>            if root == None:<br>                return []<br>            res = []<br>            res += inorderTraversal(root.left)<br>            res.append(root.val)<br>            res += inorderTraversal(root.right)<br>            return res<br> <br>        res = inorderTraversal(root)<br>        if res != sorted(list(set(res))): return False<br>        return True<br> 
+        </div>
+        
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            hopeful  2019-03-05 20:14:36
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            #实现小顶堆<br>def makeSmallHeap(array):<br>    for i in range(int(len(array)&#47;2) , -1 , -1):<br>        makeHeap(array , i , len(array))<br>def makeHeap(array , i ,N):<br>    while 2*i+1 &lt; N:<br>        child = 2*i+1<br>        if child != N-1 and array[child] &gt; array[child+1]:<br>            child+=1<br>        if array[child] &lt; array[i]:<br>            temp = array[child]<br>            array[child] = array[i]<br>            array[i] = temp<br>            i = child<br>        else:<br>            break 
+        </div>
+        
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            hopeful  2019-03-05 20:13:18
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            #实现大顶堆<br>def makeBigHeap(array):<br>    for i in range(int(len(array)&#47;2) , -1 , -1):<br>        makeHeap(array , i , len(array))<br>def makeHeap(array , i ,N):<br>    while 2*i+1 &lt; N:<br>        child = 2*i+1<br>        if child != N-1 and array[child] &lt; array[child+1]:<br>            child+=1<br>        if array[child] &gt; array[i]:<br>            temp = array[child]<br>            array[child] = array[i]<br>            array[i] = temp<br>            i = child<br>        else:<br>            break 
+        </div>
+        
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            hopeful  2019-03-05 20:02:40
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            #堆排序<br>import random<br>import time<br><br>def Array(n):<br>    a = []<br>    for i in range(n):<br>        a.append(random.randint(0 , n))<br>    return a<br><br>def makeHeap(array , i ,N):<br>    while 2*i+1 &lt; N:<br>        child = 2*i+1<br>        if child != N-1 and array[child] &lt; array[child+1]:<br>            child+=1<br>        if array[child] &gt; array[i]:<br>            temp = array[child]<br>            array[child] = array[i]<br>            array[i] = temp<br>            i = child<br>        else:<br>            break<br>def heapSort():<br>    array = Array(100)<br>    for i in range(int(len(array)&#47;2) , -1 , -1):<br>        makeHeap(array , i , len(array))<br>    for i in range(len(array)-1 , -1 , -1):<br>        temp = array[0]<br>        array[0] = array[i]<br>        array[i] = temp<br>        makeHeap(array , 0 , i)<br>    print(array) 
+        </div>
+        
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            Sharry  2019-02-25 16:07:06
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            路径总和: 使用回溯法, 遍历每一条 root-&gt;leaf 的路线是否满足在和为 sum, 可以使用减枝操作<br><br>二叉树深度 = 左右子树中深度最大者 + 1<br><br>验证二叉搜索树: <br>1. 遍历每一个结点, 若都满足, 当前结点大于左子树中的最大值, 小于右子树中的最小值, 则说明为二叉搜索树<br>2. 中序遍历二叉搜索树, 若序列递增, 则说明为二叉搜索树 
+        </div>
+        
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            hopeful  2019-02-16 15:16:08
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            #二叉树前中后序及层次遍历非递归版本<br>class Tree:<br>    def __init__(self, x):<br>        self.val = x<br>        self.left = None<br>        self.right = None<br><br>#----前序----<br>def preOrder(Tree T):<br>    if T is None:<br>        return []<br>    list1 = []<br>    list2 = []<br>    list1.append(T)<br>    while len(list1) &gt; 0:<br>        t = list1.pop()<br>        list2.append(t)<br>        if t.right not None:<br>            list1.append(t.right)<br>        if t.left not None:<br>            list1.append(t.left)<br>    return list2<br><br>#----中序----<br>def inOrder(Tree T):<br>    if T is None:<br>        return []<br>    list1 = []<br>    list2 = []<br>    while T or len(list1)&gt;0 :<br>        if T :<br>            list1.append(T)<br>            T = T.left<br>        else:<br>            T = list1.pop()<br>            list2.append(T)<br>            T = T.right<br>    return list2<br><br>#----后序----<br>def postOrder(Tree T):<br>    if T is None:<br>        return []<br>    list1 = []<br>    list2 = []<br>    list1.append(T)<br>    while len(list1)&gt;0 :<br>        t = list1.pop()<br>        list2.append(t)<br>        if t.left not None:<br>            list1.append(t.left)<br>        if t.right not None:<br>            list1.append(t.right)<br>    return list2[::-1]<br><br>#----层次-----<br>def levelOrder():<br>    if T is None:<br>        return []<br>    list1 = []<br>    list2 = []<br>    list1.append(T)<br>    while len(list1)&gt;0 :<br>        t = list1[0]<br>        del list1[0]<br>        list2.append(t)<br>        if t.left not None:<br>            list1.append(t.left)<br>        if t.right not None:<br>            list1.append(t.right)<br>    return list2<br> 
+        </div>
+        
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            abner  2019-02-14 23:13:12
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            java实现二叉树前序、中序、后序和层次遍历<br>代码如下：<br>package tree;<br><br>import java.util.LinkedList;<br>import java.util.Queue;<br><br>public class BinaryTree {<br>    <br>    private Node root = null;<br>    <br>    public static class Node {<br>        <br>        private String data;<br>        private Node left;<br>        private Node right;<br>        <br>        public Node(String data, Node left, Node right) {<br>            this.data = data;<br>            this.left = left;<br>            this.right = right;<br>        }<br>    }<br>    <br>    public void preOrder(Node root) {<br>        if (null == root) {<br>            return ;<br>        }<br>        System.out.print(root.data + &quot; &quot;);<br>        preOrder(root.left);<br>        preOrder(root.right);<br>    }<br>    <br>    public void inOrder(Node root) {<br>        if (null == root) {<br>            return ;<br>        }<br>        inOrder(root.left);<br>        System.out.print(root.data + &quot; &quot;);<br>        inOrder(root.right);<br>    }<br>    <br>    public void postOrder(Node root) {<br>        if (null == root) {<br>            return ;<br>        }<br>        postOrder(root.left);<br>        postOrder(root.right);<br>        System.out.print(root.data + &quot; &quot;);<br>    }<br>    <br>    public void traverseByLayer(Node root) {<br>        if (null == root) {<br>            return ;<br>        }<br>        Queue&lt;Node&gt; queue = new LinkedList&lt;Node&gt;();<br>        queue.add(root);<br>        while (!queue.isEmpty()) {<br>            Node pNode = queue.peek();<br>            System.out.print(pNode.data + &quot; &quot;);<br>            queue.poll();<br>            if (root.left != null) {<br>                queue.add(root.left);<br>            }<br>            if (root.right != null) {<br>                queue.add(root.right);<br>            }<br>        }<br>    }<br>}<br> 
+        </div>
+        
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            拉欧  2019-02-14 15:17:09
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            Path Sum（路径总和）go 语言实现<br>func hasPathSum(root *TreeNode, sum int) bool {<br><br>	if root==nil{<br>		return false<br>	}<br>	if root.Left==nil &amp;&amp; root.Right==nil{<br>		if root.Val==sum{<br>			return true<br>		}else{<br>			return false<br>		}<br><br>	}<br>	left:=false<br>	if root.Left!=nil{<br>		left=hasPathSum(root.Left,sum-root.Val)<br>	}<br>	right:=false<br>	if root.Right!=nil{<br>		right=hasPathSum(root.Right,sum-root.Val)<br>	}<br>	return left || right<br>} 
+        </div>
+        
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            拉欧  2019-02-14 14:57:49
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            Validate Binary Search Tree（验证二叉查找数） go语言实现<br><br>func isValidBST(root *TreeNode) bool {<br><br>	if root==nil{<br>		return true<br>	}<br>	less:=true<br>	more:=true<br>	if root.Left!=nil{<br>		less=JudgeLess(root.Left,root.Val)<br>	}<br>	if root.Right!=nil{<br>		more=JudgeMore(root.Right,root.Val)<br>	}<br>	if ! (less &amp;&amp; more){<br>		return false<br>	}else{<br>		return isValidBST(root.Left) &amp;&amp; isValidBST(root.Right)<br>	}<br>}<br><br>func JudgeLess(root *TreeNode,num int) bool{<br><br>	if root.Val&gt;=num{<br>		return false<br>	}<br>	if root.Left!=nil &amp;&amp; root.Right!=nil{<br>		return JudgeLess(root.Left,num) &amp;&amp; JudgeLess(root.Right,num)<br>	}else if root.Left!=nil{<br>		return JudgeLess(root.Left,num)<br>	}else if root.Right!=nil{<br>		return JudgeLess(root.Right,num)<br>	}else{<br>		return true<br>	}<br>}<br><br>func JudgeMore(root *TreeNode,num int) bool{<br>	if root.Val&lt;=num{<br>		return false<br>	}<br>	if root.Left!=nil &amp;&amp; root.Right!=nil{<br>		return JudgeMore(root.Left,num) &amp;&amp; JudgeMore(root.Right,num)<br>	}else if root.Left!=nil{<br>		return JudgeMore(root.Left,num)<br>	}else if root.Right!=nil{<br>		return JudgeMore(root.Right,num)<br>	}else{<br>		return true<br>	}<br>}<br> 
+        </div>
+        
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            拉欧  2019-02-14 11:20:30
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            Invert Binary Tree（翻转二叉树） go 语言实现<br>func invertTree(root *TreeNode) *TreeNode {<br>	if root==nil{<br>		return root<br>	}<br>	temp:=root.Left<br>	root.Left=root.Right<br>	root.Right=temp<br>	invertTree(root.Left)<br>	invertTree(root.Right)<br>	return root<br>} 
+        </div>
+        
+    </div>
+</li>
+            </ul>
+</div>
+</body>
+</html>

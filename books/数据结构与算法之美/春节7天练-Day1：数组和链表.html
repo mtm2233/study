@@ -1,0 +1,1247 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>春节7天练-Day1：数组和链表</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <style>
+        html {
+            color: #333;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+            text-rendering: optimizelegibility;
+            font-family: Helvetica Neue, PingFang SC, Verdana, Microsoft Yahei, Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei, sans-serif
+        }
+
+        html.borderbox *,
+        html.borderbox :after,
+        html.borderbox :before {
+            box-sizing: border-box
+        }
+
+        article,
+        aside,
+        blockquote,
+        body,
+        button,
+        code,
+        dd,
+        details,
+        dl,
+        dt,
+        fieldset,
+        figcaption,
+        figure,
+        footer,
+        form,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        header,
+        hr,
+        input,
+        legend,
+        li,
+        menu,
+        nav,
+        ol,
+        p,
+        pre,
+        section,
+        td,
+        textarea,
+        th,
+        ul {
+            margin: 0;
+            padding: 0
+        }
+
+        article,
+        aside,
+        details,
+        figcaption,
+        figure,
+        footer,
+        header,
+        menu,
+        nav,
+        section {
+            display: block
+        }
+
+        audio,
+        canvas,
+        video {
+            display: inline-block
+        }
+
+        body,
+        button,
+        input,
+        select,
+        textarea {
+            font: 300 1em/1.8 PingFang SC, Lantinghei SC, Microsoft Yahei, Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei, Helvetica, sans-serif
+        }
+
+        button::-moz-focus-inner,
+        input::-moz-focus-inner {
+            padding: 0;
+            border: 0
+        }
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0
+        }
+
+        fieldset,
+        img {
+            border: 0
+        }
+
+        blockquote {
+            position: relative;
+            color: #999;
+            font-weight: 400;
+            border-left: 1px solid #1abc9c;
+            padding-left: 1em;
+            margin: 1em 3em 1em 2em
+        }
+
+        @media only screen and (max-width: 640px) {
+            blockquote {
+                margin: 1em 0
+            }
+        }
+
+        abbr,
+        acronym {
+            border-bottom: 1px dotted;
+            font-variant: normal
+        }
+
+        abbr {
+            cursor: help
+        }
+
+        del {
+            text-decoration: line-through
+        }
+
+        address,
+        caption,
+        cite,
+        code,
+        dfn,
+        em,
+        th,
+        var {
+            font-style: normal;
+            font-weight: 400
+        }
+
+        ol,
+        ul {
+            list-style: none
+        }
+
+        caption,
+        th {
+            text-align: left
+        }
+
+        q:after,
+        q:before {
+            content: ""
+        }
+
+        sub,
+        sup {
+            font-size: 75%;
+            line-height: 0;
+            position: relative
+        }
+
+        :root sub,
+        :root sup {
+            vertical-align: baseline
+        }
+
+        sup {
+            top: -.5em
+        }
+
+        sub {
+            bottom: -.25em
+        }
+
+        a {
+            color: #1abc9c
+        }
+
+        a:hover {
+            text-decoration: underline
+        }
+
+        .typo a {
+            border-bottom: 1px solid #1abc9c
+        }
+
+        .typo a:hover {
+            border-bottom-color: #555;
+            color: #555
+        }
+
+        .typo a:hover,
+        a,
+        ins {
+            text-decoration: none
+        }
+
+        .typo-u,
+        u {
+            text-decoration: underline
+        }
+
+        mark {
+            background: #fffdd1;
+            border-bottom: 1px solid #ffedce;
+            padding: 2px;
+            margin: 0 5px
+        }
+
+        code,
+        pre,
+        pre tt {
+            font-family: Courier, Courier New, monospace
+        }
+
+        pre {
+            background: hsla(0, 0%, 97%, .7);
+            border: 1px solid #ddd;
+            padding: 1em 1.5em;
+            display: block;
+            -webkit-overflow-scrolling: touch
+        }
+
+        hr {
+            border: none;
+            border-bottom: 1px solid #cfcfcf;
+            margin-bottom: .8em;
+            height: 10px
+        }
+
+        .typo-small,
+        figcaption,
+        small {
+            font-size: .9em;
+            color: #888
+        }
+
+        b,
+        strong {
+            font-weight: 700;
+            color: #000
+        }
+
+        [draggable] {
+            cursor: move
+        }
+
+        .clearfix:after,
+        .clearfix:before {
+            content: "";
+            display: table
+        }
+
+        .clearfix:after {
+            clear: both
+        }
+
+        .clearfix {
+            zoom: 1
+        }
+
+        .textwrap,
+        .textwrap td,
+        .textwrap th {
+            word-wrap: break-word;
+            word-break: break-all
+        }
+
+        .textwrap-table {
+            table-layout: fixed
+        }
+
+        .serif {
+            font-family: Palatino, Optima, Georgia, serif
+        }
+
+        .typo-dl,
+        .typo-form,
+        .typo-hr,
+        .typo-ol,
+        .typo-p,
+        .typo-pre,
+        .typo-table,
+        .typo-ul,
+        .typo dl,
+        .typo form,
+        .typo hr,
+        .typo ol,
+        .typo p,
+        .typo pre,
+        .typo table,
+        .typo ul,
+        blockquote {
+            margin-bottom: 1rem
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: PingFang SC, Helvetica Neue, Verdana, Microsoft Yahei, Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei, sans-serif;
+            color: #000;
+            line-height: 1.35
+        }
+
+        .typo-h1,
+        .typo-h2,
+        .typo-h3,
+        .typo-h4,
+        .typo-h5,
+        .typo-h6,
+        .typo h1,
+        .typo h2,
+        .typo h3,
+        .typo h4,
+        .typo h5,
+        .typo h6 {
+            margin-top: 1.2em;
+            margin-bottom: .6em;
+            line-height: 1.35
+        }
+
+        .typo-h1,
+        .typo h1 {
+            font-size: 2em
+        }
+
+        .typo-h2,
+        .typo h2 {
+            font-size: 1.8em
+        }
+
+        .typo-h3,
+        .typo h3 {
+            font-size: 1.6em
+        }
+
+        .typo-h4,
+        .typo h4 {
+            font-size: 1.4em
+        }
+
+        .typo-h5,
+        .typo-h6,
+        .typo h5,
+        .typo h6 {
+            font-size: 1.2em
+        }
+
+        .typo-ul,
+        .typo ul {
+            margin-left: 1.3em;
+            list-style: disc
+        }
+
+        .typo-ol,
+        .typo ol {
+            list-style: decimal;
+            margin-left: 1.9em
+        }
+
+        .typo-ol ol,
+        .typo-ol ul,
+        .typo-ul ol,
+        .typo-ul ul,
+        .typo li ol,
+        .typo li ul {
+            margin-bottom: .8em;
+            margin-left: 2em
+        }
+
+        .typo-ol ul,
+        .typo-ul ul,
+        .typo li ul {
+            list-style: circle
+        }
+
+        .typo-table td,
+        .typo-table th,
+        .typo table caption,
+        .typo table td,
+        .typo table th {
+            border: 1px solid #ddd;
+            padding: .5em 1em;
+            color: #666
+        }
+
+        .typo-table th,
+        .typo table th {
+            background: #fbfbfb
+        }
+
+        .typo-table thead th,
+        .typo table thead th {
+            background: hsla(0, 0%, 95%, .7)
+        }
+
+        .typo table caption {
+            border-bottom: none
+        }
+
+        .typo-input,
+        .typo-textarea {
+            -webkit-appearance: none;
+            border-radius: 0
+        }
+
+        .typo-em,
+        .typo em,
+        caption,
+        legend {
+            color: #000;
+            font-weight: inherit
+        }
+
+        .typo-em {
+            position: relative
+        }
+
+        .typo-em:after {
+            position: absolute;
+            top: .65em;
+            left: 0;
+            width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+            content: "\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB"
+        }
+
+        .typo img {
+            max-width: 100%
+        }
+
+        .common-content {
+            font-weight: 400;
+            color: #353535;
+            line-height: 1.75rem;
+            white-space: normal;
+            word-break: normal;
+            font-size: 1rem
+        }
+
+        .common-content img {
+            display: block;
+            max-width: 100%;
+            background-color: #eee
+        }
+
+        .common-content audio,
+        .common-content video {
+            width: 100%;
+            background-color: #eee
+        }
+
+        .common-content center,
+        .common-content font {
+            margin-top: 1rem;
+            display: inline-block
+        }
+
+        .common-content center {
+            width: 100%
+        }
+
+        .common-content pre {
+            margin-top: 1rem;
+            padding-left: 0;
+            padding-right: 0;
+            position: relative;
+            overflow: hidden
+        }
+
+        .common-content pre code {
+            font-size: .8rem;
+            font-family: Consolas, Liberation Mono, Menlo, monospace, Courier;
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+            padding-left: 1rem;
+            padding-right: 1rem;
+            overflow-x: auto
+        }
+
+        .common-content hr {
+            border: none;
+            margin-top: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-top: 1px solid #f5f5f5;
+            height: 1px;
+            background: none
+        }
+
+        .common-content b,
+        .common-content h1,
+        .common-content h2,
+        .common-content h3,
+        .common-content h4,
+        .common-content h5,
+        .common-content strong {
+            font-weight: 700
+        }
+
+        .common-content h1,
+        .common-content h2 {
+            font-size: 1.125rem;
+            margin-bottom: .45rem
+        }
+
+        .common-content h3,
+        .common-content h4,
+        .common-content h5 {
+            font-size: 1rem;
+            margin-bottom: .45rem
+        }
+
+        .common-content p {
+            font-weight: 400;
+            color: #353535;
+            margin-top: .15rem
+        }
+
+        .common-content .orange {
+            color: #ff5a05
+        }
+
+        .common-content .reference {
+            font-size: 1rem;
+            color: #888
+        }
+
+        .custom-rich-content h1 {
+            margin-top: 0;
+            font-weight: 400;
+            font-size: 15.25px;
+            border-bottom: 1px solid #eee;
+            line-height: 2.8
+        }
+
+        .custom-rich-content li,
+        .custom-rich-content p {
+            font-size: 14px;
+            color: #888;
+            line-height: 1.6
+        }
+
+        table.hljs-ln {
+            margin-bottom: 0;
+            border-spacing: 0;
+            border-collapse: collapse
+        }
+
+        table.hljs-ln,
+        table.hljs-ln tbody,
+        table.hljs-ln td,
+        table.hljs-ln tr {
+            box-sizing: border-box
+        }
+
+        table.hljs-ln td {
+            padding: 0;
+            border: 0
+        }
+
+        table.hljs-ln td.hljs-ln-numbers {
+            min-width: 15px;
+            color: rgba(27, 31, 35, .3);
+            text-align: right;
+            white-space: nowrap;
+            cursor: pointer;
+            user-select: none
+        }
+
+        table.hljs-ln td.hljs-ln-code,
+        table.hljs-ln td.hljs-ln-numbers {
+            font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier, monospace;
+            font-size: 12px;
+            line-height: 20px;
+            vertical-align: top
+        }
+
+        table.hljs-ln td.hljs-ln-code {
+            position: relative;
+            padding-right: 10px;
+            padding-left: 10px;
+            overflow: visible;
+            color: #24292e;
+            word-wrap: normal;
+            white-space: pre
+        }
+
+        video::-webkit-media-controls {
+            overflow: hidden !important
+        }
+
+        video::-webkit-media-controls-enclosure {
+            width: calc(100% + 32px);
+            margin-left: auto
+        }
+
+        ._29HP61GA_0 {
+            max-width:800px;
+            margin:0 auto;
+            margin-bottom: 20px;
+            font-weight: 400;
+            color: #353535;
+            line-height: 1.76;
+            white-space: normal;
+            word-break: normal;
+            font-size: 17px;
+            -webkit-transition: background-color .3s ease;
+            transition: background-color .3s ease
+        }
+
+        ._29HP61GA_0 .MathJax_Display {
+            overflow: auto
+        }
+
+        ._29HP61GA_0 .poster {
+            position: fixed;
+            left: -10000px;
+            top: -10000px;
+            overflow: hidden;
+            padding: 1rem;
+            background: #ececec
+        }
+
+        ._29HP61GA_0 .richcontent-pre-copy {
+            font-size: 13px;
+            color: #888;
+            position: absolute;
+            right: 1em;
+            top: .5em;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none
+        }
+
+        ._29HP61GA_0 .richcontent-pre-copy .iconfont {
+            font-size: 12px;
+            margin-right: .2em
+        }
+
+        ._29HP61GA_0 a {
+            color: #fa8919;
+            border-bottom: 1px solid #fa8919
+        }
+
+        ._29HP61GA_0 img {
+            display: block;
+            max-width: 100%;
+            position: relative;
+            left: 50%;
+            -webkit-transform: translateX(-50%);
+            transform: translateX(-50%);
+            background-color: #eee;
+            vertical-align: top;
+            border-radius: 0
+        }
+
+        ._29HP61GA_0 audio,
+        ._29HP61GA_0 video {
+            width: 100%;
+            background-color: #eee
+        }
+
+        ._29HP61GA_0 pre {
+            margin-top: 16px;
+            padding: 34px 0 0;
+            margin-bottom: 30px;
+            position: relative;
+            border-radius: 6px;
+            background: rgba(246, 247, 251, .749);
+            border: 0
+        }
+
+        ._29HP61GA_0 pre code {
+            font-size: 12px;
+            font-family: Consolas, Liberation Mono, Menlo, monospace, Courier;
+            display: block;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            margin-left: 16px;
+            margin-right: 16px;
+            overflow-x: scroll
+        }
+
+        ._29HP61GA_0 pre code:after {
+            content: "";
+            height: 30px;
+            width: 100%;
+            display: block
+        }
+
+        ._29HP61GA_0 hr {
+            border: none;
+            margin-top: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-top: 1px solid #f5f5f5;
+            height: 1px;
+            background: none
+        }
+
+        ._29HP61GA_0 h1,
+        ._29HP61GA_0 h2,
+        ._29HP61GA_0 h3,
+        ._29HP61GA_0 h4,
+        ._29HP61GA_0 h5 {
+            margin-bottom: 20px;
+            margin-top: 0;
+            font-weight: 700
+        }
+
+        ._29HP61GA_0 b,
+        ._29HP61GA_0 strong {
+            font-weight: 700
+        }
+
+        ._29HP61GA_0 h1 {
+            font-size: 21px
+        }
+
+        ._29HP61GA_0 h2 {
+            font-size: 20px
+        }
+
+        ._29HP61GA_0 h3 {
+            font-size: 19px
+        }
+
+        ._29HP61GA_0 h4 {
+            font-size: 18px
+        }
+
+        ._29HP61GA_0 h5 {
+            font-size: 17px
+        }
+
+        ._29HP61GA_0 center,
+        ._29HP61GA_0 p {
+            font-weight: 400;
+            color: #353535;
+            margin-top: 0;
+            margin-bottom: 30px;
+            word-break: break-word
+        }
+
+        ._29HP61GA_0 center {
+            text-align: center
+        }
+
+        ._29HP61GA_0 blockquote {
+            margin-top: 0;
+            margin-bottom: 34px;
+            border-left: 3px solid #e8e8e8;
+            padding-left: 17px;
+            color: #353535
+        }
+
+        ._29HP61GA_0 blockquote p {
+            margin-top: 0;
+            margin-bottom: 0
+        }
+
+        ._29HP61GA_0 ol,
+        ._29HP61GA_0 ul {
+            margin-bottom: 30px
+        }
+
+        ._29HP61GA_0 ol p,
+        ._29HP61GA_0 ul p {
+            margin-top: 0;
+            margin-bottom: 0
+        }
+
+        ._29HP61GA_0 ol {
+            list-style: decimal;
+            margin-left: 20px
+        }
+
+        ._29HP61GA_0 ul li {
+            padding-left: 17px;
+            position: relative;
+            margin-bottom: 10px
+        }
+
+        ._29HP61GA_0 ul li:after {
+            content: "";
+            height: 6px;
+            width: 6px;
+            border-radius: 50%;
+            background: #353535;
+            position: absolute;
+            top: 10px;
+            left: 0
+        }
+
+        ._29HP61GA_0 .orange {
+            color: #fa8919
+        }
+
+        ._29HP61GA_0 .reference {
+            color: #888
+        }
+
+        ._29HP61GA_0 .m-right {
+            text-align: right
+        }
+
+        ._29HP61GA_0 .m-center {
+            text-align: center;
+            display: block
+        }
+
+        ._29HP61GA_0 .m-gray {
+            color: #888
+        }
+
+        ._29HP61GA_0 .m-small {
+            font-size: 15px
+        }
+
+        ._29HP61GA_0 table.hljs-ln {
+            margin-bottom: 0;
+            border-spacing: 0;
+            border-collapse: collapse
+        }
+
+        ._29HP61GA_0 table.hljs-ln,
+        ._29HP61GA_0 table.hljs-ln tbody,
+        ._29HP61GA_0 table.hljs-ln td,
+        ._29HP61GA_0 table.hljs-ln tr {
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box
+        }
+
+        ._29HP61GA_0 table.hljs-ln td {
+            padding: 0;
+            border: 0
+        }
+
+        ._29HP61GA_0 table.hljs-ln td.hljs-ln-numbers {
+            min-width: 15px;
+            font-size: 12px;
+            color: rgba(27, 31, 35, .3);
+            text-align: right;
+            white-space: nowrap;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none
+        }
+
+        ._29HP61GA_0 table.hljs-ln td.hljs-ln-code,
+        ._29HP61GA_0 table.hljs-ln td.hljs-ln-numbers {
+            font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier, monospace;
+            line-height: 20px;
+            vertical-align: top
+        }
+
+        ._29HP61GA_0 table.hljs-ln td.hljs-ln-code {
+            position: relative;
+            padding-right: 10px;
+            padding-left: 10px;
+            overflow: visible;
+            font-size: 13px;
+            color: #666;
+            word-wrap: normal;
+            white-space: pre
+        }
+
+    </style>
+</head>
+<body>
+<div class="_29HP61GA_0">
+<h1>春节7天练-Day1：数组和链表</h1>
+<p>你好，我是王争。首先祝你新年快乐！</p><p>专栏的正文部分已经结束，相信这半年的时间，你学到了很多，究竟学习成果怎样呢？</p><p>我整理了数据结构和算法中必知必会的30个代码实现，从今天开始，分7天发布出来，供你复习巩固所用。你可以每天花一点时间，来完成测验。测验完成后，你可以根据结果，回到相应章节，有针对性地进行复习。</p><p>除此之外，@Smallfly 同学还整理了一份配套的LeetCode练习题，你也可以一起练习一下。在此，我谨代表我本人对@Smallfly 表示感谢！</p><p>另外，我还为假期坚持学习的同学准备了丰厚的<span class="orange">春节加油礼包</span>。</p><ol>
+<li>
+<p>2月5日-2月14日，只要在专栏文章下的留言区写下你的答案，参与答题，并且留言被精选，即可获得极客时间10元无门槛优惠券。</p>
+</li>
+<li>
+<p>7篇中的所有题目，只要回答正确3道及以上，即可获得极客时间99元专栏通用阅码。</p>
+</li>
+<li>
+<p>如果7天连续参与答题，并且每天的留言均被精选，还可额外获得极客时间价值365元的每日一课年度会员。</p>
+</li>
+</ol><hr></hr><h2>关于数组和链表的几个必知必会的代码实现</h2><h3>数组</h3><ul>
+<li>
+<p>实现一个支持动态扩容的数组</p>
+</li>
+<li>
+<p>实现一个大小固定的有序数组，支持动态增删改操作</p>
+</li>
+<li>
+<p>实现两个有序数组合并为一个有序数组</p>
+</li>
+</ul><h3>链表</h3><ul>
+<li>
+<p>实现单链表、循环链表、双向链表，支持增删操作</p>
+</li>
+<li>
+<p>实现单链表反转</p>
+</li>
+<li>
+<p>实现两个有序的链表合并为一个有序链表</p>
+</li>
+<li>
+<p>实现求链表的中间结点</p>
+</li>
+</ul><!-- [[[read_end]]] --><h2>对应的LeetCode练习题（@Smallfly 整理）</h2><h3>数组</h3><ul>
+<li>Three Sum（求三数之和）</li>
+</ul><p>英文版：<a href="https://leetcode.com/problems/3sum/">https://leetcode.com/problems/3sum/</a></p><p>中文版：<a href="https://leetcode-cn.com/problems/3sum/">https://leetcode-cn.com/problems/3sum/</a></p><ul>
+<li>Majority Element（求众数）</li>
+</ul><p>英文版：<a href="https://leetcode.com/problems/majority-element/">https://leetcode.com/problems/majority-element/</a></p><p>中文版：<a href="https://leetcode-cn.com/problems/majority-element/">https://leetcode-cn.com/problems/majority-element/</a></p><ul>
+<li>Missing Positive（求缺失的第一个正数）</li>
+</ul><p>英文版：<a href="https://leetcode.com/problems/first-missing-positive/">https://leetcode.com/problems/first-missing-positive/</a></p><p>中文版：<a href="https://leetcode-cn.com/problems/first-missing-positive/">https://leetcode-cn.com/problems/first-missing-positive/</a></p><h3>链表</h3><ul>
+<li>Linked List Cycle I（环形链表）</li>
+</ul><p>英文版：<a href="https://leetcode.com/problems/linked-list-cycle/">https://leetcode.com/problems/linked-list-cycle/</a></p><p>中文版：<a href="https://leetcode-cn.com/problems/linked-list-cycle/">https://leetcode-cn.com/problems/linked-list-cycle/</a></p><ul>
+<li>Merge k Sorted Lists（合并k个排序链表）</li>
+</ul><p>英文版：<a href="https://leetcode.com/problems/merge-k-sorted-lists/">https://leetcode.com/problems/merge-k-sorted-lists/</a></p><p>中文版：<a href="https://leetcode-cn.com/problems/merge-k-sorted-lists/">https://leetcode-cn.com/problems/merge-k-sorted-lists/</a></p><hr></hr><p>做完题目之后，你可以点击“请朋友读”，把测试题分享给你的朋友，说不定就帮他解决了一个难题。</p><p>祝你取得好成绩！明天见！</p><p></p><h2>精选留言：</h2>
+        <ul>
+        
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            李皮皮皮皮皮  2019-02-04 21:09:26
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            感谢分享，虽然工作很忙，每天下班就不想动了。但是还是要不断克服自己。数据结构和算法的重要性可能在面试的时候才能深刻感悟。如果平时多下点功夫，结果可能会大不一样。前面很多期因为各种原因没有跟上，庆幸的是后面慢慢追上了。现在养成每天做一道算法题的习惯。每天装着一道算法题在脑子里。这感觉其实也不错，不是任务，感觉像是习惯😄 [38赞]
+        </div>
+        
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            Jerry银银  2019-02-05 11:11:12
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            早上起来拿出电脑，准备做题。<br>老妈说：今天就别工作了，玩一天吧，啥也别干，啥也别想。<br>我说：不行呀，老师布置了题目，必须得做呀。<br>老妈说：大过年的老师还在工作，真不容易，替我向你老师说声：🔥🔥新年好！！！ [33赞]
+        </div>
+        
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            Smallfly  2019-02-05 09:58:25
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            哈哈，被提名了，谢谢老师。<br><br>有兴趣的同学可以把你的答案分享到 Github:  https:&#47;&#47;github.com&#47;iostalks&#47;Algorithms<br><br>有问题也可以在 issue 中一起讨论。<br><br>新的一年跟大家一起进步，一起流弊。 [26赞]
+        </div>
+        
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            fancyyou  2019-02-05 10:29:24
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            新年好！<br>leetcode的题都做过了😁。 [12赞]
+        </div>
+        
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            abner  2019-02-05 21:56:58
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            Java语言实现一个大小固定的有序数组，支持动态增删改操作<br>代码如下:<br>public class Array {<br>    private String[] data;<br>    private int count;<br>    privvate int size;<br>    public Array(int capacity) {<br>        data = new String[capacity];<br>        count = 0;<br>        size = capacity;<br>    }<br>    public boolean insert(int index, String value) {<br>        if (count &gt;= size) {<br>            return false;<br>        }<br>        if (index &lt; 0 || index &gt; count) {<br>            return false;<br>        }<br>        for (int i = count - 1;i &gt;= index;i--) {<br>             data[i+1] = data[i];<br>        }<br>        data[index] = value;<br>        count++;<br>    }<br>    public String delete(int index, String value) {<br>        if (count == 0) {<br>            return false;<br>        }<br>        if (index &lt; 0 || index &gt;count) {<br>             return false;<br>         }<br>        value = data[index];<br>        for (int i = index;i &lt;= count - 1;i++) {<br>            data[i - 1] = data[i];<br>        }<br>        count--;<br>        return value;<br>} [4赞]
+        </div>
+        
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            _CountingStars  2019-02-05 19:51:37
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            合并有序数组 go 语言实现<br>package main<br><br>import &quot;fmt&quot;<br><br>func mergeOrderedArray(a, b []int) (c []int) {<br>	i, j, k := 0, 0, 0<br>	mergedOrderedArrayLength := len(a) + len(b)<br>	c = make([]int, mergedOrderedArrayLength)<br>	for {<br>		if i &gt;= len(a) || j &gt;= len(b) {<br>			break<br>		}<br><br>		if a[i] &lt;= b[j] {<br>			c[k] = a[i]<br>			i++<br>		} else {<br>			c[k] = b[j]<br>			j++<br>		}<br>		k++<br>	}<br><br>	for ; i &lt; len(a); i++ {<br>		c[k] = a[i]<br>		k++<br>	}<br><br>	for ; j &lt; len(b); j++ {<br>		c[k] = a[j]<br>		k++<br>	}<br><br>	return<br>}<br><br>func main() {<br>	a := []int{1, 3, 5, 7, 9, 10, 11, 13, 15}<br>	b := []int{2, 4, 6, 8}<br>	fmt.Println(&quot;ordered array a: &quot;, a)<br>	fmt.Println(&quot;ordered array b: &quot;, b)<br>	fmt.Println(&quot;merged ordered array: &quot;, mergeOrderedArray(a, b))<br>}<br> [4赞]
+        </div>
+        
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            峰  2019-02-05 10:23:51
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            第三题，看这题，我就会想到用快排的思想在一堆数中求第n大。于是乎我就套，先把负数全部移掉，o(n)不影响。然后每轮迭代随机取个数n，比它小的放左边，比他大的放右边。比如说第一轮迭代，左边的数据个数小于n-1那么必然在左边。但这里有个问题是数据是可以重复的，怎么办，想呀想，我就选定n后，开始扫描，如果是1我就放第一个位置，如果是2我就放第二个位置，如果再有1，发现重复了，不用移动了，这样我就能计算小于n大于n的正整数有多少种了，然后就能迭代下去了。当然里面还有些细节，比如如果n很大已超过了数组长度，那说明那个数一定在左边。 [4赞]
+        </div>
+        <br/>
+<div>
+    <div style="color:#888;font-size:15.25px;font-weight:400;        line-height:1.2">编辑回复2019-02-22 10:54:34</div>
+    <div style="color:#353535;font-weight:400;white-space:normal;        word-break:break-all;line-height:1.6">感谢您参与春节七天练的活动，为了表彰你在活动中的优秀表现，赠送您99元专栏通用阅码，我们会在3个工作日之内完成礼品发放，如有问题请咨询小明同学，微信geektime002。</div>
+</div>
+            
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            abner  2019-02-13 01:06:13
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            java实现一个动态扩容的数组（扩容2倍）<br>代码如下:<br>package array;<br><br>public class DynamicArray {<br>    <br>    private String[] data;<br>    private int count;<br>    private int size;<br>    <br>    public DynamicArray(int capacity) {<br>        data = new String[capacity];<br>        count = 0;<br>        size = capacity;<br>    }<br>    <br>    public String[] expand(String[] data) {<br>        if (count &gt;= size) {<br>            String[] newArray = new String[this.size * 2];<br>            this.size = this.size * 2;<br>            for (int i = 0;i &lt; count;i++) {<br>                newArray[i] = this.data[i];<br>            }<br>            return newArray;<br>        } else {<br>            return this.data;<br>        }<br>    }<br>    <br>    public boolean append(String item) {<br>        if (count &gt;= size) {<br>            this.data = expand(this.data);<br>        }<br>        this.data[count] = item;<br>        count++;<br>        return true;<br>    }<br>    <br>    public void printAll() {<br>        for (int i = 0;i &lt; count;i++) {<br>            System.out.print(data[i] + &quot; &quot;);<br>        }<br>        System.out.println();<br>    }<br>    <br>    public static void main(String[] args) {<br>        DynamicArray dynamicArray = new DynamicArray(5);<br>        for (int i = 0;i &lt; dynamicArray.size;i++) {<br>            dynamicArray.data[i] = &quot;This value is &quot; + i;<br>            dynamicArray.count++;<br>        }<br>        dynamicArray.append(&quot;This value is 5&quot;);<br>        System.out.println(&quot;Now the size of data is &quot; + dynamicArray.size);<br>        dynamicArray.printAll();<br>    }<br>  <br>}<br> [3赞]
+        </div>
+        
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            未来的胡先森  2019-02-16 11:12:05
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            求众数<br>解题思路：将数组排序，统计每个数字出现的次数，当满足众数条件时返回。时间复杂度 nlogn<br><br>int compare(const void  *a, const void *b)<br>{<br>	return (*(int*)a - *(int*)b);<br>}<br>int majorityElement(int* nums, int numsSize) {<br>	qsort(nums,numsSize,sizeof(int), compare);<br>	int num = nums[0],flag=numsSize&gt;&gt;1,count=1;<br>	for (int i = 1; i &lt; numsSize; i++)<br>	{<br>		if (nums[i] != num)<br>		{<br>			num = nums[i]; count = 1;<br>		}<br>		else<br>		{<br>			count++;<br>		}<br>		if (count &gt; flag)<br>			break;<br>	}<br>	return num; <br>}<br>更优解<br><br>数组元素为奇数个，众数数量大于半数，所以相互抵消后最后剩余的一定为众数，时间复杂度 O(n)<br><br>int majorityElement(int* nums, int numsSize)<br>{<br>	int count = 1,num=nums[0];<br>	for (int i = 1; i &lt; numsSize; i++)<br>		if (count == 0 || num == nums[i])<br>		{<br>			count++; num = nums[i];<br>		}<br>		else<br>			count--;<br>	return num;<br>} [2赞]
+        </div>
+        
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            kai  2019-02-11 10:12:52
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            3. 实现求链表的中间结点<br>public class FindMidNode {<br><br>    &#47;&#47; 1. T(n) = O(2*n) 遍历2次<br>    public static Node findMidNode(Node head) {<br>        if (head == null) {<br>            return null;<br>        }<br><br>        int len = 0;<br>        Node p = head;<br><br>        while(p != null) {<br>            len++;<br>            p = p.next;<br>        }<br><br>        p = head;<br>        for (int i = 0; i &lt; len&#47;2; i++) {<br>            p = p.next;<br>        }<br><br>        return p;<br>    }<br><br>    &#47;&#47; 2. T(n) = O(n) 遍历1次<br>    &#47;&#47; 快慢指针法<br>    public static Node findMidNodeFast(Node head) {<br>        if (head == null) {<br>            return null;<br>        }<br><br>        Node fast = head;<br>        Node slow = head;<br><br>        while (fast != null &amp;&amp; fast.next != null) {<br>            fast = fast.next.next;<br>            slow = slow.next;<br>        }<br><br>        return slow;<br>    }<br><br><br>    public static Node createNode(int value) {<br>        return new Node(value, null);<br>    }<br><br>    public static class Node {<br>        public int data;<br>        public Node next;<br><br>        public Node(int data, Node next) {<br>            this.data = data;<br>            this.next = next;<br>        }<br>    }<br>}<br><br>4. Linked List Cycle I（环形链表）<br>&#47;**<br> * 141. Linked List Cycle<br> * https:&#47;&#47;leetcode.com&#47;problems&#47;linked-list-cycle&#47;<br> *&#47;<br>public class LinkedListCycle {<br>    public boolean hasCycle(ListNode head) {<br>        if (head == null || head.next == null) {<br>            return false;<br>        }<br><br>        ListNode fast = head;<br>        ListNode slow = head;<br><br>        while (fast != null &amp;&amp; fast.next != null) {<br>            fast = fast.next.next;<br>            slow = slow.next;<br>            if (fast == slow) return true;<br>        }<br><br>        return false;<br>    }<br><br>    public static class ListNode {<br>        int val;<br>        ListNode next;<br>        ListNode(int x) { val = x;}<br>    }<br>} [2赞]
+        </div>
+        
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            kai  2019-02-11 10:10:13
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            1. 实现单链表反转：<br>&#47;**<br> * 206. Reverse Linked List<br> * https:&#47;&#47;leetcode.com&#47;problems&#47;reverse-linked-list&#47;<br> *&#47;<br>public class ReverseList {<br>    public ListNode reverseList(ListNode head) {<br>        if (head == null || head.next == null) return head;<br><br>        ListNode pre = null;<br>        ListNode next = null;<br><br>        while (head != null) {<br>            next = head.next;<br>            head.next = pre;<br>            pre = head;<br>            head = next;<br>        }<br><br>        return pre;<br>    }<br><br>    public static class ListNode {<br>        int val;<br>        ListNode next;<br>        ListNode(int x) {<br>            this.val = val;<br>        }<br>    }<br>}<br><br>2. 实现两个有序的链表合并为一个有序链表<br>&#47;**<br> * 21. Merge Two Sorted Lists<br> * https:&#47;&#47;leetcode.com&#47;problems&#47;merge-two-sorted-lists&#47;<br> *&#47;<br>public class Merge2SortedLists {<br>    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {<br>        if (l1 == null) return l2;<br>        if (l2 == null) return l1;<br>	<br>	&#47;&#47; 利用哨兵（前哨节点）简化实现难度<br>        ListNode outpost = new ListNode(-1);<br>        ListNode temp = outpost;<br><br>        while (l1 != null &amp;&amp; l2 != null) {<br>            if (l1.val &lt;= l2.val) {<br>                temp.next = l1;<br>                l1 = l1.next;<br>            } else {<br>                temp.next = l2;<br>                l2 = l2.next;<br>            }<br><br>            temp = temp.next;<br>        }<br><br>        if (l1 == null) {<br>            temp.next = l2;<br>        }<br><br>        if (l2 == null) {<br>            temp.next = l1;<br>        }<br><br>        return outpost.next;<br>    }<br>	<br>	public ListNode mergeTwoListsRecur(ListNode l1, ListNode l2) {<br>        if (l1 == null) return l2;<br>        if (l2 == null) return l1;<br>		if (l1.val &lt; l2.val) {<br>			l1.next = mergeTwoListsRecur(l1.next, l2);<br>			return l1;<br>		} else {<br>			l2.next = mergeTwoListsRecur(l1, l2.next);<br>			return l2;<br>		}<br>	}<br><br>    public static class ListNode {<br>        int val;<br>        ListNode next;<br>        ListNode(int x) { val = x;}<br>    }<br>}<br><br><br> [2赞]
+        </div>
+        
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            纯洁的憎恶  2019-02-08 16:08:32
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            1.Three Sum：暴力匹配三元组，三层循环结束后打印保存三元组的数组即可，时间复杂度O（n^3），空间复杂度O（n）。简化一下，为减少比较次数先排序。外层循环i遍历数组，内层循环从数组两头元素（s、t）开始考察，找出使num【s】+num【t】=-num【i】的s和t，若大了t- -，若小了s++（内层要避开i）s大于等于t则匹配失败。这样两层循环就可以了，时间复杂度O（n^2）。<br><br>2.Majority Element：重点在于统计每个元素出现次数，可以先排序，然后顺序计算出每个数的出现次数，与阈值比较，大于则输出，时间复杂度O（nlogn）。也可以采用散列表，把每个元素存入散列表，并记录出现次数，最后把出现次数超过阈值的元素输出即可，时间复杂度O（n），空间复杂度O（n）。<br><br>3.Missing Positive：本来想用散列表，发现要求时间复杂度O（n），空间复杂度为常量，有点捉急。只能从原数组上做文章。假设数组A长度为n，若i为1到n的正整数，若i存在于A中，我们就把它的位置调整到A【i-1】处，这样通过A【i】是否为i+1即可知道i+1是否在数组中。那么A中不满足上述条件的最小下标+1即为缺失的最小正整数值。<br><br>4. Linked List Cycle I（环形链表）：用图的拓扑排序算法可以，但是要统计顶点出入度，空间复杂度无法达到O（1）。那可以用快慢指针，*fast以*slow的两倍速前进，如果fast和slow重合则说明有环。<br><br>5. Merge k Sorted Lists（合并 k 个排序链表）：两两硬生生合并，时间复杂度应该是O（kN），再高级的方法想不出来。ps：如果可以抛弃原来的链表，那么新建一个合并后链表的时间复杂度可以是O（N）吧？N是k个链表的总长。 [2赞]
+        </div>
+        
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            William  2019-02-06 16:23:10
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            特地新开了一个git仓库，https:&#47;&#47;github.com&#47;Si3ver&#47;LeetCode。刷完5道题，思路大致写一下。1.数组三数之和，时间复杂度是O(n^2)，先排序，外层i遍历数组，内层左右双指针，寻找两数之和 = -nums[i]。 2. 求数组中出现次数大于一半的数字。复杂度O(n)，是利用摩尔投票法。3.求缺失的最小正整数，复杂度O(n)，思路是哈希表统计。4.环形链表用快慢指针。5.合并k个有序链表，用的是两两归并，据说用堆会更快，这个有待补充。 [2赞]
+        </div>
+        <br/>
+<div>
+    <div style="color:#888;font-size:15.25px;font-weight:400;        line-height:1.2">编辑回复2019-02-22 11:09:50</div>
+    <div style="color:#353535;font-weight:400;white-space:normal;        word-break:break-all;line-height:1.6">感谢您参与春节七天练的活动，为了表彰你在活动中的优秀表现，赠送您99元专栏通用阅码，我们会在3个工作日之内完成礼品发放，如有问题请咨询小明同学，微信geektime002。</div>
+</div>
+            
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            菜菜  2019-02-06 10:35:47
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            大小固定的有序数组，支持增删改：既然有序，则查询操作都可以用二分查询。增加操作，找到第一个大于新数据的值的位置，从最后一个有效数据往后移一个位置，目的是为了给新数据腾位置，然后插入。删除操作：找到第一个等于要删除的数据的值，然后将其后面的数据依次向前挪一个位置。改操作，查询再修改。要注意临界条件和找不到数据，以及数组满等情况。 [2赞]
+        </div>
+        
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            赵菁垚  2019-08-08 15:43:35
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            王老师，请教您一个问题，想参加NOIP c++考这些算法吗？ [1赞]
+        </div>
+        <br/>
+<div>
+    <div style="color:#888;font-size:15.25px;font-weight:400;        line-height:1.2">作者回复2019-08-09 06:43:46</div>
+    <div style="color:#353535;font-weight:400;white-space:normal;        word-break:break-all;line-height:1.6">也考的</div>
+</div>
+            
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            神盾局闹别扭  2019-02-18 20:11:44
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            加油礼包的福利在哪里领呢？ [1赞]
+        </div>
+        <br/>
+<div>
+    <div style="color:#888;font-size:15.25px;font-weight:400;        line-height:1.2">编辑回复2019-02-18 22:12:48</div>
+    <div style="color:#353535;font-weight:400;white-space:normal;        word-break:break-all;line-height:1.6">运营同学稍后会联系获奖同学哈</div>
+</div>
+            
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            Ben  2019-02-14 17:57:44
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            class Solution(object):<br>    def threeSum(self, nums):<br>        &quot;&quot;&quot;<br>        :type nums: List[int]<br>        :rtype: List[List[int]]<br>        通过hash结构缓存去重值及出现的次数<br><br>        将值按正负区分, 将正负列表中的数字求和, 判断和的相反数是否仍存在于字典中<br>        &quot;&quot;&quot;<br>        #将输入列表的值作为索引, 对应出现的次数作为新的字典结构的值<br>        dic = {}<br>        for ele in nums:<br>            if ele not in dic:<br>                dic[ele] = 0<br>            dic[ele] += 1<br>        # 存在3个0的特殊情况<br>        if 0 in dic and dic[0] &gt; 2:<br>            rst = [[0, 0, 0]]<br>        else:<br>            rst = []<br><br>        pos = [p for p in dic if p &gt; 0]<br>        neg = [n for n in dic if n &lt; 0]<br><br>        # 若全为正或负值, 不存在和为0的情况<br>        for p in pos:<br>            for n in neg:<br>                inverse = -(p + n)<br>                if inverse in dic:<br>                    if inverse == p and dic[p] &gt; 1:<br>                        rst.append([n, p, p])<br>                    elif inverse == n and dic[n] &gt; 1:<br>                        rst.append([n, n, p])<br>                    # 去重: 小于负值且大于正值可以排除掉重复使用二者之间的值<br>                    elif inverse &lt; n or inverse &gt; p or inverse == 0:<br>                        rst.append([n, inverse, p])<br>        return rst<br>    def majorityElement(self, nums):<br>        &quot;&quot;&quot;<br>        :type nums: List[int]<br>        :rtype: int<br>        hash反存值和出现的次数<br>        &quot;&quot;&quot;<br>        #利用字典表反存值:出现的次数<br>        dic = {}<br>        for i in nums:<br>            if i not in dic:<br>                dic[i] = 1<br>            else:<br>                dic[i] +=1<br>        <br>        #根据列表获取值最大的索引<br>        vs = list(dic.values())<br>        return list(dic.keys())[vs.index(max(vs))]<br>    def firstMissingPositiveFast(self, nums):<br>        &quot;&quot;&quot;<br>        :type nums: List[int]<br>        :rtype: int<br>        &quot;&quot;&quot;<br>        n = 1<br>        while n in nums:<br>            n +=1<br>        return n [1赞]
+        </div>
+        <br/>
+<div>
+    <div style="color:#888;font-size:15.25px;font-weight:400;        line-height:1.2">编辑回复2019-02-22 11:12:16</div>
+    <div style="color:#353535;font-weight:400;white-space:normal;        word-break:break-all;line-height:1.6">感谢您参与春节七天练的活动，为了表彰你在活动中的优秀表现，赠送您10元无门槛优惠券，我们会在3个工作日之内完成礼品发放，如有问题请咨询小明同学，微信geektime002。</div>
+</div>
+            
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            hopeful  2019-02-13 17:59:00
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            &#47;&#47;单链表反转（带头结点）<br>void reverse(struct node* head){<br>	struct node* L;<br>	struct node* p;<br>	struct node* p2;<br>	struct node* p3;<br>	L = head-&gt;next;<br>	if(head == NULL){<br>		printf(&quot;链表未创建&quot;);<br>	}else if(L-&gt;next==NULL){<br>		printf(&quot;单链表只有一个节点，无需反转&quot;);<br>		return;<br>	}else if(L-&gt;next-&gt;next == NULL){<br>		head-&gt;next = L-&gt;next;<br>		head-&gt;next-&gt;next = L;<br>		L-&gt;next = NULL;<br>		printf(&quot;单链表反转成功&quot;);<br>	}else{<br>		p = L;<br>		p2 = L-&gt;next;<br>		p3 = L-&gt;next-&gt;next;<br>		while(p3!=NULL){<br>			p2-&gt;next = p;<br>			p = p2;<br>			p2 = p3;<br>			p3 = p3-&gt;next;<br>		}<br>		p2-&gt;next = p;<br>		L-&gt;next = NULL;<br>		head-&gt;next = p2;<br>		printf(&quot;单链表反转成功&quot;);	<br>	}<br>} [1赞]
+        </div>
+        
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            恋恋  2019-02-12 19:32:31
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            Three Sum（求三数之和）Go语言：<br>func threeSum(nums []int) [][]int {<br>    results := [][]int{}<br>	n := len(nums)<br>	if n == 0 || n &lt; 3 {<br>		return results<br>	}<br>	sort.Ints(nums)  &#47;&#47;首先，对数组进行排序<br>	for i := 0; i &lt; n-2; i++ {<br>		if i &gt; 0 &amp;&amp; nums[i] == nums[i-1] {  &#47;&#47;如果相邻两个数相等<br>			continue<br>		}<br>		target := -nums[i]<br>		left := i + 1 <br>		right := n - 1  <br>		for left &lt; right {<br>			sum := nums[left] + nums[right]<br>			if sum == target {<br>				results = append(results, []int{nums[left], nums[right], nums[i]})<br>				left++<br>				right--<br>				for left &lt; right &amp;&amp; nums[left] == nums[left-1] {<br>					left++<br>				}<br>				for left &lt; right &amp;&amp; nums[right] == nums[right+1] {<br>					right--<br>				}<br>			} else if sum &gt; target {<br>				right--<br>			} else if sum &lt; target {<br>				left++<br>			}<br>		}<br><br>	}<br>	return results<br>}<br> [1赞]
+        </div>
+        <br/>
+<div>
+    <div style="color:#888;font-size:15.25px;font-weight:400;        line-height:1.2">编辑回复2019-02-22 10:59:21</div>
+    <div style="color:#353535;font-weight:400;white-space:normal;        word-break:break-all;line-height:1.6">感谢您参与春节七天练的活动，为了表彰你在活动中的优秀表现，赠送您99元专栏通用阅码，我们会在3个工作日之内完成礼品发放，如有问题请咨询小明同学，微信geektime002。</div>
+</div>
+            
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            Sharry  2019-02-12 11:26:54
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            链表篇<br>1. 翻转单链表<br>&#47;*翻转单链表*&#47;<br>void reversalList(Node&lt;int&gt;* head) {<br>	Node&lt;int&gt;* p = head;<br>	Node&lt;int&gt;* prev = NULL;<br>	Node&lt;int&gt;* temp = NULL;<br>	while (p) {<br>		&#47;&#47; 1. 保存要遍历的下一个结点<br>		temp = p-&gt;next;<br>		&#47;&#47; 2. 将 node-&gt;next 指向前驱结点<br>		p-&gt;next = prev;<br>		&#47;&#47; 3. 更新前驱结点<br>		prev = p;<br>		&#47;&#47; 4. 更新下一个要遍历的结点<br>		p = temp;<br>	}<br>}<br><br>2. 将两个有序的单链表合并<br>&#47;* 合并两个有序链表, 将 list2 合并到 list1 中 *&#47;<br>Node&lt;int&gt;* mergeOrderList(Node&lt;int&gt;* list1, Node&lt;int&gt;* list2) {<br>	&#47;&#47; 记录 list2 的头结点<br>	Node&lt;int&gt;* head = list2;<br>	&#47;&#47; 创建哨兵, 用于处理将 list2 中的元素插入到 list1 头结点前面的情况<br>	Node&lt;int&gt;* sentry = new Node&lt;int&gt;(-1);<br>	sentry-&gt;next = list1;<br>	&#47;&#47; 记录 list1 要遍历的元素<br>	Node&lt;int&gt;* node = sentry;<br>	Node&lt;int&gt;* temp = NULL;<br>	while (node-&gt;next &amp;&amp; head) {<br>		if (node-&gt;next-&gt;data &gt; head-&gt;data) {<br>			temp = head-&gt;next;<br>			head-&gt;next = node-&gt;next;<br>			node-&gt;next = head;<br>			head = temp;<br>		}<br>		else {<br>			node = node-&gt;next;<br>		}<br>	}<br>	&#47;&#47; 若 list2 的头结点不为 NULL, 则说明 list1 中的元素提前遍历结束了<br>	&#47;&#47; 剩下的 list2 中的元素均比 list1 中的大<br>	&#47;&#47; 直接将 list1 的尾结点连接到 list2 的首结点即可<br>	if (head) {<br>		node-&gt;next = head;<br>	}<br>	&#47;&#47; 释放哨兵结点内存<br>	list1 = sentry-&gt;next;<br>	sentry-&gt;next = NULL;<br>	delete(sentry);<br>	return list1;<br>}<br><br>3. 求单链表的中间结点<br>&#47;* 查询单链表的中间结点 *&#47;<br>template&lt;typename E&gt;<br>Node&lt;E&gt;* findMidNode(Node&lt;E&gt;* head, Node&lt;E&gt;** mid_node) {<br>	if (!head) {<br>		return NULL;<br>	}<br>	Node&lt;E&gt;* fast = head;<br>	Node&lt;E&gt;* slow = head;<br>	while (fast &amp;&amp; fast-&gt;next &amp;&amp; fast-&gt;next-&gt;next) {<br>		&#47;&#47; 快指针走两步<br>		fast = fast-&gt;next-&gt;next;<br>		&#47;&#47; 慢指针走一步<br>		slow = slow-&gt;next;<br>	}<br>	*mid_node = slow;<br>} [1赞]
+        </div>
+        <br/>
+<div>
+    <div style="color:#888;font-size:15.25px;font-weight:400;        line-height:1.2">编辑回复2019-02-22 11:03:18</div>
+    <div style="color:#353535;font-weight:400;white-space:normal;        word-break:break-all;line-height:1.6">感谢您参与春节七天练的活动，为了表彰你在活动中的优秀表现，赠送您99元专栏通用阅码，我们会在3个工作日之内完成礼品发放，如有问题请咨询小明同学，微信geektime002。</div>
+</div>
+            
+    </div>
+</li>
+            </ul>
+</div>
+</body>
+</html>

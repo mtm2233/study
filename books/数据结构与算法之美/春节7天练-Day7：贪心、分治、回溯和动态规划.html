@@ -1,0 +1,1226 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>春节7天练-Day7：贪心、分治、回溯和动态规划</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <style>
+        html {
+            color: #333;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+            text-rendering: optimizelegibility;
+            font-family: Helvetica Neue, PingFang SC, Verdana, Microsoft Yahei, Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei, sans-serif
+        }
+
+        html.borderbox *,
+        html.borderbox :after,
+        html.borderbox :before {
+            box-sizing: border-box
+        }
+
+        article,
+        aside,
+        blockquote,
+        body,
+        button,
+        code,
+        dd,
+        details,
+        dl,
+        dt,
+        fieldset,
+        figcaption,
+        figure,
+        footer,
+        form,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        header,
+        hr,
+        input,
+        legend,
+        li,
+        menu,
+        nav,
+        ol,
+        p,
+        pre,
+        section,
+        td,
+        textarea,
+        th,
+        ul {
+            margin: 0;
+            padding: 0
+        }
+
+        article,
+        aside,
+        details,
+        figcaption,
+        figure,
+        footer,
+        header,
+        menu,
+        nav,
+        section {
+            display: block
+        }
+
+        audio,
+        canvas,
+        video {
+            display: inline-block
+        }
+
+        body,
+        button,
+        input,
+        select,
+        textarea {
+            font: 300 1em/1.8 PingFang SC, Lantinghei SC, Microsoft Yahei, Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei, Helvetica, sans-serif
+        }
+
+        button::-moz-focus-inner,
+        input::-moz-focus-inner {
+            padding: 0;
+            border: 0
+        }
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0
+        }
+
+        fieldset,
+        img {
+            border: 0
+        }
+
+        blockquote {
+            position: relative;
+            color: #999;
+            font-weight: 400;
+            border-left: 1px solid #1abc9c;
+            padding-left: 1em;
+            margin: 1em 3em 1em 2em
+        }
+
+        @media only screen and (max-width: 640px) {
+            blockquote {
+                margin: 1em 0
+            }
+        }
+
+        abbr,
+        acronym {
+            border-bottom: 1px dotted;
+            font-variant: normal
+        }
+
+        abbr {
+            cursor: help
+        }
+
+        del {
+            text-decoration: line-through
+        }
+
+        address,
+        caption,
+        cite,
+        code,
+        dfn,
+        em,
+        th,
+        var {
+            font-style: normal;
+            font-weight: 400
+        }
+
+        ol,
+        ul {
+            list-style: none
+        }
+
+        caption,
+        th {
+            text-align: left
+        }
+
+        q:after,
+        q:before {
+            content: ""
+        }
+
+        sub,
+        sup {
+            font-size: 75%;
+            line-height: 0;
+            position: relative
+        }
+
+        :root sub,
+        :root sup {
+            vertical-align: baseline
+        }
+
+        sup {
+            top: -.5em
+        }
+
+        sub {
+            bottom: -.25em
+        }
+
+        a {
+            color: #1abc9c
+        }
+
+        a:hover {
+            text-decoration: underline
+        }
+
+        .typo a {
+            border-bottom: 1px solid #1abc9c
+        }
+
+        .typo a:hover {
+            border-bottom-color: #555;
+            color: #555
+        }
+
+        .typo a:hover,
+        a,
+        ins {
+            text-decoration: none
+        }
+
+        .typo-u,
+        u {
+            text-decoration: underline
+        }
+
+        mark {
+            background: #fffdd1;
+            border-bottom: 1px solid #ffedce;
+            padding: 2px;
+            margin: 0 5px
+        }
+
+        code,
+        pre,
+        pre tt {
+            font-family: Courier, Courier New, monospace
+        }
+
+        pre {
+            background: hsla(0, 0%, 97%, .7);
+            border: 1px solid #ddd;
+            padding: 1em 1.5em;
+            display: block;
+            -webkit-overflow-scrolling: touch
+        }
+
+        hr {
+            border: none;
+            border-bottom: 1px solid #cfcfcf;
+            margin-bottom: .8em;
+            height: 10px
+        }
+
+        .typo-small,
+        figcaption,
+        small {
+            font-size: .9em;
+            color: #888
+        }
+
+        b,
+        strong {
+            font-weight: 700;
+            color: #000
+        }
+
+        [draggable] {
+            cursor: move
+        }
+
+        .clearfix:after,
+        .clearfix:before {
+            content: "";
+            display: table
+        }
+
+        .clearfix:after {
+            clear: both
+        }
+
+        .clearfix {
+            zoom: 1
+        }
+
+        .textwrap,
+        .textwrap td,
+        .textwrap th {
+            word-wrap: break-word;
+            word-break: break-all
+        }
+
+        .textwrap-table {
+            table-layout: fixed
+        }
+
+        .serif {
+            font-family: Palatino, Optima, Georgia, serif
+        }
+
+        .typo-dl,
+        .typo-form,
+        .typo-hr,
+        .typo-ol,
+        .typo-p,
+        .typo-pre,
+        .typo-table,
+        .typo-ul,
+        .typo dl,
+        .typo form,
+        .typo hr,
+        .typo ol,
+        .typo p,
+        .typo pre,
+        .typo table,
+        .typo ul,
+        blockquote {
+            margin-bottom: 1rem
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: PingFang SC, Helvetica Neue, Verdana, Microsoft Yahei, Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei, sans-serif;
+            color: #000;
+            line-height: 1.35
+        }
+
+        .typo-h1,
+        .typo-h2,
+        .typo-h3,
+        .typo-h4,
+        .typo-h5,
+        .typo-h6,
+        .typo h1,
+        .typo h2,
+        .typo h3,
+        .typo h4,
+        .typo h5,
+        .typo h6 {
+            margin-top: 1.2em;
+            margin-bottom: .6em;
+            line-height: 1.35
+        }
+
+        .typo-h1,
+        .typo h1 {
+            font-size: 2em
+        }
+
+        .typo-h2,
+        .typo h2 {
+            font-size: 1.8em
+        }
+
+        .typo-h3,
+        .typo h3 {
+            font-size: 1.6em
+        }
+
+        .typo-h4,
+        .typo h4 {
+            font-size: 1.4em
+        }
+
+        .typo-h5,
+        .typo-h6,
+        .typo h5,
+        .typo h6 {
+            font-size: 1.2em
+        }
+
+        .typo-ul,
+        .typo ul {
+            margin-left: 1.3em;
+            list-style: disc
+        }
+
+        .typo-ol,
+        .typo ol {
+            list-style: decimal;
+            margin-left: 1.9em
+        }
+
+        .typo-ol ol,
+        .typo-ol ul,
+        .typo-ul ol,
+        .typo-ul ul,
+        .typo li ol,
+        .typo li ul {
+            margin-bottom: .8em;
+            margin-left: 2em
+        }
+
+        .typo-ol ul,
+        .typo-ul ul,
+        .typo li ul {
+            list-style: circle
+        }
+
+        .typo-table td,
+        .typo-table th,
+        .typo table caption,
+        .typo table td,
+        .typo table th {
+            border: 1px solid #ddd;
+            padding: .5em 1em;
+            color: #666
+        }
+
+        .typo-table th,
+        .typo table th {
+            background: #fbfbfb
+        }
+
+        .typo-table thead th,
+        .typo table thead th {
+            background: hsla(0, 0%, 95%, .7)
+        }
+
+        .typo table caption {
+            border-bottom: none
+        }
+
+        .typo-input,
+        .typo-textarea {
+            -webkit-appearance: none;
+            border-radius: 0
+        }
+
+        .typo-em,
+        .typo em,
+        caption,
+        legend {
+            color: #000;
+            font-weight: inherit
+        }
+
+        .typo-em {
+            position: relative
+        }
+
+        .typo-em:after {
+            position: absolute;
+            top: .65em;
+            left: 0;
+            width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+            content: "\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB\30FB"
+        }
+
+        .typo img {
+            max-width: 100%
+        }
+
+        .common-content {
+            font-weight: 400;
+            color: #353535;
+            line-height: 1.75rem;
+            white-space: normal;
+            word-break: normal;
+            font-size: 1rem
+        }
+
+        .common-content img {
+            display: block;
+            max-width: 100%;
+            background-color: #eee
+        }
+
+        .common-content audio,
+        .common-content video {
+            width: 100%;
+            background-color: #eee
+        }
+
+        .common-content center,
+        .common-content font {
+            margin-top: 1rem;
+            display: inline-block
+        }
+
+        .common-content center {
+            width: 100%
+        }
+
+        .common-content pre {
+            margin-top: 1rem;
+            padding-left: 0;
+            padding-right: 0;
+            position: relative;
+            overflow: hidden
+        }
+
+        .common-content pre code {
+            font-size: .8rem;
+            font-family: Consolas, Liberation Mono, Menlo, monospace, Courier;
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+            padding-left: 1rem;
+            padding-right: 1rem;
+            overflow-x: auto
+        }
+
+        .common-content hr {
+            border: none;
+            margin-top: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-top: 1px solid #f5f5f5;
+            height: 1px;
+            background: none
+        }
+
+        .common-content b,
+        .common-content h1,
+        .common-content h2,
+        .common-content h3,
+        .common-content h4,
+        .common-content h5,
+        .common-content strong {
+            font-weight: 700
+        }
+
+        .common-content h1,
+        .common-content h2 {
+            font-size: 1.125rem;
+            margin-bottom: .45rem
+        }
+
+        .common-content h3,
+        .common-content h4,
+        .common-content h5 {
+            font-size: 1rem;
+            margin-bottom: .45rem
+        }
+
+        .common-content p {
+            font-weight: 400;
+            color: #353535;
+            margin-top: .15rem
+        }
+
+        .common-content .orange {
+            color: #ff5a05
+        }
+
+        .common-content .reference {
+            font-size: 1rem;
+            color: #888
+        }
+
+        .custom-rich-content h1 {
+            margin-top: 0;
+            font-weight: 400;
+            font-size: 15.25px;
+            border-bottom: 1px solid #eee;
+            line-height: 2.8
+        }
+
+        .custom-rich-content li,
+        .custom-rich-content p {
+            font-size: 14px;
+            color: #888;
+            line-height: 1.6
+        }
+
+        table.hljs-ln {
+            margin-bottom: 0;
+            border-spacing: 0;
+            border-collapse: collapse
+        }
+
+        table.hljs-ln,
+        table.hljs-ln tbody,
+        table.hljs-ln td,
+        table.hljs-ln tr {
+            box-sizing: border-box
+        }
+
+        table.hljs-ln td {
+            padding: 0;
+            border: 0
+        }
+
+        table.hljs-ln td.hljs-ln-numbers {
+            min-width: 15px;
+            color: rgba(27, 31, 35, .3);
+            text-align: right;
+            white-space: nowrap;
+            cursor: pointer;
+            user-select: none
+        }
+
+        table.hljs-ln td.hljs-ln-code,
+        table.hljs-ln td.hljs-ln-numbers {
+            font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier, monospace;
+            font-size: 12px;
+            line-height: 20px;
+            vertical-align: top
+        }
+
+        table.hljs-ln td.hljs-ln-code {
+            position: relative;
+            padding-right: 10px;
+            padding-left: 10px;
+            overflow: visible;
+            color: #24292e;
+            word-wrap: normal;
+            white-space: pre
+        }
+
+        video::-webkit-media-controls {
+            overflow: hidden !important
+        }
+
+        video::-webkit-media-controls-enclosure {
+            width: calc(100% + 32px);
+            margin-left: auto
+        }
+
+        ._29HP61GA_0 {
+            max-width:800px;
+            margin:0 auto;
+            margin-bottom: 20px;
+            font-weight: 400;
+            color: #353535;
+            line-height: 1.76;
+            white-space: normal;
+            word-break: normal;
+            font-size: 17px;
+            -webkit-transition: background-color .3s ease;
+            transition: background-color .3s ease
+        }
+
+        ._29HP61GA_0 .MathJax_Display {
+            overflow: auto
+        }
+
+        ._29HP61GA_0 .poster {
+            position: fixed;
+            left: -10000px;
+            top: -10000px;
+            overflow: hidden;
+            padding: 1rem;
+            background: #ececec
+        }
+
+        ._29HP61GA_0 .richcontent-pre-copy {
+            font-size: 13px;
+            color: #888;
+            position: absolute;
+            right: 1em;
+            top: .5em;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none
+        }
+
+        ._29HP61GA_0 .richcontent-pre-copy .iconfont {
+            font-size: 12px;
+            margin-right: .2em
+        }
+
+        ._29HP61GA_0 a {
+            color: #fa8919;
+            border-bottom: 1px solid #fa8919
+        }
+
+        ._29HP61GA_0 img {
+            display: block;
+            max-width: 100%;
+            position: relative;
+            left: 50%;
+            -webkit-transform: translateX(-50%);
+            transform: translateX(-50%);
+            background-color: #eee;
+            vertical-align: top;
+            border-radius: 0
+        }
+
+        ._29HP61GA_0 audio,
+        ._29HP61GA_0 video {
+            width: 100%;
+            background-color: #eee
+        }
+
+        ._29HP61GA_0 pre {
+            margin-top: 16px;
+            padding: 34px 0 0;
+            margin-bottom: 30px;
+            position: relative;
+            border-radius: 6px;
+            background: rgba(246, 247, 251, .749);
+            border: 0
+        }
+
+        ._29HP61GA_0 pre code {
+            font-size: 12px;
+            font-family: Consolas, Liberation Mono, Menlo, monospace, Courier;
+            display: block;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            margin-left: 16px;
+            margin-right: 16px;
+            overflow-x: scroll
+        }
+
+        ._29HP61GA_0 pre code:after {
+            content: "";
+            height: 30px;
+            width: 100%;
+            display: block
+        }
+
+        ._29HP61GA_0 hr {
+            border: none;
+            margin-top: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-top: 1px solid #f5f5f5;
+            height: 1px;
+            background: none
+        }
+
+        ._29HP61GA_0 h1,
+        ._29HP61GA_0 h2,
+        ._29HP61GA_0 h3,
+        ._29HP61GA_0 h4,
+        ._29HP61GA_0 h5 {
+            margin-bottom: 20px;
+            margin-top: 0;
+            font-weight: 700
+        }
+
+        ._29HP61GA_0 b,
+        ._29HP61GA_0 strong {
+            font-weight: 700
+        }
+
+        ._29HP61GA_0 h1 {
+            font-size: 21px
+        }
+
+        ._29HP61GA_0 h2 {
+            font-size: 20px
+        }
+
+        ._29HP61GA_0 h3 {
+            font-size: 19px
+        }
+
+        ._29HP61GA_0 h4 {
+            font-size: 18px
+        }
+
+        ._29HP61GA_0 h5 {
+            font-size: 17px
+        }
+
+        ._29HP61GA_0 center,
+        ._29HP61GA_0 p {
+            font-weight: 400;
+            color: #353535;
+            margin-top: 0;
+            margin-bottom: 30px;
+            word-break: break-word
+        }
+
+        ._29HP61GA_0 center {
+            text-align: center
+        }
+
+        ._29HP61GA_0 blockquote {
+            margin-top: 0;
+            margin-bottom: 34px;
+            border-left: 3px solid #e8e8e8;
+            padding-left: 17px;
+            color: #353535
+        }
+
+        ._29HP61GA_0 blockquote p {
+            margin-top: 0;
+            margin-bottom: 0
+        }
+
+        ._29HP61GA_0 ol,
+        ._29HP61GA_0 ul {
+            margin-bottom: 30px
+        }
+
+        ._29HP61GA_0 ol p,
+        ._29HP61GA_0 ul p {
+            margin-top: 0;
+            margin-bottom: 0
+        }
+
+        ._29HP61GA_0 ol {
+            list-style: decimal;
+            margin-left: 20px
+        }
+
+        ._29HP61GA_0 ul li {
+            padding-left: 17px;
+            position: relative;
+            margin-bottom: 10px
+        }
+
+        ._29HP61GA_0 ul li:after {
+            content: "";
+            height: 6px;
+            width: 6px;
+            border-radius: 50%;
+            background: #353535;
+            position: absolute;
+            top: 10px;
+            left: 0
+        }
+
+        ._29HP61GA_0 .orange {
+            color: #fa8919
+        }
+
+        ._29HP61GA_0 .reference {
+            color: #888
+        }
+
+        ._29HP61GA_0 .m-right {
+            text-align: right
+        }
+
+        ._29HP61GA_0 .m-center {
+            text-align: center;
+            display: block
+        }
+
+        ._29HP61GA_0 .m-gray {
+            color: #888
+        }
+
+        ._29HP61GA_0 .m-small {
+            font-size: 15px
+        }
+
+        ._29HP61GA_0 table.hljs-ln {
+            margin-bottom: 0;
+            border-spacing: 0;
+            border-collapse: collapse
+        }
+
+        ._29HP61GA_0 table.hljs-ln,
+        ._29HP61GA_0 table.hljs-ln tbody,
+        ._29HP61GA_0 table.hljs-ln td,
+        ._29HP61GA_0 table.hljs-ln tr {
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box
+        }
+
+        ._29HP61GA_0 table.hljs-ln td {
+            padding: 0;
+            border: 0
+        }
+
+        ._29HP61GA_0 table.hljs-ln td.hljs-ln-numbers {
+            min-width: 15px;
+            font-size: 12px;
+            color: rgba(27, 31, 35, .3);
+            text-align: right;
+            white-space: nowrap;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none
+        }
+
+        ._29HP61GA_0 table.hljs-ln td.hljs-ln-code,
+        ._29HP61GA_0 table.hljs-ln td.hljs-ln-numbers {
+            font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier, monospace;
+            line-height: 20px;
+            vertical-align: top
+        }
+
+        ._29HP61GA_0 table.hljs-ln td.hljs-ln-code {
+            position: relative;
+            padding-right: 10px;
+            padding-left: 10px;
+            overflow: visible;
+            font-size: 13px;
+            color: #666;
+            word-wrap: normal;
+            white-space: pre
+        }
+
+    </style>
+</head>
+<body>
+<div class="_29HP61GA_0">
+<h1>春节7天练-Day7：贪心、分治、回溯和动态规划</h1>
+<p>你好，我是王争。今天是节后的第一个工作日，也是我们“春节七天练”的最后一篇。</p><hr></hr><h2>几种算法思想必知必会的代码实现</h2><h3>回溯</h3><ul>
+<li>
+<p>利用回溯算法求解八皇后问题</p>
+</li>
+<li>
+<p>利用回溯算法求解0-1背包问题</p>
+</li>
+</ul><h3>分治</h3><ul>
+<li>利用分治算法求一组数据的逆序对个数</li>
+</ul><h3>动态规划</h3><ul>
+<li>
+<p>0-1背包问题</p>
+</li>
+<li>
+<p>最小路径和（详细可看@Smallfly整理的 Minimum Path Sum）</p>
+</li>
+<li>
+<p>编程实现莱文斯坦最短编辑距离</p>
+</li>
+<li>
+<p>编程实现查找两个字符串的最长公共子序列</p>
+</li>
+<li>
+<p>编程实现一个数据序列的最长递增子序列</p>
+</li>
+</ul><h2>对应的LeetCode练习题（@Smallfly 整理）</h2><ul>
+<li>Regular Expression Matching（正则表达式匹配）</li>
+</ul><p>英文版：<a href="https://leetcode.com/problems/regular-expression-matching/">https://leetcode.com/problems/regular-expression-matching/</a></p><p>中文版：<a href="https://leetcode-cn.com/problems/regular-expression-matching/">https://leetcode-cn.com/problems/regular-expression-matching/</a></p><ul>
+<li>Minimum Path Sum（最小路径和）</li>
+</ul><p>英文版：<a href="https://leetcode.com/problems/minimum-path-sum/">https://leetcode.com/problems/minimum-path-sum/</a></p><p>中文版：<a href="https://leetcode-cn.com/problems/minimum-path-sum/">https://leetcode-cn.com/problems/minimum-path-sum/</a></p><!-- [[[read_end]]] --><ul>
+<li>Coin Change （零钱兑换）</li>
+</ul><p>英文版：<a href="https://leetcode.com/problems/coin-change/">https://leetcode.com/problems/coin-change/</a></p><p>中文版：<a href="https://leetcode-cn.com/problems/coin-change/">https://leetcode-cn.com/problems/coin-change/</a></p><ul>
+<li>Best Time to Buy and Sell Stock（买卖股票的最佳时机）</li>
+</ul><p>英文版：<a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock/">https://leetcode.com/problems/best-time-to-buy-and-sell-stock/</a></p><p>中文版：<a href="https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock/">https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock/</a></p><ul>
+<li>Maximum Product Subarray（乘积最大子序列）</li>
+</ul><p>英文版：<a href="https://leetcode.com/problems/maximum-product-subarray/">https://leetcode.com/problems/maximum-product-subarray/</a></p><p>中文版：<a href="https://leetcode-cn.com/problems/maximum-product-subarray/">https://leetcode-cn.com/problems/maximum-product-subarray/</a></p><ul>
+<li>Triangle（三角形最小路径和）</li>
+</ul><p>英文版：<a href="https://leetcode.com/problems/triangle/">https://leetcode.com/problems/triangle/</a></p><p>中文版：<a href="https://leetcode-cn.com/problems/triangle/">https://leetcode-cn.com/problems/triangle/</a></p><hr></hr><p>到此为止，七天的练习就结束了。这些题目都是我精选出来的，是基础数据结构和算法中最核心的内容。建议你一定要全部手写练习。如果一遍搞不定，你可以结合前面的章节，多看几遍，反复练习，直到能够全部搞定为止。</p><p>学习数据结构和算法，最好的方法就是练习和实践。我相信这在任何知识的学习过程中都适用。</p><p>最后，祝你工作顺利！学业进步！</p><p></p><h2>精选留言：</h2>
+        <ul>
+        
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            kai  2019-02-11 11:15:42
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            听了老师的课程，第一遍的时候，只是在读，现在开始回顾：<br>课程相关的知识点，做了笔记：https:&#47;&#47;github.com&#47;guokaide&#47;algorithm&#47;blob&#47;master&#47;summary&#47;algorithm.md<br>课程涉及的题目，也在逐步总结当中：<br>https:&#47;&#47;github.com&#47;guokaide&#47;algorithm&#47;blob&#47;master&#47;questions&#47;questions.md<br><br>希望和大家一起进步，欢迎小伙伴们一起来讨论~<br> [6赞]
+        </div>
+        <br/>
+<div>
+    <div style="color:#888;font-size:15.25px;font-weight:400;        line-height:1.2">编辑回复2019-02-22 11:03:59</div>
+    <div style="color:#353535;font-weight:400;white-space:normal;        word-break:break-all;line-height:1.6">感谢您参与春节七天练的活动，为了表彰你在活动中的优秀表现，赠送您99元专栏通用阅码，我们会在3个工作日之内完成礼品发放，如有问题请咨询小明同学，微信geektime002。</div>
+</div>
+            
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            黄丹  2019-02-11 21:39:33
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            课程的最后一天，也是新年上班的第一天，感谢王老师的教育和陪伴，祝您生活开心，工作顺利。<br>今天的题目比前几天的都难一点，只做了三题，太累了TaT。对于动态规划和贪心总觉得很巧妙，如果想不到动态转移方程式，就很难做，但要是想到了，真的是豁然开朗。对于这一类题，还是要多锻炼，找动态转移方程式要从最后一个结果出发，去想这个结果可以由什么得到，知道之前所有结点的信息，如何推导出当前结点的信息，其实和高中学的归纳法有一点点像。 <br>下面给出我今天做的三题的解题思路和代码<br>1.	Problem 121. Best Time to Buy and Sell Stock<br>解题思路：这道题很久以前做的，我们可以维持两个变量 - 分别对应于最小谷值和最大利润（销售价格和最低价格之间的最大差异）的minprice 和maxprofit。<br>代码：https:&#47;&#47;github.com&#47;yyxd&#47;leetcode&#47;blob&#47;master&#47;src&#47;leetcode&#47;array&#47;easy&#47;Problem121.java<br>2.	Problem 120. Triangle<br>解题思路：这道题给一个由整数组成的三角形，自上而下寻找顶点到三角形边的最短的一条路径，设置一个数组A[0...n-1][0...n-1]，A[i][j]代表到达第i行第j列结点的最短路径 * DP转移方程式为：A[i][j]=min(A[i-1][j-1],A[i-1][j])+triangle[i][j] * 其中二维数组可以简化为一维数组，因为我们只需要上一行结点的信息 * 然后遍历到达最后一行的节点的路径，找到最短路径的值<br>代码：https:&#47;&#47;github.com&#47;yyxd&#47;leetcode&#47;blob&#47;master&#47;src&#47;leetcode&#47;dp&#47;Problem120_Triangle.java<br>3.	Problem 322. Coin Change<br>解题思路：这道题是给定具有n个不同金额的硬币（硬币个数无限）coins[0...n-1]，给一个整数amount，是否给的硬币能正好达到整数，给出能组成整数最少需要的硬币个数. 解法是设置一个数组A[0...amount],进行初始化A[0]=0;A[1...amount] = -1;保存的是当给定金额为i时，所需要的最少的硬币。 * dp转移方程式为 A[k] = 1+min(A[k-coins[0]],A[k-coins[1]],....A[k-coins[n-1]]). * 这里要注意的是判断A[k]是否有解<br>代码：https:&#47;&#47;github.com&#47;yyxd&#47;leetcode&#47;blob&#47;master&#47;src&#47;leetcode&#47;dp&#47;Problem322_CoinChange.java<br>课程完结撒花，真的学到好多，自己以后还会反复回顾的，再次感谢王争老师，还有每天负责朗读的声音好好听的修阳小哥哥。<br> [3赞]
+        </div>
+        
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            kai  2019-02-11 00:38:45
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            动态规划，感觉是面试必考内容，今天跟着这些题目再来复习一遍~ [3赞]
+        </div>
+        
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            李皮皮皮皮皮  2019-02-11 11:15:56
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            每天一道算法题，风雨无阻（过年偷懒不算😛） [2赞]
+        </div>
+        
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            kai  2019-02-11 10:55:42
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            8皇后问题<br><br>public class EightQueen {<br><br>    private static final int QUEEN_NUMBER = 8;      &#47;&#47; 皇后个数<br>    private int[] columns = new int[QUEEN_NUMBER];  &#47;&#47; 每个皇后存储的列 (row, col), row天然不相等<br>    private int total = 0;<br><br>    public int solution() {<br>        queen(0);<br>        return total;<br>    }<br><br>    private void queen(int row) {<br>        if (row == QUEEN_NUMBER) {<br>            total++;<br>        } else {<br>            for (int col = 0; col != QUEEN_NUMBER; col++) {<br>                columns[row] = col;<br>                if (isPut(row)) {<br>                    queen(row+1);<br>                }<br>            }<br>        }<br>    }<br><br>    private boolean isPut(int row) {<br>         for (int i = 0; i != row; i++) {<br>             if (columns[row] == columns[i] || row - i == Math.abs(columns[row]-columns[i])) {<br>                 return false;<br>             }<br>         }<br>         return true;<br>    }<br><br>} [2赞]
+        </div>
+        
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            Richard  2019-02-11 10:21:44
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            老师留的题都很不错，正在刷之前没做过的LeetCode题。<br>参与下答对三题送课程的活动:<br>Day 1：<br>1.求众数(Python)<br>class Solution:<br>    def majorityElement(self, nums):<br>        return sorted(nums)[len(nums) &#47;&#47; 2]<br>2.缺失的第一个正数(Golang)<br>func firstMissingPositive(nums []int) int {<br>    if len(nums) == 0 {<br>		return 1<br>	}<br><br>	var arr = make([]bool, len(nums)+1)<br>	var idx = 1<br>	for i := 0; i &lt; len(nums); i++ {<br>		if nums[i] &gt;= 0 &amp;&amp; nums[i] &lt; len(arr) {<br>			arr[nums[i]] = true<br>		}<br>	}<br><br>	for i := 1; i &lt; len(arr); i++ {<br>		if arr[i] == false {<br>			idx = i<br>			break<br>		} else {<br>			idx = i + 1<br>		}<br>	}<br><br>	return idx<br>}<br>Day 7:<br>3. 买卖股票的最佳时机(Python)<br>class Solution:<br>    def maxProfit(self, prices):<br>        if not prices:<br>            return 0<br>        min_price = prices[0]<br>        res = 0<br>        for i in prices[1:]:<br>            min_price = min(min_price, i)<br>            if res &lt; i - min_price:<br>                res = i - min_price<br>        return res<br> [2赞]
+        </div>
+        <br/>
+<div>
+    <div style="color:#888;font-size:15.25px;font-weight:400;        line-height:1.2">编辑回复2019-02-22 11:04:26</div>
+    <div style="color:#353535;font-weight:400;white-space:normal;        word-break:break-all;line-height:1.6">感谢您参与春节七天练的活动，为了表彰你在活动中的优秀表现，赠送您99元专栏通用阅码，我们会在3个工作日之内完成礼品发放，如有问题请咨询小明同学，微信geektime002。</div>
+</div>
+            
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            纯洁的憎恶  2019-02-10 21:38:32
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            这冲刺压力有点大了😓 [2赞]
+        </div>
+        
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            _CountingStars  2019-02-11 08:30:29
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            买卖股票的最佳时机 go 语言实现<br>package main<br><br>import &quot;fmt&quot;<br><br>func maxProfit(prices []int) int {<br>	max := -1<br>	for i := 0; i &lt; len(prices); i++ {<br>		for j := i + 1; j &lt; len(prices); j++ {<br>			profit := prices[j] - prices[i]<br>			if profit &gt; 0 &amp;&amp; profit &gt; max {<br>				max = profit<br>			}<br>		}<br>	}<br><br>	if max == -1 {<br>		return 0<br>	}<br><br>	return max<br>}<br><br>func main() {<br>	testData1 := []int{7, 1, 5, 3, 6, 4}<br>	testData2 := []int{7, 6, 4, 3, 1}<br><br>	fmt.Println(maxProfit(testData1))<br>	fmt.Println(maxProfit(testData2))<br>}<br> [1赞]
+        </div>
+        
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            明翼  2019-09-03 22:06:27
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            请教下老师，遇到一个问题，给多个银行账号，假如每个账号每天都有交易，这样在坐标中可以画出时间和交易金额的曲线，求哪个曲线的更平滑或波动更大，银行账号的交易额度可能相差很大，银行账号交易梳理可能多个。 
+        </div>
+        <br/>
+<div>
+    <div style="color:#888;font-size:15.25px;font-weight:400;        line-height:1.2">作者回复2019-09-06 07:00:25</div>
+    <div style="color:#353535;font-weight:400;white-space:normal;        word-break:break-all;line-height:1.6">抱歉，这个我也不懂啊</div>
+</div>
+            
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            go  2019-07-10 14:20:18
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            老师，具体的是这样，比如物流公司，用户下单，需要根据最短路线或者最少花费来找出合适的中转路线。 比如需要送货到B城市，A城市发货，但是，很多路线，需要选最合适的路线，比如A到D中转再到E中转最后送货到B。 
+        </div>
+        
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            go  2019-07-10 06:45:26
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            老师，请教下。关于物流中转路线，应该采用哪种算法合适？ 
+        </div>
+        <br/>
+<div>
+    <div style="color:#888;font-size:15.25px;font-weight:400;        line-height:1.2">作者回复2019-07-10 14:15:45</div>
+    <div style="color:#353535;font-weight:400;white-space:normal;        word-break:break-all;line-height:1.6">麻烦说具体点吧 太笼统了</div>
+</div>
+            
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            Nereus  2019-02-19 10:45:56
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            零钱兑换 - GO<br><br>func coinChange(coins []int, amount int) int {<br>	var dp []int = make([]int, amount+1)<br>	for _, record := range coins {<br>		if amount &gt;= record {<br>			dp[record] = 1<br>		}<br>	}<br><br>	for i := 1; i &lt;= amount; i++ {<br>		dp[i] = amount + 1<br>		for _, record := range coins {<br>			if i-record &gt;= 0 {<br>				dp[i] = min(dp[i-record]+1, dp[i])<br>			}<br>		}<br>	}<br><br>	if dp[amount] &gt; amount {<br>		return -1<br>	}<br><br>	return dp[amount]<br>}<br><br>func min(a, b int) int {<br>	if a &lt; b {<br>		return a<br>	}<br>	return b<br>}<br><br> 
+        </div>
+        
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            拉欧  2019-02-15 18:23:48
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            买卖股票的最佳时机 go 语言实现<br><br>func maxProfit(prices []int) int {<br><br>	max:=0<br>	for i:=0;i&lt;len(prices);i++{<br>		for j:=0;j&lt;i;j++{<br>			num:=prices[i]-prices[j]<br>			if num&gt;max{<br>				max=num<br>			}<br>		}<br>	}<br>	return max<br>} 
+        </div>
+        
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            拉欧  2019-02-15 15:05:45
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            零钱兑换 go语言实现<br>func coinChange(coins []int, amount int) int {<br>    if amount==0{<br>		return 0<br>	}<br>	if len(coins)==0 &amp;&amp; amount!=0{<br>		return -1<br>	}<br><br>	isSmall:=true<br>	for _,coin:=range coins{<br>		if coin&lt;=amount{<br>			isSmall=false<br>		}<br>	}<br>	if isSmall{<br>		return -1<br>	}<br>	grid:=make([]int,amount+1)<br><br><br>	for _,coin:=range coins{<br>		if coin&lt;=amount{<br>			grid[coin]=1<br>		}<br>		if coin==amount{<br>			return 1<br>		}<br>	}<br>	for i:=2;i&lt;amount+1;i++{<br>		newGrid:=make([]int,amount+1)<br>		for j:=1;j&lt;amount+1;j++{<br>			for _,coin:=range coins{<br>				if grid[j]==1 &amp;&amp; j+coin&lt;=amount{<br>					newGrid[j]=1<br>					newGrid[j+coin]=1<br>				}<br>			}<br>		}<br>		grid=newGrid<br>		if grid[amount]==1{<br>			return i<br>		}<br>	}<br>	return -1<br>} 
+        </div>
+        
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            拉欧  2019-02-15 12:02:46
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            最小路径和 go实现<br><br>func minPathSum(grid [][]int) int {<br>    l:=len(grid)<br>	w:=len(grid[0])<br>	sum:=make([][]int,l)<br>	for i:=0;i&lt;l;i++{<br>		sum[i]=make([]int,w)<br>	}<br>	sum[0][0]=grid[0][0]<br>	for i:=1;i&lt;w;i++{<br>		sum[0][i]=grid[0][i]+sum[0][i-1]<br>	}<br>	for j:=1;j&lt;l;j++{<br>		sum[j][0]=grid[j][0]+sum[j-1][0]<br>	}<br>	for i:=1;i&lt;l;i++{<br>		for j:=1;j&lt;w;j++{<br>			sum[i][j]=less(sum[i-1][j],sum[i][j-1])+grid[i][j]<br>		}<br>	}<br><br>	return sum[l-1][w-1]<br>}<br><br>func less(i,j int) int{<br>	if i&gt;j{<br>		return j<br>	}else{<br>		return i<br>	}<br>} 
+        </div>
+        
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            拉欧  2019-02-15 11:36:04
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            正则表达式匹配 go语言实现，还是看别人的提示搞出来的<br>func isMatch(s string, p string) bool {<br>    if len(p)==0{<br>		if len(s)==0{<br>			return true<br>		}else{<br>			return false<br>		}<br>	}<br>	if len(p)==1{<br>		if len(s)==1 &amp;&amp; (s[0]==p[0] || p[0]==&#39;.&#39;){<br>			return true<br>		} else {<br>			return false<br>		}<br>	}<br>	if p[1]!=&#39;*&#39;{<br>		if len(s)==0{<br>			return false<br>		}<br>		return (s[0]==p[0]||p[0]==&#39;.&#39;) &amp;&amp; isMatch(s[1:],p[1:])<br>	}else{<br>		for ;len(s)!=0 &amp;&amp; (s[0]==p[0]||p[0]==&#39;.&#39;);{<br>			if isMatch(s,p[2:]){<br>				return true<br>			}<br>			s=s[1:]<br>		}<br>		return isMatch(s,p[2:])<br>	}<br><br><br><br>	return true<br>} 
+        </div>
+        
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            TryTs  2019-02-14 20:18:56
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            &#47;&#47;零钱兑换<br>#include&lt;iostream&gt;<br>#include&lt;algorithm&gt;<br>using namespace std;<br>int coins[10];<br>int amount;<br>int k;&#47;&#47;k代表纸币的数目<br>int dp[20];&#47;&#47;代表面值最大，也可以采用动态扩容的方式 <br>int cmax = 32767;<br>int coinChange(int coins[],int amount){<br>	for(int i = 1;i &lt;= amount;i++){<br>		dp[i] = cmax;<br>		for(int j = 0;j &lt; k;j++){<br>			int t = coins[j];<br>			if(i &gt;= t &amp;&amp; coins[i - t] != cmax){<br>				dp[i] = min(dp[i - t] + 1,dp[i]);<br>			}<br>		}<br>	}<br>	if(dp[amount] &lt; cmax &amp;&amp; dp[amount] &gt; 0){<br>		return dp[amount];<br>	}<br>	else<br>		return -1;<br>}<br>int main(){<br>	k = 0;<br>	while(true){<br>		cin&gt;&gt;k;<br>		for(int i = 0;i &lt; k;i++){<br>			cin&gt;&gt;coins[i];<br>		} <br>		cin&gt;&gt;amount;<br>		cout&lt;&lt;coinChange(coins,amount)&lt;&lt;endl;<br>	}	<br>} 
+        </div>
+        
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            TryTs  2019-02-14 10:48:12
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            回溯0-1背包问题<br>#include&lt;iostream&gt;<br>using namespace std;<br>int v[10] = {2,2,4,6,3};<br>int M;&#47;&#47;代表背包的容积 <br>int n;<br>int cmax = 0;<br><br>void f(int w,int k){<br>&#47;&#47;	if(w == 0){<br>&#47;&#47;		if(w &gt; max) max = w;<br>&#47;&#47;	}<br>	if(w == M || k == n){<br>		if(w &gt; cmax) cmax = w;<br>		return ;<br>	} <br>	f(w,k + 1);<br>	if(w + v[k] &lt;= M){<br>		f(w + v[k],k + 1);<br>	}<br>}<br>int main(){<br>	&#47;&#47;v[] = {2,2,4,6,3};<br>	M = 9;<br>	n = 5;<br>	f(0,0);<br>	cout&lt;&lt;cmax&lt;&lt;endl;<br>} 
+        </div>
+        
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            TryTs  2019-02-14 10:02:48
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            #include&lt;iostream&gt;<br>#include&lt;cmath&gt;<br>using namespace std;<br><br>int queen[100];<br>int sum = 0;<br>int n;<br>void Print(){<br>	&#47;&#47;cout&lt;&lt;&quot;ss&quot;&lt;&lt;endl;<br>	for(int i = 0;i &lt; n;i++){<br>		cout&lt;&lt;&quot;(&quot;&lt;&lt;i+1&lt;&lt;&quot;,&quot;&lt;&lt;queen[i] + 1&lt;&lt;&quot;)&quot;;<br>	}<br>	sum++;<br>	cout&lt;&lt;endl;<br>}<br><br>void Queen(int queen[],int k){<br>	if(k == n) {<br>		Print(); <br>		&#47;&#47;return ;<br>	}<br>    int j = 0;<br>    for(int i = 0;i &lt; n;i++){<br>    	&#47;&#47;j = i;<br>    	for( j = 0;j &lt; k;j++){<br>    		if((queen[j] == i)||(abs(queen[j] - i) == abs(k - j)))<br>				break;<br>		}<br>		if(j == k){<br>			queen[k] = i;<br>			Queen(queen,k+1); <br>		}<br>	}<br>}<br>int main(){<br>	cin&gt;&gt;n;<br>	Queen(queen,0);<br>	cout&lt;&lt;sum&lt;&lt;endl;<br>} 
+        </div>
+        
+    </div>
+</li>
+            
+<br/>
+
+<li>
+    <div>
+        <div style="color: #888;font-size:15.25px;font-weight:400;            line-height:1.2">
+            纯洁的憎恶  2019-02-12 11:13:06
+        </div>
+        <div style="color:#353535;font-weight:400;white-space:normal;            word-break:break-all;line-height:1.6">
+            第一题，把39讲的代码改了一下。。。<br><br>public class Pattern {<br>  private boolean matched = false;<br>  private char[] pattern; &#47;&#47; 正则表达式<br>  private int plen; &#47;&#47; 正则表达式长度<br><br>  public Pattern(char[] pattern, int plen) {<br>    this.pattern = pattern;<br>    this.plen = plen;<br>  }<br><br>  public boolean match(char[] text, int tlen) { &#47;&#47; 文本串及长度<br>    matched = false;<br>    if (pattern[0]=&#39;*&#39;)<br>           return matched;<br>   int i = 0;<br>   int j = 0;<br>   while (i&lt;=plen&amp;&amp;j&lt;=tlen&amp;&amp;pattern[i]!=text[j]&amp;&amp;pattern[i]!=&#39;.&#39;)<br>         i++;<br>    rmatch(0, 0, text, tlen);<br>    return matched;<br>  }<br><br>  private void rmatch(int ti, int pj, char[] text, int tlen) {<br>    if (matched) return; &#47;&#47; 如果已经匹配了，就不要继续递归了<br>    if (ti == tlen){ &#47;&#47;文本串到结尾了<br>      matched = true; <br>      return;<br>    }<br>    if (pattern[pj] == &#39;*&#39;) { &#47;&#47; * 匹配任意个字符<br>      for (int k = 0; k &lt;= tlen-ti&amp;&amp;tex[ti+k]==text[ti]; ++k) {<br>        rmatch(ti+k, pj+1, text, tlen);<br>      }<br>    } else if (pattern[pj] == &#39;.&#39;) { &#47;&#47; . 匹配 0 个或者 1 个字符<br>      rmatch(ti, pj+1, text, tlen); <br>      rmatch(ti+1, pj+1, text, tlen); <br>    } else if (ti &lt; tlen &amp;&amp; pattern[pj] == text[ti]) { &#47;&#47; 纯字符匹配才行<br>      rmatch(ti+1, pj+1, text, tlen);<br>    }<br>  }<br>} 
+        </div>
+        
+    </div>
+</li>
+            </ul>
+</div>
+</body>
+</html>
