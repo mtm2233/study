@@ -2,7 +2,7 @@
  * @Description: AC自动机
  * @Author: mTm
  * @Date: 2021-07-22 23:39:53
- * @LastEditTime: 2021-07-23 01:05:28
+ * @LastEditTime: 2021-07-23 01:06:54
  * @LastEditors: mTm
  */
 class TrieNode {
@@ -92,6 +92,7 @@ class AC {
     for (let i = 0; i < n; ++i) {
       const index = this.charIndex(text[i], false);
 
+      // 如果要匹配的元素不存在，从root开始重新匹配
       if (index === -1) {
         p = this.root;
         continue;
@@ -104,6 +105,7 @@ class AC {
 
       p = p.children[index];
 
+      // 如果没有匹配的，从root开始重新匹配
       if (!p) {
         p = this.root;
         continue;
