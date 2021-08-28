@@ -2,7 +2,7 @@
  * @Description: 杨辉三角最短路径
  * @Author: mTm
  * @Date: 2021-08-25 09:17:13
- * @LastEditTime: 2021-08-25 11:04:50
+ * @LastEditTime: 2021-08-25 11:06:19
  * @LastEditors: mTm
  */
 class TriangleShortestPath {
@@ -16,6 +16,7 @@ class TriangleShortestPath {
     const pathData = new Array(len)
       .fill(0)
       .map(() => new Array(data[len - 1].length));
+    // 哨兵
     pathData[0][0] = {
         path: [data[0][0]],
         sum: data[0][0]
