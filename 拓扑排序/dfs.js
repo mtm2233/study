@@ -2,11 +2,12 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-09-06 22:46:44
- * @LastEditTime: 2021-09-07 09:29:47
+ * @LastEditTime: 2021-09-07 09:45:55
  * @LastEditors: mTm
  */
 class Graph {
   data = {}
+  // s先于t，边s->t
   insert(s, t) {
     if (this.data[s]) {
       this.data[s].push(t)

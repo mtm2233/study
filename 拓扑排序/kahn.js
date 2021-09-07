@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-09-06 21:53:11
- * @LastEditTime: 2021-09-07 09:34:56
+ * @LastEditTime: 2021-09-07 09:45:49
  * @LastEditors: mTm
  */
 
@@ -11,6 +11,7 @@
 // 没有任何顶点必须先于这个顶点执行，那么这个顶点就可以执行了。
 class Graph {
   data = {}
+  // s先于t，边s->t
   insert(s, t) {
     if (this.data[s]) {
       this.data[s].push(t)
