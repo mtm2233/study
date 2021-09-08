@@ -2,7 +2,7 @@
  * @Description:
  * @Author: mTm
  * @Date: 2021-09-08 09:41:17
- * @LastEditTime: 2021-09-08 23:58:10
+ * @LastEditTime: 2021-09-09 00:01:22
  * @LastEditors: mTm
  */
 
@@ -178,9 +178,6 @@ function printf_vertex(s, t, predecessor, path) {
 
 
 const graph = new Graph();
-// graph.add(1, 2, 5)
-// graph.add(1, 3, 1)
-// graph.add(3, 2, 1)
 graph.add('a', 'b', 5)
 graph.add('a', 'c', 3)
 graph.add('c', 'b', 1)
