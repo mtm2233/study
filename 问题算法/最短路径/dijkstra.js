@@ -2,7 +2,7 @@
  * @Description:
  * @Author: mTm
  * @Date: 2021-09-08 09:41:17
- * @LastEditTime: 2021-09-09 00:01:22
+ * @LastEditTime: 2021-09-09 23:16:40
  * @LastEditors: mTm
  */
 
@@ -112,7 +112,12 @@ class PriorityQueue {
   }
   // 更新结点的值，并且从下往上堆化，重新符合堆的定义。时间复杂度O(logn)。
   update(vertex) {
-    this.nodes[vertex.id].dist = vertex.dist;
+    for (let i = 1; i < this.count; i++) {
+      if (this.nodes[i] === vertex.id) {
+        this.nodes[i].dist = vertex.dist;
+        break;
+      }
+    }
     this.buildHeap();
   }
   isEmpty() {
@@ -178,9 +183,8 @@ function printf_vertex(s, t, predecessor, path) {
 
 
 const graph = new Graph();
-graph.add('a', 'b', 5)
+graph.add('a', 'b', 2)
 graph.add('a', 'c', 3)
 graph.add('c', 'b', 1)
-
 const minDist = dijkstra('a', 'b', graph)
 console.log(minDist);
