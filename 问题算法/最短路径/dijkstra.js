@@ -2,7 +2,7 @@
  * @Description:
  * @Author: mTm
  * @Date: 2021-09-08 09:41:17
- * @LastEditTime: 2021-09-09 23:16:40
+ * @LastEditTime: 2021-09-10 09:56:23
  * @LastEditors: mTm
  */
 
@@ -132,6 +132,17 @@ class PriorityQueue {
   }
 }
 
+// 我们用vertexes数组，记录从起始顶点到每个顶点的距离（dist）。起初，
+// 我们把所有顶点的dist都初始化为无穷大（也就是代码中的Integer.MAX_VALUE）。
+// 我们把起始顶点的dist值初始化为0，然后将其放到优先级队列中。
+
+// 我们从优先级队列中取出dist最小的顶点minVertex，
+// 然后考察这个顶点可达的所有顶点（代码中的nextVertex）。
+// 如果minVertex的dist值加上minVertex与nextVertex之间边的权重w小于nextVertex当前的dist值，
+// 也就是说，存在另一条更短的路径，它经过minVertex到达nextVertex。
+// 那我们就把nextVertex的dist更新为minVertex的dist值加上w。
+// 然后，我们把nextVertex加入到优先级队列中。重复这个过程，直到找到终止顶点t或者队列为空。
+
 // 从顶点s到顶点t的最短路径
 function dijkstra(s, t, graph) {
   s = graph.vertexId.get(s);
@@ -154,8 +165,9 @@ function dijkstra(s, t, graph) {
     if (minVertex.id === t) {
       break; // 最短路径产生了
     }
-    for (let i = 0; i < gData[minVertex.id].length; i++) {
-      const e = gData[minVertex.id][i]; // 取出一条minVetex相连的边
+    const _gData = gData[minVertex.id] || []
+    for (let i = 0; i < _gData.length; i++) {
+      const e = _gData[i]; // 取出一条minVetex相连的边
       nextVertex = vertexes[e.tid]; // minVertex-->nextVertex
       if (minVertex.dist + e.w < nextVertex.dist) { // 更新next的dist
         nextVertex.dist = minVertex.dist + e.w;
@@ -183,8 +195,9 @@ function printf_vertex(s, t, predecessor, path) {
 
 
 const graph = new Graph();
-graph.add('a', 'b', 2)
+graph.add('a', 'b', 1)
 graph.add('a', 'c', 3)
+graph.add('c', 'e', 5)
 graph.add('c', 'b', 1)
-const minDist = dijkstra('a', 'b', graph)
+const minDist = dijkstra('a', 'e', graph)
 console.log(minDist);
