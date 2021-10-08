@@ -2,7 +2,7 @@
  * @Description:
  * @Author: mTm
  * @Date: 2021-05-31 17:07:55
- * @LastEditTime: 2021-06-02 10:35:21
+ * @LastEditTime: 2021-10-08 09:13:28
  * @LastEditors: mTm
  */
 // function merger(left, right) {
@@ -53,6 +53,7 @@ function merge(A, p, r, q) {
   let i = 0;
   let j = 0;
   let k = p;
+  
   while (left[i] !== max_value) {
     if (left[i] <= right[j]) {
       A[k++] = left[i++]
