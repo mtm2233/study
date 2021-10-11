@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-10-06 21:08:44
- * @LastEditTime: 2021-10-11 23:03:41
+ * @LastEditTime: 2021-10-11 23:17:22
  * @LastEditors: mTm
  */
 const bubbleSort = require('./bubbleSort')
@@ -35,7 +35,8 @@ const start = new Date().getTime(); // 开始时间
 // quickSort(arr)
 // bucketSort(arr)
 // countSort(arr)
-radixSortLSD(arr)
+// radixSortLSD(arr)
+radixSortMSD(arr)
 
 const end = new Date().getTime(); // 结束时间
 console.log(arr);
