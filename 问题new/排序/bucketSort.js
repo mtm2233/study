@@ -2,7 +2,7 @@
  * @Description: 桶排序
  * @Author: mTm
  * @Date: 2021-10-11 10:36:46
- * @LastEditTime: 2021-10-11 11:57:26
+ * @LastEditTime: 2021-10-11 22:38:29
  * @LastEditors: mTm
  */
 
@@ -44,11 +44,12 @@ function bucketSort(arr) {
   bucketArr = bucketArr.filter(v => v.length)
   
   // 合并桶
-  arr.splice(0, len)
-  bucketArr.forEach(bucket => {
-    quickSort(bucket)
-    arr.push(...bucket)
-  })
+  let k = 0;
+  for (let i = 0; i < bucketArr.length; i++) {
+    for (let j = 0; j < bucketArr[i].length; j++) {
+      arr[k++] = bucketArr[i][j]
+    }
+  }
 }
 
 module.exports = bucketSort;
