@@ -2,7 +2,7 @@
  * @Description:
  * @Author: mTm
  * @Date: 2021-10-16 23:28:24
- * @LastEditTime: 2021-10-17 00:51:53
+ * @LastEditTime: 2021-10-17 18:32:12
  * @LastEditors: mTm
  */
 
@@ -39,8 +39,6 @@ function sqrtBigjs(num, decimals) {
   }
 }
 
-console.log(sqrtBigjs(5, 1));
-
 function sqrt(num, decimals) {
   let middleValue = 1;
   for (let i = 0; i < decimals; i++) {
@@ -69,4 +67,7 @@ function sqrt(num, decimals) {
   }
 }
 
-console.log(sqrt(5, 1));
+module.exports = {
+  sqrtBigjs,
+  sqrt
+}
