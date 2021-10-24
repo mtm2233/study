@@ -2,7 +2,7 @@
  * @Description:
  * @Author: mTm
  * @Date: 2021-10-23 17:52:31
- * @LastEditTime: 2021-10-23 22:38:24
+ * @LastEditTime: 2021-10-24 13:56:56
  * @LastEditors: mTm
  */
 
@@ -62,10 +62,8 @@ class HashMap {
   // 缩容
   reduce() {
     const isReduce = this.length - this.deledLen < this.factor * this.nums / 2;
-    if (isReduce) {
-      if (this.minNums < this.nums) {
-        this.nums >>= 1;
-      }
+    if (isReduce && this.minNums < this.nums) {
+      this.nums >>= 1;
       const oldMap = this.map
       this.length = 0;
       this.deledLen = 0;
