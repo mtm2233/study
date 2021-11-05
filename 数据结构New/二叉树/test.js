@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-10-31 21:48:00
- * @LastEditTime: 2021-10-31 23:09:37
+ * @LastEditTime: 2021-11-05 09:11:22
  * @LastEditors: mTm
  */
 const { getArr, runTime } = require('../../utils')
@@ -19,6 +19,6 @@ binarySearchTree.insert(9,'9data')
 console.log(binarySearchTree.removeAll(9));
 console.log(binarySearchTree);
 // 遍历
+// console.log(binarySearchTree.preOrder());
 // console.log(binarySearchTree.sort());
-// console.log(binarySearchTree.inOrder());
 // console.log(binarySearchTree.postOrder());

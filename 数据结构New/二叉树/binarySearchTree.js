@@ -2,7 +2,7 @@
  * @Description:
  * @Author: mTm
  * @Date: 2021-10-31 21:48:12
- * @LastEditTime: 2021-10-31 23:09:24
+ * @LastEditTime: 2021-11-05 09:10:41
  * @LastEditors: mTm
  */
 class Node {
@@ -158,7 +158,7 @@ class BinarySearchTree {
   }
 
   sort() {
-    return this.preOrder()
+    return this.inOrder()
   }
 
   // 前序遍历
@@ -168,8 +168,8 @@ class BinarySearchTree {
       if (!p) {
         return
       }
-      preOrder_c(p.left, arr)
       arr.push(p.data)
+      preOrder_c(p.left, arr)
       preOrder_c(p.right, arr)
     }
     preOrder_c(this.root, arr)
@@ -183,8 +183,8 @@ class BinarySearchTree {
       if (!p) {
         return
       }
-      arr.push(p.data)
       inOrder_c(p.left, arr)
+      arr.push(p.data)
       inOrder_c(p.right, arr)
     }
     inOrder_c(this.root, arr)
