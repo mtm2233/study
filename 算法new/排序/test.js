@@ -2,7 +2,7 @@
  * @Description:
  * @Author: mTm
  * @Date: 2021-10-06 21:08:44
- * @LastEditTime: 2021-10-20 21:08:43
+ * @LastEditTime: 2021-11-12 23:53:14
  * @LastEditors: mTm
  */
 const { getArr, runTime } = require('../../utils');
@@ -15,8 +15,9 @@ const quickSort = require('./quickSort');
 const bucketSort = require('./bucketSort');
 const countSort = require('./countSort');
 const { radixSortMSD, radixSortLSD } = require('./radixSort');
+const heapSort = require('./HeapSort')
 
-const arr = getArr(100000000, 9999999999, 10);
+const arr = getArr(10, 100, 20);
 
 runTime(() => {
   // bubbleSort(arr)
@@ -27,6 +28,7 @@ runTime(() => {
   // bucketSort(arr)
   // countSort(arr)
   // radixSortLSD(arr)
-  radixSortMSD(arr);
+  // radixSortMSD(arr);
+  heapSort(arr);
   console.log(arr);
 })
