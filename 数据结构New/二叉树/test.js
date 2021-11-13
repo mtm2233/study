@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-10-31 21:48:00
- * @LastEditTime: 2021-11-13 17:56:50
+ * @LastEditTime: 2021-11-13 18:06:10
  * @LastEditors: mTm
  */
 const { getArr, runTime } = require('../../utils')
@@ -27,12 +27,33 @@ const arr = getArr(0,10, 5)
 
 
 // 堆
-const heap = new Heap()
-arr.forEach(num => heap.insert(num))
+// const heap = new Heap({
+//   heapTypeHandler: (item1, item2) => {
+//     return  item1.id > item2.id
+//   }
+// })
+// // arr.forEach(num => heap.insert(num))
+// heap.insert({
+//   name: 456,
+//   id: 1
+// })
+// heap.insert({
+//   name: 444,
+//   id: 5
+// })
+// heap.insert({
+//   name: 555,
+//   id: 0
+// })
+// console.log(heap);
+// console.log(heap.removeTop());
+// console.log(heap.removeTop());
+// console.log(heap.removeTop());
+// console.log(heap.removeTop());
+// console.log(heap.removeTop());
+
+const heap = new Heap({
+  data: arr
+})
 
 console.log(heap);
-console.log(heap.removeTop());
-console.log(heap.removeTop());
-console.log(heap.removeTop());
-console.log(heap.removeTop());
-console.log(heap.removeTop());

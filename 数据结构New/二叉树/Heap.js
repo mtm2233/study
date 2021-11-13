@@ -2,7 +2,7 @@
  * @Description: 堆（大顶堆）
  * @Author: mTm
  * @Date: 2021-11-12 22:28:49
- * @LastEditTime: 2021-11-13 17:58:44
+ * @LastEditTime: 2021-11-13 18:11:47
  * @LastEditors: mTm
  */
 // class Heap {
@@ -52,18 +52,34 @@
 // }
 
 class Heap {
-  constructor({ data = [], n = Number.MAX_SAFE_INTEGER, type = 'max' } = {}) {
+  constructor({ data = [], n = Number.MAX_SAFE_INTEGER, type = 'max', heapTypeHandler } = {}) {
+    if (data.length > n) {
+      data.splice(n)
+    }
     this.data = data;
     this.length = data.length;
     this.maxN = n;
     this.type = type;
-
+    this.heapTypeHandler = heapTypeHandler;
     data.unshift('');
+    if (this.length) {
+      this.buildHeap()
+    }
+  }
+
+  // 构建堆
+  buildHeap() {
+    for (let n = (this.length << 1) - 1; n > 0; n--) {
+      this.heapify(n, this.length)
+    }
   }
 
   // 大顶堆、小顶堆
   // @key1 需要堆化的值
   heapType(key1, key2) {
+    if (this.heapTypeHandler) {
+      return this.heapTypeHandler(this.data[key1], this.data[key2])
+    }
     return this.type === 'max' ? this.data[key1] > this.data[key2] : this.data[key1] < this.data[key2];
   }
 
