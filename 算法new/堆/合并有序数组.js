@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-11-13 18:13:11
- * @LastEditTime: 2021-11-13 18:35:01
+ * @LastEditTime: 2021-11-13 18:37:21
  * @LastEditors: mTm
  */
 const Heap = require('../../数据结构New/二叉树/Heap')
@@ -33,6 +33,7 @@ function mergeOrderArr(data) {
   
   while (minHead.length) {
     const val = minHead.removeTop()
+    // 全部合并完毕
     if (val === -1) {
       break;
     }
