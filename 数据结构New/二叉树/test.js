@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-10-31 21:48:00
- * @LastEditTime: 2021-11-13 18:06:10
+ * @LastEditTime: 2021-11-13 20:34:13
  * @LastEditors: mTm
  */
 const { getArr, runTime } = require('../../utils')
@@ -53,7 +53,9 @@ const arr = getArr(0,10, 5)
 // console.log(heap.removeTop());
 
 const heap = new Heap({
-  data: arr
+  data: arr,
+  type: 'min'
 })
 
+console.log(heap.sort());
 console.log(heap);

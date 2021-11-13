@@ -2,7 +2,7 @@
  * @Description: 堆（大顶堆）
  * @Author: mTm
  * @Date: 2021-11-12 22:28:49
- * @LastEditTime: 2021-11-13 18:11:47
+ * @LastEditTime: 2021-11-13 20:36:01
  * @LastEditors: mTm
  */
 // class Heap {
@@ -128,6 +128,24 @@ class Heap {
     this.wrap(1, this.length--);
     this.heapify(1, this.length)
     return this.data[this.length + 1]
+  }
+
+  // 排序
+  sort() {
+    // 保留排序前的堆
+    const data = [...this.data]
+    for (let i = this.length; i > 1;) {
+      this.wrap(1, i)
+      this.heapify(1, --i)
+    }
+    let sortData = this.data
+    this.data = data
+    // 小顶堆 -> 从大到小
+    // 大顶堆 -> 从小到大
+    // 翻转，去除''
+    sortData.reverse()
+    sortData.pop()
+    return sortData;
   }
 }
 
