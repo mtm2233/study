@@ -2,7 +2,7 @@
  * @Description: 堆（大顶堆）
  * @Author: mTm
  * @Date: 2021-11-12 22:28:49
- * @LastEditTime: 2021-11-13 20:36:01
+ * @LastEditTime: 2021-11-13 20:48:51
  * @LastEditors: mTm
  */
 // class Heap {
@@ -123,11 +123,19 @@ class Heap {
 
   removeTop() {
     if (!this.length) {
-      return -1;
+      return null;
     }
     this.wrap(1, this.length--);
     this.heapify(1, this.length)
     return this.data[this.length + 1]
+  }
+
+  showTop() {
+    if (!this.length) {
+      return null;
+    } else {
+      return this.data[1];
+    }
   }
 
   // 排序
