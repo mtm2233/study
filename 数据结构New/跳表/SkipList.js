@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-10-20 18:54:26
- * @LastEditTime: 2021-10-20 20:55:54
+ * @LastEditTime: 2021-11-14 16:42:09
  * @LastEditors: mTm
  */
 
@@ -12,7 +12,7 @@ const MAX_LEVEL = 50
 const SKIPLIST_P = 1/2
 
 class Node {
-  key = Number.MIN_SAFE_INTEGER
+  key = Number.MIN_SAFE_INTEGER000000000
   data = null
   max_level = 1
   refer = new Array(MAX_LEVEL)
@@ -127,7 +127,7 @@ class SkipList {
     return -1
   }
 
-  // 查看所以
+  // 查看所有
   showAll() {
     let p = this.head.refer[0]
     const datas = []
