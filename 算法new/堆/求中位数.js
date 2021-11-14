@@ -2,14 +2,13 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-11-13 20:55:41
- * @LastEditTime: 2021-11-13 23:06:41
+ * @LastEditTime: 2021-11-14 13:17:33
  * @LastEditors: mTm
  */
 const Heap = require('../../数据结构New/二叉树/Heap')
 const { getArr } = require('../../utils')
 
 class Median {
-
   constructor(data) {
     this.minHeap = new Heap({
       type: 'min'
@@ -24,21 +23,20 @@ class Median {
   }
 
   add(num) {
-    // console.log(num, 'num');
     ++this.length;
     const middleIndex = (this.length >> 1) + 1;
-    if(this.maxHeap.length < middleIndex) {
-      this.maxHeap.insert(num)
-    } else {
-      this.minHeap.insert(num)
-      const maxVal = this.maxHeap.showTop();
-      const minVal = this.minHeap.showTop();
-      if (minVal < maxVal) {
-        this.maxHeap.removeTop()
-        this.minHeap.removeTop()
-        this.maxHeap.insert(minVal)
-        this.minHeap.insert(maxVal)
-      }
+
+    this.minHeap.insert(num)
+    const maxVal = this.maxHeap.showTop();
+    const minVal = this.minHeap.showTop();
+    if (this.maxHeap.length < middleIndex) {
+      this.minHeap.removeTop()
+      this.maxHeap.insert(minVal)
+    } else if (minVal < maxVal) {
+      this.maxHeap.removeTop()
+      this.minHeap.removeTop()
+      this.maxHeap.insert(minVal)
+      this.minHeap.insert(maxVal)
     }
   }
 
@@ -48,11 +46,11 @@ class Median {
 }
 
 
-const arr = getArr(0,10,6, true)
+const arr = getArr(0,10,5, true)
 
 const median = new Median(arr)
 
-arr.unshift(-1)
+// arr.unshift(-1)
 console.log(arr);
-median.add(-1)
+// median.add(-1)
 console.log(median.medianNum());
