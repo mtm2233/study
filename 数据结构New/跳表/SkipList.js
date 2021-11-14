@@ -2,12 +2,12 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-10-20 18:54:26
- * @LastEditTime: 2021-11-14 16:42:09
+ * @LastEditTime: 2021-11-14 22:15:18
  * @LastEditors: mTm
  */
 
 // 最大索引层
-const MAX_LEVEL = 50
+const MAX_LEVEL = 5
 // 索引进阶
 const SKIPLIST_P = 1/2
 
@@ -137,7 +137,7 @@ class SkipList {
       p = p.refer[0]
     }
 
-    return datas.join('->')
+    return datas
   }
 }
 

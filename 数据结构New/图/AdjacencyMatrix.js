@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-11-14 16:42:53
- * @LastEditTime: 2021-11-14 17:26:35
+ * @LastEditTime: 2021-11-14 22:06:33
  * @LastEditors: mTm
  */
 
@@ -31,11 +31,9 @@ class AdjacencyMatrix {
   */
   add( vertex1, vertex2, weight = true) {
     this.init(vertex1, vertex2)
+    this.vertexs[vertex1][vertex2] = weight;
     if (!this.directed) {
-      this.vertexs[vertex1][vertex2] = weight;
       this.vertexs[vertex2][vertex1] = weight;
-    } else {
-      this.vertexs[vertex1][vertex2] = weight;
     }
   }
 
