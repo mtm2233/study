@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-11-20 16:07:13
- * @LastEditTime: 2021-11-21 13:22:36
+ * @LastEditTime: 2021-11-21 22:42:21
  * @LastEditors: mTm
  */
 // 坏字符哈希表
@@ -57,7 +57,7 @@ function initSuffix(pattern, len) {
 function bmGS(j, pl, suffix, prefix) {
   const len = pl - 1 - j;
   if (suffix[len] !== -1) {
-    return j - suffix[len] + 1
+    return j + 1 - suffix[len]
   }
   for (let i = j + 2; i <= pl - 1; i++) {
     if(prefix[pl - i]) {
