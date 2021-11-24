@@ -2,7 +2,7 @@
  * @Description:
  * @Author: mTm
  * @Date: 2021-10-23 17:52:31
- * @LastEditTime: 2021-10-24 13:56:56
+ * @LastEditTime: 2021-11-24 22:43:28
  * @LastEditors: mTm
  */
 
@@ -35,9 +35,12 @@ class HashMap {
         index++
       }
     }
+    if (!data && data !== 0) {
+      data = key
+    }
     // 保存值
     this.map[index] = {
-      data: data || key,
+      data,
       key,
     };
     this.length++;
