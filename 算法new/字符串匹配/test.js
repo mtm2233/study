@@ -2,7 +2,7 @@
  * @Description:
  * @Author: mTm
  * @Date: 2021-11-17 23:22:03
- * @LastEditTime: 2021-11-24 23:05:13
+ * @LastEditTime: 2021-11-25 00:03:38
  * @LastEditors: mTm
  */
 const bf = require('./bf');
@@ -36,4 +36,6 @@ new Array(
   'hello'
 ).forEach(str => trie.insert(str));
 // console.log(trie.find('hellow'));
+// console.log(trie.showAll('hel'));
+console.log(trie.remove('hel', true));
 console.log(trie.showAll('hel'));
