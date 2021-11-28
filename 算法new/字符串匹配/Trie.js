@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-11-24 22:23:05
- * @LastEditTime: 2021-11-25 00:03:15
+ * @LastEditTime: 2021-11-28 17:21:04
  * @LastEditors: mTm
  */
 const HashMap = require('../../数据结构New/散列表/HashMap')
@@ -18,14 +18,14 @@ class Node {
 
 class Trie {
   constructor() {
-    this.head = new Node('/')
+    this.root = new Node('/')
     this.chartIndex = new HashMap({
       nums: 64
     });
   }
 
   insert(str) {
-    let p = this.head;
+    let p = this.root;
     for (let i = 0; i < str.length; i++) {
       let index = this.chartIndex.get(str[i])
       // char => index （map）
@@ -46,7 +46,7 @@ class Trie {
   }
 
   findNode(str) {
-    let p = this.head;
+    let p = this.root;
     let i = 0
     while (p && i < str.length) {
       const index = this.chartIndex.get(str[i++])
@@ -60,10 +60,10 @@ class Trie {
   }
 
   remove(str, removeAll = false) {
-    let p = this.head;
+    let p = this.root;
     let i = 0;
     // 最靠近str[str.length]的非叶子节点
-    let parent = this.head;
+    let parent = this.root;
     while (p && i < str.length) {
       const index = this.chartIndex.get(str[i++])
       if (index !== null) {
