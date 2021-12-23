@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-07-15 11:11:21
- * @LastEditTime: 2021-07-23 01:02:16
+ * @LastEditTime: 2021-12-23 17:00:49
  * @LastEditors: mTm
  */
 // const obj = {
@@ -80,9 +80,9 @@
 // a1.next()
 
 
-let text = '****e123456bcd--c--'
+// let text = '****e123456bcd--c--'
 
-text = '****e123456bcd--c--'.split("")
-console.log(text);
-text.splice(11, 12)
-console.log(text);
+// text = '****e123456bcd--c--'.split("")
+// console.log(text);
+// text.splice(11, 12)
+// console.log(text);
