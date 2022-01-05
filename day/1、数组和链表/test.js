@@ -2,7 +2,7 @@
  * @Description:
  * @Author: mTm
  * @Date: 2022-01-05 10:32:36
- * @LastEditTime: 2022-01-05 15:34:32
+ * @LastEditTime: 2022-01-05 22:00:44
  * @LastEditors: mTm
  */
 
@@ -34,16 +34,64 @@
 /* 链表 */
 // 实现单链表、循环链表、双向链表，⽀持增删操作
 const {
-  linkList,
+  LinkList,
   CircularLinkedList,
   DoublyLinkedList,
 } = require('./LinkedList');
+// 链表
+// const linkList = new LinkList()
+
+// linkList.add(1,1)
+// linkList.add(2,2)
+// linkList.add(3,3)
+// console.log(linkList.remove(1));
+// linkList.set(2,2)
+// console.log(linkList.head);
+// console.log(linkList.toString());
+
+// 循环链表
+// const circularLinkedList = new CircularLinkedList();
+
+// circularLinkedList.add(1, 1);
+// circularLinkedList.add(2, 2);
+// // circularLinkedList.add(3,3)
+// // circularLinkedList.set(2, 5);
+// // circularLinkedList.remove(2);
+// // console.log(circularLinkedList.head);
+// console.log(circularLinkedList.get(2));
+// console.log(circularLinkedList.toString());
+
+// 双向链表
+// const doublyLinkedList = new DoublyLinkedList();
+// doublyLinkedList.add(1, 1);
+// doublyLinkedList.add(2, 2);
+// doublyLinkedList.add(3, 3);
+// // doublyLinkedList.set(2, 5);
+// doublyLinkedList.remove(2);
+// // console.log(doublyLinkedList.head);
+// console.log(doublyLinkedList.toString());
+
+const linked1 = new LinkList()
+linked1.add(1,1)
+linked1.add(2,2)
+linked1.add(3,3)
+linked1.add(4,4)
+linked1.add(5,5)
+const linked2 = new LinkList()
+linked2.add(0,0)
+linked2.add(3,3)
+linked2.add(6,6)
+
+const linked3 = new LinkList()
 
 // 实现单链表反转
-const reverseLinkedList = require('./reverseLinkedList');
+// const reverseLinkedList = require('./reverseLinkedList');
+// console.log(reverseLinkedList(linked1).toString());
 
 // 实现两个有序的链表合并为⼀个有序链表
-const mergeLinkedList = require('./mergeLinkedList');
+// const mergeLinkedList = require('./mergeLinkedList');
+// console.log(mergeLinkedList(linked1, linked2, linked3).toString());
 
 // 实现求链表的中间结点
 const linkedCenterNode = require('./linkedCenterNode');
+console.log(linkedCenterNode(linked1));
