@@ -2,7 +2,7 @@
  * @Description:
  * @Author: mTm
  * @Date: 2022-01-06 09:10:14
- * @LastEditTime: 2022-01-06 15:10:27
+ * @LastEditTime: 2022-01-06 17:00:27
  * @LastEditors: mTm
  */
 class Node {
@@ -57,6 +57,19 @@ class StackLinked {
   clear() {
     this.length = 0;
     this.head = new Node();
+  }
+
+  toString() {
+    let q = this.head.next;
+    const arr = [];
+    while (q) {
+      arr.push({
+        key: q.key,
+        data: q.data,
+      });
+      q = q.next;
+    }
+    return arr.map(({ key, data }) => `${data}`).join('->');
   }
 }
 
