@@ -2,7 +2,7 @@
  * @Description:
  * @Author: mTm
  * @Date: 2022-01-05 22:02:31
- * @LastEditTime: 2022-01-06 19:11:44
+ * @LastEditTime: 2022-01-06 20:55:32
  * @LastEditors: mTm
  */
 /* 栈 */
@@ -68,10 +68,13 @@
 
 /* 递归 */
 // 编程实现斐波那契数列求值f(n)=f(n-1)+f(n-2)
-const fibonacci = require('./fibonacci');
+// const fibonacci = require('./fibonacci');
+// console.log(fibonacci(100));
 
 // 编程实现求阶乘n!
-const factorial = require('./factorial');
+// const factorial = require('./factorial');
+// console.log(factorial(4));
 
 // 编程实现⼀组数据集合的全排列
-const allPermutation = require('./allPermutation');
+// const allPermutation = require('./allPermutation');
+// console.log(new Set(allPermutation([1, 2, 3, 4, 5])));
