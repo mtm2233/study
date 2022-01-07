@@ -2,7 +2,7 @@
  * @Description:
  * @Author: mTm
  * @Date: 2022-01-07 14:43:29
- * @LastEditTime: 2022-01-07 22:00:39
+ * @LastEditTime: 2022-01-07 22:11:23
  * @LastEditors: mTm
  */
 const { getArr } = require('../../utils');
@@ -37,7 +37,13 @@ const {
 
 /* ⼆分查找 ⼆ */
 // 实现⼀个有序数组的⼆分查找算法
-const binarySearch = require('./binarySearch');
+// const binarySearch = require('./binarySearch');
+// const arr = getArr(0, 10, 10, true);
+// console.log(arr);
+// console.log(binarySearch(arr, 5));
 
 // 实现模糊⼆分查找算法（⽐如⼤于等于给定值的第⼀个元素）
 const fuzzyBinarySearch = require('./fuzzyBinarySearch');
+const arr = getArr(0, 10, 20, true);
+console.log(arr);
+console.log(fuzzyBinarySearch(arr, 5));
