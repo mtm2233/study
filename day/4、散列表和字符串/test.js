@@ -2,7 +2,7 @@
  * @Description:
  * @Author: mTm
  * @Date: 2022-01-08 13:53:59
- * @LastEditTime: 2022-01-08 21:13:37
+ * @LastEditTime: 2022-01-08 23:10:26
  * @LastEditors: mTm
  */
 /* 散列表 */
@@ -37,7 +37,17 @@
 
 /* 字符串 */
 // 实现⼀个字符集，只包含a〜z这26个英⽂字⺟的Trie树
-const Trie = require('./Trie');
+// const Trie26 = require('./Trie26');
+// const trie = new Trie26();
+// trie.add('is');
+// trie.add('isdream');
+// trie.add('www');
+// trie.add('isdreamcn');
+
+// console.log(trie.search('is'));
+// console.log(trie.find('isd'));
+// console.log(trie);
 
 // 实现朴素的字符串匹配算法
 const bf = require('./bf');
+console.log(bf('abcd', '123abcd'));
