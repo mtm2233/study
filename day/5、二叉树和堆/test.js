@@ -2,7 +2,7 @@
  * @Description:
  * @Author: mTm
  * @Date: 2022-01-08 23:12:46
- * @LastEditTime: 2022-01-11 20:06:43
+ * @LastEditTime: 2022-01-11 21:51:36
  * @LastEditors: mTm
  */
 /* ⼆叉树 */
@@ -37,20 +37,59 @@ const binarySearchTree = new BinarySearchTree();
 
 /* 堆 */
 // 实现⼀个⼩顶堆、⼤顶堆、优先级队列
-const { Heap, PriorityQueue } = require('./Heap');
+const Heap = require('./Heap');
 
-const maxHeap = new Heap({
-  type: 'max',
-});
-const minHeap = new Heap({
-  type: 'min',
-});
+// const heap = new Heap({
+//   type: 'min',
+//   // type: 'max',
+// });
 
+// [1, 5, 0, 6, 9, 10].forEach(num => maxHeap.insert(num));
+
+// console.log(maxHeap.remove());
+// console.log(maxHeap.remove());
+// console.log(maxHeap.remove());
+// console.log(maxHeap.remove());
+// console.log(maxHeap.remove());
+// console.log(maxHeap.remove());
+// console.log(maxHeap);
+
+// 优先级队列
+// const queueHeap = new Heap({
+//     type: 'min',
+//     isWrapHandler: (node1, node2) => {
+//       node1.key < node2.key
+//     }
+//     // type: 'max',
+// });
+
+// queueHeap.insert({
+//   key: 1,
+//   data: 123
+// })
+// queueHeap.insert({
+//   key: 2,
+//   data: 456
+// })
+// console.log(queueHeap.top);
 // 实现堆排序
-const heapSort = require('./heapSort');
+// const heapSort = new Heap({
+//     type: 'min',
+// });
+// [1, 5, 0, 6, 9, 10, -1, 11, 8].forEach(num => heapSort.insert(num));
+// console.log(heapSort.sort());
 
 // 利⽤优先级队列合并K个有序数组
-const mergeArrByHeap = require('./mergeArrByHeap');
+// const mergeArrByHeap = require('./mergeArrByHeap');
+// const data = [
+//   [0, 1, 5, 6, 9],
+//   [-1, 5, 7, 8, 891],
+//   [4, 8, 9, 15, 562],
+// ];
+// console.log(mergeArrByHeap(data));
 
 // 求⼀组动态数据集合的最⼤Top K
-const topK = require('./topK');
+const TopK = require('./TopK');
+const topk = new TopK(3);
+[1, 0, -1, 18, 25, 99, -50].forEach(num => topk.add(num));
+console.log(topk.data);

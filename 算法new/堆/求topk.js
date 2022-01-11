@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-11-13 20:09:50
- * @LastEditTime: 2021-11-13 20:53:57
+ * @LastEditTime: 2022-01-11 21:49:27
  * @LastEditors: mTm
  */
 const Heap = require('../../数据结构New/二叉树/Heap')
@@ -41,4 +41,4 @@ class TopK {
 const arr = getArr(0,10,8)
 console.log(arr);
 const topk = new TopK(3, arr)
-console.log(topk.top());
+console.log(topk.data);
