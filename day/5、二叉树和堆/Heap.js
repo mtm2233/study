@@ -2,7 +2,7 @@
  * @Description:
  * @Author: mTm
  * @Date: 2022-01-08 23:14:53
- * @LastEditTime: 2022-01-11 21:28:16
+ * @LastEditTime: 2022-01-13 22:08:59
  * @LastEditors: mTm
  */
 
@@ -65,6 +65,32 @@ class Heap {
     }
   }
 
+  // 构建堆
+  buildHeap() {
+    for (let i = (this.count - 1) >> 1; i >= 1; i--) {
+      this.buildUpDown(1, i);
+    }
+  }
+
+  update(handler, val) {
+    if (typeof handler === 'function') {
+      for (let i = 1; i < this.count; i++) {
+        if(handler(this.heap[i])) {
+          break
+        }
+      }
+    } else {
+      for (let i = 1; i < this.count; i++) {
+        if (this.count[i] === handler) {
+          this.count[i] = val;
+          break
+        }
+      }
+    }
+    
+    this.buildHeap()
+  }
+
   insert(data) {
     this.heap[this.count] = data;
     this.buildDownUp(this.count);
@@ -100,6 +126,11 @@ class Heap {
     const data = this.heap.reverse();
     this.heap = tempHeap;
     return data;
+  }
+
+  clear() {
+    this.heap = new Array();
+    this.count = 1;
   }
 }
 

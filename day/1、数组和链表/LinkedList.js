@@ -2,7 +2,7 @@
  * @Description:
  * @Author: mTm
  * @Date: 2022-01-05 10:39:03
- * @LastEditTime: 2022-01-05 21:16:54
+ * @LastEditTime: 2022-01-12 17:54:57
  * @LastEditors: mTm
  */
 class Node {
@@ -64,6 +64,11 @@ class LinkList {
   }
 
   toString() {
+    const arr = this.allNodes()
+    return arr.map(({ key, data }) => `${data}`).join('->');
+  }
+
+  allNodes() {
     let q = this.head.next;
     const arr = [];
     while (q) {
@@ -73,7 +78,7 @@ class LinkList {
       });
       q = q.next;
     }
-    return arr.map(({ key, data }) => `${data}`).join('->');
+    return arr
   }
 }
 
