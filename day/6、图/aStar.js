@@ -2,7 +2,7 @@
  * @Description:
  * @Author: mTm
  * @Date: 2022-01-12 09:48:51
- * @LastEditTime: 2022-01-13 22:27:45
+ * @LastEditTime: 2022-01-14 13:35:27
  * @LastEditors: mTm
  */
 const Heap = require('../5、二叉树和堆/Heap');
@@ -19,10 +19,7 @@ function aStar(graph, s, t, tPos) {
   const prev = {};
   const minDist = {};
   prev[s] = -1;
-  minDist[s] = {
-    dist: 0,
-    f: 0,
-  };
+  minDist[s] = 0;
   heap.insert({
     vertex: s,
     f: 0,
@@ -34,27 +31,18 @@ function aStar(graph, s, t, tPos) {
     for (let i = 0; i < vertexs.length; i++) {
       const { key: vertex, data } = vertexs[i];
       const preDist = minDist[pre.vertex];
-      const nextDist = minDist[vertex]
-        ? minDist[vertex].dist
-        : {
-            dist: Number.MAX_VALUE,
-          };
-      if (preDist.dist + data.weight < nextDist.dist) {
-        if (nextDist.dist === Number.MAX_VALUE) {
-          minDist[vertex] = {
-            dist: preDist.dist + data.weight,
-            f: preDist.dist + data.weight + hManhattan(data, tPos),
-          };
+      const nextDist = minDist[vertex] !== undefined ? minDist[vertex] : Number.MAX_VALUE;
+      if (preDist + data.weight < nextDist) {
+        minDist[vertex] = preDist + data.weight;
+        if (nextDist === Number.MAX_VALUE) {
           heap.insert({
             vertex,
-            f: minDist[vertex].f,
+            f: minDist[vertex] + hManhattan(data, tPos),
           });
         } else {
-          nextDist.dist = preDist.dist + data.weight;
-          nextDist.f = nextDist.dist + hManhattan(data, tPos);
           heap.update(item => {
             if (item.vertex === vertex) {
-              item.f = nextDist.f;
+              item.f = minDist[vertex] + hManhattan(data, tPos);
               return true;
             }
           });
@@ -67,7 +55,6 @@ function aStar(graph, s, t, tPos) {
       }
     }
   }
-
   if (prev[t]) {
     const path = [];
     let q = t;
