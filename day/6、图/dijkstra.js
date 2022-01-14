@@ -2,7 +2,7 @@
  * @Description:
  * @Author: mTm
  * @Date: 2022-01-12 09:47:14
- * @LastEditTime: 2022-01-14 13:42:29
+ * @LastEditTime: 2022-01-14 13:43:40
  * @LastEditors: mTm
  */
 const Heap = require('../5、二叉树和堆/Heap');
@@ -31,8 +31,6 @@ function dijkstra(graph, s, t) {
       const { key: vertex, data: weight } = vertexs[i];
       const nextDist =
         minDist[vertex] !== undefined ? minDist[vertex] : Number.MAX_VALUE;
-      // 我来解释⼀下更新条件仍然和 dijkstra 算法⼀致的原因，有错误还请⼤家指出
-      // 实际上不管当前点从哪⼀个点经过，它与终点的曼哈顿距离都是不变的，所以这部分不需要管
       if (pre.dist + weight < nextDist) {
         minDist[vertex] = pre.dist + weight;
         if (nextDist === Number.MAX_VALUE) {
