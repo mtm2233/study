@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2022-02-15 13:57:01
- * @LastEditTime: 2022-02-15 14:04:28
+ * @LastEditTime: 2022-03-08 16:24:45
  * @LastEditors: mTm
  */
 // let obj = {
@@ -17,8 +17,3 @@
 // setTimeout(() => {
 //   console.log(weakSet);
 // }, 10000)
-
-
-const set = new Set()
-set.add(10)
-console.log(set, [...set]);
