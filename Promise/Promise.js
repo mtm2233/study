@@ -2,7 +2,7 @@
  * @Description:
  * @Author: mTm
  * @Date: 2022-03-09 17:24:21
- * @LastEditTime: 2022-03-09 22:50:09
+ * @LastEditTime: 2022-03-09 23:40:04
  * @LastEditors: mTm
  */
 const PROMISE_STATUS_PENDING = 'pending';
@@ -46,7 +46,11 @@ class Promise {
         }
       });
     };
-    executor(resolve, reject);
+    try {
+      executor(resolve, reject);
+    } catch (err) {
+      reject(err)
+    }
   }
 
   then(onFulfilled, onRejected) {
@@ -79,6 +83,7 @@ class Promise {
 
 const promise = new Promise((resolve, reject) => {
   console.log('promise 初始化');
+  throw 456;
   resolve(111);
   // reject(222);
   // resolve(111);
