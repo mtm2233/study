@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2022-03-10 11:58:45
- * @LastEditTime: 2022-03-10 11:58:46
+ * @LastEditTime: 2022-03-20 21:45:26
  * @LastEditors: mTm
  */
 const PROMISE_STATUS_PENDING = 'pending';
@@ -49,8 +49,12 @@ class Promise {
       this.reason = reason;
       queueMicrotask(() => {
         if (this.status === PROMISE_STATUS_PENDING) {
-          this.status = PROMISE_STATUS_REJECTED;
-          this.onRejectedFns.forEach(fn => fn(this.reason));
+          if (this.onRejectedFns.length) {
+            this.status = PROMISE_STATUS_REJECTED;
+            this.onRejectedFns.forEach(fn => fn(this.reason));
+          } else {
+            throw new Error(this.reason);
+          }
         }
       });
     };
