@@ -2,10 +2,10 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2022-02-07 09:10:57
- * @LastEditTime: 2022-02-07 09:10:57
+ * @LastEditTime: 2022-04-04 17:35:05
  * @LastEditors: mTm
  */
-Function.prototype.bind = function(oThis) {
+Function.prototype.mtBind = function(oThis) {
   if (typeof this !== "function") {
     throw new TypeError("Function.prototype.bind - what is trying to be bound is not callable");
   }
@@ -29,7 +29,7 @@ function foo() {
   console.log(this);
 }
 
-const bar = foo.bind()
+const bar = foo.mtBind()
 new bar()
 bar()
 const obj = {bar}
