@@ -1,0 +1,90 @@
+<!--
+ * @Description: 
+ * @Author: mTm
+ * @Date: 2022-04-10 12:12:22
+ * @LastEditTime: 2022-04-10 17:24:00
+ * @LastEditors: mTm
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    input,
+    button {
+      font-size: 20px;
+    }
+  </style>
+  <body>
+    <input />
+    <button>取消</button>
+    <script src="./1.debounce.js"></script>
+    <script src="./2.throttle.js"></script>
+    <script src="./3.deepClone.js"></script>
+    <script>
+      const input = document.querySelector('input');
+      const btn = document.querySelector('button');
+      let i = 1;
+      function inputChange(event) {
+        console.log(`第${i++}次网络请求`, event, this);
+        return 123;
+      }
+
+      // input.oninput = inputChange;
+
+      /* debounce */
+      // inputChangeDebounce = debounce(inputChange, 2000, {
+      //   immediate: true
+      // })
+      // function clgReturn(...args) {
+      //   inputChangeDebounce.apply(this, args).then(res => {
+      //     console.log(res);
+      //   })
+      // }
+      // input.oninput = clgReturn;
+      // btn.onclick = inputChangeDebounce.cancel;
+
+      /* throttle */
+      // inputChangeThrottle = throttle(inputChange, 2000, {
+      //   leading: true,
+      //   trailing: true,
+      //   callback: () => {},
+      // })
+      // function clgReturn(...args) {
+      //   inputChangeThrottle.apply(this, args).then(res => {
+      //     console.log(res);
+      //   })
+      // }
+      // input.oninput = clgReturn;
+      // btn.onclick = inputChangeThrottle.cancel;
+
+      const s1 = Symbol();
+      const s2 = Symbol();
+      const obj = {
+        name: 'mtm',
+        age: 18,
+        array: [
+          {
+            name: 'a1',
+          },
+        ],
+        map: new Map([[1, { name: 'map1' }]]),
+        set: new Set([1, 2, 2]),
+        fun: function () {
+          console.log('fun');
+        },
+        [s1]: 's1',
+        s2: s2,
+      };
+      obj.obj = obj;
+      const cloneObj = deepClone(obj);
+      obj.set.delete(1);
+      console.log(obj);
+      console.log(cloneObj);
+    </script>
+  </body>
+</html>
