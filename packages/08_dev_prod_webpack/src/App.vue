@@ -6,7 +6,7 @@
  * @LastEditors: mTm
 -->
 <template>
-  <HellowWorld />
+  <HelloWorld />
   <div>
     <h1>
       {{ title }}
@@ -14,10 +14,10 @@
   </div>
 </template>
 <script>
-import HellowWorld from './componnets/HellowWorld';
+import HelloWorld from './componnets/HelloWorld';
 export default {
   components: {
-    HellowWorld,
+    HelloWorld,
   },
   data() {
     return {

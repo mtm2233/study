@@ -6,11 +6,11 @@
  * @LastEditors: mTm
 -->
 <template>
-  <div>HellowWorld</div>
+  <div>HelloWorld</div>
 </template>
 <script>
 export default {
-  name: 'HellowWorld',
+  name: 'HelloWorld',
   data() {
     return {};
   },

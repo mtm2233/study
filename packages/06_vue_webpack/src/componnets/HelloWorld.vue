@@ -2,15 +2,15 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2022-04-19 13:55:54
- * @LastEditTime: 2022-04-19 13:55:56
+ * @LastEditTime: 2022-04-19 23:29:19
  * @LastEditors: mTm
 -->
 <template>
-  <div>HellowWorld</div>
+  <div>HelloWorld</div>
 </template>
 <script>
 export default {
-  name: 'HellowWorld',
+  name: 'HelloWorld',
   data() {
     return {};
   },
