@@ -1,0 +1,10 @@
+.box-img {
+  background-image: url("../assets/img/img.jpeg");
+  background-size: 100% 100%;
+  width: 150px;
+  height: 150px;
+}
+
+.iconfont {
+  font-size: 125px;
+}

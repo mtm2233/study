@@ -1,0 +1,44 @@
+{
+  "id": "2248652",
+  "name": "test",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "28829242",
+      "name": "冰淇淋",
+      "font_class": "bingqilin",
+      "unicode": "e6bf",
+      "unicode_decimal": 59071
+    },
+    {
+      "icon_id": "28829246",
+      "name": "星宿",
+      "font_class": "xingsu",
+      "unicode": "e6c0",
+      "unicode_decimal": 59072
+    },
+    {
+      "icon_id": "28829247",
+      "name": "日历",
+      "font_class": "rili",
+      "unicode": "e6c1",
+      "unicode_decimal": 59073
+    },
+    {
+      "icon_id": "28829248",
+      "name": "晴天",
+      "font_class": "qingtian",
+      "unicode": "e6c2",
+      "unicode_decimal": 59074
+    },
+    {
+      "icon_id": "28829256",
+      "name": "阴天",
+      "font_class": "yintian",
+      "unicode": "e6c3",
+      "unicode_decimal": 59075
+    }
+  ]
+}
