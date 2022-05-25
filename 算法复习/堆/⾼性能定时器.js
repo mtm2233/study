@@ -2,10 +2,10 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-11-13 18:37:47
- * @LastEditTime: 2021-11-13 20:07:26
+ * @LastEditTime: 2022-05-23 09:14:54
  * @LastEditors: mTm
  */
-const Heap = require('../../数据结构New/二叉树/Heap')
+const Heap = require('../../数据结构复习/二叉树/Heap')
 
 class TimerQueue {
   timer = null

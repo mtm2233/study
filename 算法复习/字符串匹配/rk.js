@@ -5,7 +5,7 @@
  * @LastEditTime: 2021-11-18 00:21:25
  * @LastEditors: mTm
  */
-const HashMap = require('../../数据结构New/散列表/HashMap');
+const HashMap = require('../../数据结构复习/散列表/HashMap');
 
 function rk(main, pattern) {
   const pLen = pattern.length;

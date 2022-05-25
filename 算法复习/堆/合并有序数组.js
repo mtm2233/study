@@ -5,7 +5,7 @@
  * @LastEditTime: 2021-11-13 18:37:21
  * @LastEditors: mTm
  */
-const Heap = require('../../数据结构New/二叉树/Heap')
+const Heap = require('../../数据结构复习/二叉树/Heap')
 
 const arr1 = [3,5,8,10]
 const arr2 = [2,6,7,9]

@@ -5,7 +5,7 @@
  * @LastEditTime: 2021-11-14 13:17:33
  * @LastEditors: mTm
  */
-const Heap = require('../../数据结构New/二叉树/Heap')
+const Heap = require('../../数据结构复习/二叉树/Heap')
 const { getArr } = require('../../utils')
 
 class Median {

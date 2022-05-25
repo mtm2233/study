@@ -2,11 +2,11 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-10-20 20:35:19
- * @LastEditTime: 2021-10-20 21:06:19
+ * @LastEditTime: 2022-05-23 09:15:36
  * @LastEditors: mTm
  */
 
-const quickSort = require('./算法new/排序/quickSort')
+const quickSort = require('./算法复习/排序/quickSort')
 
 // 生成大小为start~end、长度为nums的数组
 function getArr(start, end, nums, sort = false) {
