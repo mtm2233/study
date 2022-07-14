@@ -1,12 +1,13 @@
 /*
  * @Description:
  * @Author: mTm
- * @Date: 2022-03-10 09:24:03
- * @LastEditTime: 2022-04-08 16:02:28
+ * @Date: 2022-03-10 19:24:03
+ * @LastEditTime: 2022-07-13 22:10:30
  * @LastEditors: mTm
  */
 
-const { Promise } = require('./4.Promise完整')
+// const { Promise } = require('./4.Promise完整')
+const { Promise } = require('./5.Promise最新')
 
 // 基本测试
 // const p1 = new Promise((resolve, reject) => {
@@ -81,20 +82,6 @@ Promise.any([p4])
   .catch(err => {
     console.log('err', err);
   });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 // // const p1 = new Promise((resolve, reject) => {
