@@ -1,8 +1,8 @@
 /*
  * @Description:
  * @Author: mTm
- * @Date: 2022-04-10 12:11:42
- * @LastEditTime: 2022-04-10 16:32:58
+ * @Date: 2022-04-10 20:11:42
+ * @LastEditTime: 2022-07-20 22:34:50
  * @LastEditors: mTm
  */
 
@@ -23,10 +23,6 @@ function throttle(
       }
 
       if (interval <= nowTime - lastTime) {
-        if (timer) {
-          clearTimeout(timer);
-          timer = null;
-        }
         const res = fn.apply(this, args);
         resolve(res);
         if (typeof callback === 'function') {
@@ -35,14 +31,18 @@ function throttle(
         lastTime = nowTime;
       }
 
-      if (trailing && !timer) {
+      if (trailing) {
+        if (timer) {
+          clearTimeout(timer);
+          timer = null;
+        }
+        
         timer = setTimeout(() => {
           const res = fn.apply(this, args);
           resolve(res);
           if (typeof callback === 'function') {
             callback(res)
           }
-          timer = null;
           lastTime = 0;
         }, interval);
       }
